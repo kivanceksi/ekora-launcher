@@ -3,6 +3,9 @@ on:
   workflow_dispatch:
   push:
     paths: ['android/**', '.github/workflows/android.yml']
+concurrency:
+  group: ekora-android-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
@@ -23,6 +26,7 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
+      - uses: android-actions/setup-android@v4
       - uses: gradle/actions/setup-gradle@v4
       - uses: dtolnay/rust-toolchain@stable
         with:
@@ -37,13 +41,23 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew ZalithLauncher:assembleRelease -Darch=arm64 --stacktrace
+      - name: Check package identity and permissions
+        run: |
+          apk=$(find engine/ZalithLauncher/build/outputs/apk/release -name '*.apk' | head -1)
+          test "$(apkanalyzer manifest application-id "$apk")" = 'fun.ekoramc.launcher'
+          test "$(apkanalyzer manifest debuggable "$apk")" = 'false'
+          apkanalyzer manifest permissions "$apk" > permissions.txt
+          if grep -E 'MANAGE_EXTERNAL_STORAGE|READ_EXTERNAL_STORAGE|WRITE_EXTERNAL_STORAGE|RECORD_AUDIO|READ_CONTACTS|ACCESS_FINE_LOCATION|CAMERA' permissions.txt; then
+            echo 'Unexpected personal-data permission'; exit 1
+          fi
       - name: Package corresponding GPL source and unsigned APK
         run: |
           mkdir -p android-release
           cp engine/ZalithLauncher/build/outputs/apk/release/*.apk android-release/
           cp android/README.md android-release/README.txt
+          cp permissions.txt android-release/
           cp engine/LICENSE android-release/LICENSE
-          tar --exclude='.git' --exclude='.gradle' --exclude='build' --exclude='target' --exclude='*.jks' -czf android-release/EkoraLauncher-Android-0.1.0-Source.tar.gz engine android .github/workflows/android.yml
+          tar --exclude='.git' --exclude='.gradle' --exclude='build' --exclude='target' --exclude='*.jks' -czf android-release/EkoraLauncher-Android-0.1.0-Source.tar.gz engine android assets/logo.png .github/workflows/android.yml
           cp "$ANDROID_HOME/build-tools/$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1)/lib/apksigner.jar" android-release/
       - uses: actions/upload-artifact@v4
         with:
