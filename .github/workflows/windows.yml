@@ -1,0 +1,75 @@
+name: Ekora Windows Setup
+on:
+  workflow_dispatch:
+  push:
+    branches: ['main', 'master', 'release/**']
+    tags: ['v*']
+permissions:
+  contents: read
+jobs:
+  setup:
+    runs-on: windows-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install build dependencies
+        run: python -m pip install --only-binary=:all: -r requirements.txt pyinstaller==6.12.0
+      - name: Core and security tests
+        run: python -m unittest discover -s tests -v
+      - name: Build standalone desktop app
+        run: >-
+          python -m PyInstaller --noconfirm --clean --windowed --onedir
+          --name EkoraLauncher --icon assets/logo.ico --add-data "assets;assets"
+          --add-data "release-config.json;." --collect-all minecraft_launcher_lib app.py
+      - name: Collect third party license notices
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist/EkoraLauncher/notices | Out-Null
+          Copy-Item THIRD_PARTY.md dist/EkoraLauncher/notices/
+          python tools/collect_licenses.py dist/EkoraLauncher/notices
+      - name: Locate Inno Setup compiler
+        shell: pwsh
+        run: |
+          $compiler = Join-Path ${env:ProgramFiles(x86)} 'Inno Setup 6/ISCC.exe'
+          if (-not (Test-Path $compiler)) { throw 'Inno Setup 6 compiler unavailable on Windows runner.' }
+          & $compiler installer/EkoraSetup.iss
+          if ($LASTEXITCODE -ne 0) { throw 'Setup build failed.' }
+      - name: Install, check desktop shortcut and test packaged interface
+        shell: pwsh
+        run: |
+          $setup = Get-ChildItem release/*.exe | Select-Object -First 1
+          if (-not $setup) { throw 'Setup EXE missing.' }
+          $target = Join-Path $env:RUNNER_TEMP 'EkoraInstalled'
+          $p = Start-Process $setup.FullName -ArgumentList @('/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/TASKS=desktopicon',"/DIR=`"$target`"") -PassThru -Wait
+          if ($p.ExitCode -ne 0) { throw "Installer failed: $($p.ExitCode)" }
+          $shortcut = Join-Path ([Environment]::GetFolderPath('DesktopDirectory')) 'Ekora Launcher.lnk'
+          if (-not (Test-Path $shortcut)) { throw 'Desktop shortcut missing.' }
+          $link = (New-Object -ComObject WScript.Shell).CreateShortcut($shortcut)
+          if ($link.TargetPath -ne (Join-Path $target 'EkoraLauncher.exe')) { throw 'Shortcut target mismatch.' }
+          $env:EKORA_SMOKE_RESULT = Join-Path $env:RUNNER_TEMP 'ekora-smoke.json'
+          $app = Start-Process (Join-Path $target 'EkoraLauncher.exe') -ArgumentList '--smoke-test' -PassThru
+          if (-not $app.WaitForExit(45000)) { $app.Kill(); throw 'Packaged app timed out.' }
+          if (-not (Test-Path $env:EKORA_SMOKE_RESULT)) { throw 'Packaged app did not report results.' }
+          $r = Get-Content $env:EKORA_SMOKE_RESULT -Raw | ConvertFrom-Json
+          if (-not ($r.bridge -and $r.profile)) { throw 'Packaged interface failed.' }
+          Copy-Item $env:EKORA_SMOKE_RESULT release/
+          $u = Start-Process (Join-Path $target 'unins000.exe') -ArgumentList @('/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART') -PassThru -Wait
+          if ($u.ExitCode -ne 0) { throw 'Uninstall failed.' }
+          if (Test-Path $shortcut) { throw 'Desktop shortcut remained after uninstall.' }
+      - name: Compute artifact checksums
+        shell: pwsh
+        run: |
+          Get-ChildItem release/*.exe | ForEach-Object {
+            $hash = Get-FileHash $_.FullName -Algorithm SHA256
+            "$($hash.Hash.ToLower())  $($_.Name)" | Out-File -Encoding utf8 ($_.FullName + '.sha256')
+          }
+          'Unsigned test build. Passing installer/UI checks does not verify Minecraft connection, legal compliance, or overall security.' | Out-File release/BUILD-STATUS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: EkoraLauncher-Setup-Windows-x64
+          path: release/
+          if-no-files-found: error
