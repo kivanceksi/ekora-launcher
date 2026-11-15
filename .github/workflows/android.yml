@@ -1,0 +1,52 @@
+name: Ekora Android APK
+on:
+  workflow_dispatch:
+  push:
+    paths: ['android/**', '.github/workflows/android.yml']
+permissions:
+  contents: read
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout pinned Android engine
+        uses: actions/checkout@v4
+        with:
+          repository: ZalithLauncher/ZalithLauncher2
+          ref: 36b8ef87f3ce498c2865b483e3b3a0096acbefc7
+          path: engine
+      - name: Apply Ekora changes
+        run: python android/apply_overlay.py engine
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-linux-android
+      - name: Install native tooling
+        run: |
+          cargo install cargo-ndk --version 4.1.2 --locked
+          sdkmanager 'ndk;27.0.12077973'
+          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.0.12077973" >> "$GITHUB_ENV"
+      - name: Build release APK
+        working-directory: engine
+        run: |
+          chmod +x gradlew
+          ./gradlew ZalithLauncher:assembleRelease -Darch=arm64 --stacktrace
+      - name: Package corresponding GPL source and unsigned APK
+        run: |
+          mkdir -p android-release
+          cp engine/ZalithLauncher/build/outputs/apk/release/*.apk android-release/
+          cp android/README.md android-release/README.txt
+          cp engine/LICENSE android-release/LICENSE
+          tar --exclude='.git' --exclude='.gradle' --exclude='build' --exclude='target' --exclude='*.jks' -czf android-release/EkoraLauncher-Android-0.1.0-Source.tar.gz engine android .github/workflows/android.yml
+          cp "$ANDROID_HOME/build-tools/$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1)/lib/apksigner.jar" android-release/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Ekora-Android-release-candidate
+          path: android-release/
+          if-no-files-found: error
