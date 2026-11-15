@@ -10,7 +10,13 @@ def edit(path,old,new):
     if old not in text: raise RuntimeError(f'Upstream changed: {path}: {old[:70]}')
     path.write_text(text.replace(old,new),encoding='utf-8')
 def body(path,signature,replacement):
-    text=path.read_text(); start=text.index('{',text.index(signature)); depth=1; end=start+1
+    text=path.read_text()
+    pos=text.index('(',text.index(signature)); depth=1; pos+=1
+    while depth:
+        if text[pos]=='(': depth+=1
+        elif text[pos]==')': depth-=1
+        pos+=1
+    start=text.index('{',pos); depth=1; end=start+1
     while depth:
         if text[end]=='{': depth+=1
         elif text[end]=='}': depth-=1
