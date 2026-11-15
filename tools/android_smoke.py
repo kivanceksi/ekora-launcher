@@ -35,6 +35,15 @@ try:
         else:
             for n in nodes:
                 if n.get('text') in ('Başlayalım','Yükle','Tamam','Get Started','Install') and n.get('enabled')=='true':tap(n);break
+            else:
+                if 'Başlayalım' in texts or 'Get Started' in texts:
+                    for n in nodes:
+                        if n.get('scrollable') == 'true':
+                            b=list(map(int,re.findall(r'\d+',n.get('bounds',''))))
+                            if len(b)==4:
+                                x=(b[0]+b[2])//2
+                                adb('shell','input','swipe',str(x),str(b[3]-20),str(x),str(b[1]+20),'400')
+                                break
     else:raise RuntimeError('Ekora home did not appear within the test timeout')
 finally:
     (out/'screen.png').write_bytes(adb('exec-out','screencap','-p',check=False))
