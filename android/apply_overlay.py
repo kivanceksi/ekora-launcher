@@ -1,6 +1,7 @@
 """Reproducible Ekora changes to the pinned, unmodified GPLv3+ upstream."""
 from pathlib import Path
-import re, shutil, sys
+import re, shutil, sys, json
+import xml.etree.ElementTree as ET
 root=Path(sys.argv[1]).resolve()
 ours=Path(__file__).resolve().parent
 app=root/'ZalithLauncher'
@@ -77,3 +78,30 @@ for name in ['ic_launcher','ic_launcher_round']:
 (res/'drawable/ic_launcher_foreground.xml').write_text('<inset xmlns:android="http://schemas.android.com/apk/res/android" android:drawable="@drawable/ekora_logo" android:inset="18%"/>')
 shutil.copyfile(ours/'README.md',root/'EKORA-CHANGES.md')
 print('Ekora overlay applied; local profile, scoped storage, Turkish UI, custom home and server quick play.')
+
+# Turkish first-run flow and accurate Ekora-specific data notices.
+tr = res/'values-tr/strings.xml'
+tree = ET.parse(tr); resources = tree.getroot()
+translations = {
+ 'welcome_screen_subtitle': 'Ekora dünyasına hoş geldin.',
+ 'welcome_screen_intro_primary': '%1$s, Android için Minecraft Java Edition başlatıcısıdır.',
+ 'welcome_screen_intro_core': 'Zalith Launcher 2 / PojavLauncher tabanlı gayriresmî değiştirilmiş sürüm.',
+ 'welcome_screen_agreement_title': 'Kullanım ve veri bilgileri',
+ 'welcome_screen_agreement_confirmation': 'Yukarıdaki belgeleri okudum ve kabul ediyorum.',
+ 'welcome_screen_start': 'Başlayalım',
+ 'agreement_content_unavailable': 'Bu belge açılamadı.',
+ 'agreement_update_title': 'Bilgiler güncellendi',
+ 'agreement_update_message': 'Devam etmeden önce güncel kullanım ve veri bilgilerini incele.',
+ 'splash_screen_agree': 'Yükle',
+ 'splash_screen_installing': 'Oyun bileşenleri hazırlanıyor…'
+}
+for name, value in translations.items():
+    node = next((e for e in resources if e.get('name') == name), None)
+    if node is None: node = ET.SubElement(resources, 'string', {'name': name})
+    node.text = value
+ET.indent(tree)
+tree.write(tr, encoding='utf-8', xml_declaration=True)
+legal=app/'src/main/assets/legal'
+(legal/'ekora').mkdir(exist_ok=True)
+for name in ['kullanim.md','gizlilik.md']: shutil.copyfile(ours/'overlay'/name,legal/'ekora'/name)
+(legal/'data.json').write_text(json.dumps({'version':'ekora-0.1.0-2026-11-15','files':[{'effective_region':'global','data_list':[{'title':'Ekora Kullanım Bilgileri','path':'legal/ekora/kullanim.md'},{'title':'Ekora Veri ve İzin Bilgileri','path':'legal/ekora/gizlilik.md'}]}]},ensure_ascii=False),encoding='utf-8')

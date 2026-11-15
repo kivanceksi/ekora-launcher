@@ -4,7 +4,7 @@ on:
   push:
     branches: ['main', 'master', 'release/**']
     tags: ['v*']
-    paths-ignore: ['android/**', '.github/workflows/android.yml']
+    paths-ignore: ['android/**', '.github/workflows/android*.yml', 'tools/android_smoke.py']
 permissions:
   contents: read
 jobs:

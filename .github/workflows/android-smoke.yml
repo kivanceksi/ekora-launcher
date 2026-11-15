@@ -1,0 +1,51 @@
+name: Ekora Android installation check
+on:
+  workflow_run:
+    workflows: ['Ekora Android APK']
+    types: [completed]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  install:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: Ekora-Android-release-candidate
+          path: candidate
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+      - name: Sign a disposable test copy
+        run: |
+          keytool -genkeypair -keystore "$RUNNER_TEMP/test.p12" -storepass android-test-only -alias test -keyalg RSA -validity 2 -dname 'CN=Disposable CI Test'
+          apk=$(find candidate -name '*.apk' | head -1)
+          java -jar candidate/apksigner.jar sign --ks "$RUNNER_TEMP/test.p12" --ks-pass pass:android-test-only --out qa-test.apk "$apk"
+      - name: Enable emulator acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: google_apis
+          arch: x86_64
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: python tools/android_smoke.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Ekora-Android-installation-check
+          path: qa/
