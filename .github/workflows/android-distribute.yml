@@ -1,0 +1,37 @@
+name: Prepare Android downloads
+on:
+  workflow_dispatch:
+  push:
+    paths: ['.github/workflows/android-distribute.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: Ekora-Android-release-candidate
+          path: candidate
+          run-id: 43739559381
+          github-token: ${{ github.token }}
+      - name: Inspect files
+        run: ls -lh candidate
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Ekora-Android-APK
+          path: |
+            candidate/*.apk
+            candidate/apksigner.jar
+            candidate/permissions.txt
+            candidate/README.txt
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Ekora-Android-Source
+          path: |
+            candidate/*.tar.gz
+            candidate/LICENSE
+          if-no-files-found: error
