@@ -1,8 +1,14 @@
 {
-  "version": "0.3.2",
+  "version": "0.5.0",
   "accountMode": "local",
-  "publisher": "",
+  "publisher": "EkoraMC",
   "supportEmail": "",
-  "releaseStatus": "development",
-  "apiBaseUrl": ""
+  "releaseStatus": "release",
+  "apiBaseUrl": "https://ekoramc.fun",
+  "serverHost": "play.ekoramc.fun",
+  "serverPort": 25567,
+  "serverVersion": "26.3",
+  "mapEnabled": false,
+  "updateRepo": "kivanceksi/ekora-launcher",
+  "downloadPage": "https://ekoramc.fun/indir"
 }

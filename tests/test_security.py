@@ -27,7 +27,7 @@ class SecurityTests(unittest.TestCase):
     def test_language_preserves_settings(self):
         with tempfile.TemporaryDirectory() as t:
             l=Launcher(t);p=l.game/'options.txt';p.write_text('music:0.3\nlang:en_us\nfov:0.5\n')
-            l.write_game_language('tr_tr');text=p.read_text()
+            l.write_game_language(l.game,'tr_tr');text=p.read_text()
             self.assertIn('music:0.3',text);self.assertIn('fov:0.5',text);self.assertIn('lang:tr_tr',text);self.assertNotIn('en_us',text)
     def test_no_download_without_profile(self):
         with tempfile.TemporaryDirectory() as t:
@@ -51,5 +51,5 @@ class SecurityTests(unittest.TestCase):
         self.assertTrue(status_tr('Download https://example.org/file.jar').startswith('İndiriliyor:'))
         self.assertEqual(error_tr(TimeoutError()),'İndirme sunucusuna ulaşılamadı. İnternet bağlantını kontrol edip yeniden dene.')
     def test_malformed_settings(self):
-        for data in [[],{'version':'..'},{'username':123},{'language':'../en'}]:
+        for data in [[],{'ram':'..'},{'username':123},{'language':'../en'}]:
             with self.assertRaises(ValueError):validate_settings(data)

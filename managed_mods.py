@@ -37,7 +37,7 @@ def preserve_disabled(source,game):
         target=scoped(target_dir,source.stem+'-'+str(n)+source.suffix);n+=1
     source.rename(target);return target.name
 
-def prepare_mods(game,assets,version,allow_external=False):
+def prepare_mods(game,assets,version,allow_external=False,known=()):
     game=Path(game);assets=Path(assets)
     mods=scoped(game,'mods');mods.mkdir(exist_ok=True)
     entries=load_manifest(assets,version)
@@ -59,6 +59,6 @@ def prepare_mods(game,assets,version,allow_external=False):
     if not allow_external:
         for p in sorted(mods.iterdir()):
             no_links(p)
-            if p.is_file() and p.suffix.lower()=='.jar' and p.name not in entries:
+            if p.is_file() and p.suffix.lower()=='.jar' and p.name not in entries and p.name not in known:
                 disabled.append(preserve_disabled(p,game))
     return {'managed':list(entries),'restored':restored,'disabled':disabled,'fabricRequired':bool(entries)}

@@ -14,7 +14,8 @@ def run():
         os.environ['EKORA_HOME']=t
         a=QApplication.instance() or QApplication([])
         w=launcher_app.Window();w.show()
-        result={'bridge':False,'profile':False,'version':'0.3.2'}
+        from core import VERSION
+        result={'bridge':False,'profile':False,'version':VERSION}
         def end():
             Path(out).write_text(json.dumps(result),encoding='utf-8')
             w.close();a.exit(0 if result['bridge'] and result['profile'] else 1)

@@ -36,6 +36,7 @@ def same_local_file(actual,expected,*,path_module=None):
 
 def asset_allowed(url,assets):
     if url=='qrc:///qtwebchannel/qwebchannel.js':return True
+    if url.startswith(('data:image/png;base64,','data:image/webp;base64,','data:image/jpeg;base64,','data:image/gif;base64,')):return True
     u=urlsplit(url)
     if u.scheme!='file' or u.netloc not in ('','localhost'):return False
     from urllib.request import url2pathname

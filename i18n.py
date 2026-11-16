@@ -9,6 +9,8 @@ MESSAGES={
  'Running fabric installer':'Fabric kuruluyor…',
  'Download assets':'Oyun içerikleri indiriliyor…',
  'Download libraries':'Oyun kütüphaneleri indiriliyor…',
+ 'Download Java runtime':'Oyuna uygun Java indiriliyor…',
+ 'Installing Java runtime':'Oyuna uygun Java hazırlanıyor…',
 }
 def status_tr(text):
     text=str(text)
@@ -23,11 +25,11 @@ def status_tr(text):
     return 'Oyun dosyaları hazırlanıyor…'
 
 def error_tr(exc):
-    if isinstance(exc,(ValueError,RuntimeError)) and any(x in str(exc) for x in ('ı','ş','ğ','ü','ö','ç','İ')):return str(exc)
+    if any(x in str(exc) for x in ('ı','ş','ğ','ü','ö','ç','İ','Ş','Ç','Ö','Ü','Ğ')):return str(exc)
     if isinstance(exc,FileNotFoundError):return 'Gerekli dosya bulunamadı. Dosya kontrolünü çalıştır veya Java seçimini kontrol et.'
     if isinstance(exc,PermissionError):return 'Uygulama kendi klasörüne yazamadı. Klasörün başka bir program tarafından kullanılmadığını kontrol et.'
     name=type(exc).__name__
     if name in ('VersionNotFound','UnsupportedVersion'):return 'Bu oyun sürümü veya Fabric seçimi desteklenmiyor. Ayarlardan başka sürüm seç.'
-    if isinstance(exc,(urllib.error.URLError,TimeoutError,ConnectionError)) or name in ('ConnectionError','ReadTimeout','ConnectTimeout','HTTPError','SSLError'):
+    if isinstance(exc,(urllib.error.URLError,TimeoutError,ConnectionError)) or name in ('ConnectionError','ReadTimeout','ConnectTimeout','HTTPError','SSLError','ProxyError','ChunkedEncodingError','ContentDecodingError') or type(exc).__module__.startswith(('requests','urllib3')):
         return 'İndirme sunucusuna ulaşılamadı. İnternet bağlantını kontrol edip yeniden dene.'
     return 'İşlem tamamlanamadı. Günlükler bölümündeki hata kaydını incele. Kod: '+name
