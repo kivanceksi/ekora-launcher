@@ -24,7 +24,7 @@ def body(path,signature,replacement):
         end+=1
     path.write_text(text[:start]+'{\n'+replacement+'\n}'+text[end:],encoding='utf-8')
 p=app/'gradle.properties'
-for old,new in [('launcher_name=ZalithLauncher','launcher_name=EkoraLauncher'),('launcher_app_name=Zalith Launcher','launcher_app_name=Ekora Launcher'),('launcher_short_name=ZL2','launcher_short_name=Ekora'),('launcher_version_code=200049','launcher_version_code=1'),('launcher_version_name=2.8.2','launcher_version_name=0.1.0'),('url_home=https://github.com/ZalithLauncher/ZalithLauncher2','url_home=https://play.ekoramc.fun')]: edit(p,old,new)
+for old,new in [('launcher_name=ZalithLauncher','launcher_name=EkoraLauncher'),('launcher_app_name=Zalith Launcher','launcher_app_name=Ekora Launcher'),('launcher_short_name=ZL2','launcher_short_name=Ekora'),('launcher_version_code=200049','launcher_version_code=2'),('launcher_version_name=2.8.2','launcher_version_name=0.2.0'),('url_home=https://github.com/ZalithLauncher/ZalithLauncher2','url_home=https://play.ekoramc.fun')]: edit(p,old,new)
 p=app/'build.gradle.kts'
 edit(p,'applicationId = zalithPackageName','applicationId = "fun.ekoramc.launcher"')
 edit(p,'applicationIdSuffix = ".v2"','// Ekora has its own stable Android application ID.')
@@ -60,6 +60,7 @@ body(p,'fun LoginMenuDialog(', '    androidx.compose.runtime.LaunchedEffect(Unit
 p=java/'ui/screens/content/AccountManageScreen.kt'
 edit(p,'actions.onIntent(AccountManageIntent.UpdateMicrosoftLoginOp(MicrosoftLoginOperation.Tip))','actions.onIntent(AccountManageIntent.UpdateLoginMenuOp(LoginMenuOperation.Login))')
 shutil.copyfile(ours/'overlay/LauncherScreen.kt', java/'ui/screens/content/LauncherScreen.kt')
+shutil.copyfile(ours/'overlay/EkoraTools.kt', java/'ui/screens/content/EkoraTools.kt')
 res=app/'src/main/res'
 shutil.copyfile(ours.parent/'assets/logo.png',res/'drawable/ekora_logo.png')
 # Use the user's unmodified original logo, with adaptive-icon safe padding.
@@ -77,7 +78,7 @@ for name in ['ic_launcher','ic_launcher_round']:
 # The splash resource also uses the user's logo.
 (res/'drawable/ic_launcher_foreground.xml').write_text('<inset xmlns:android="http://schemas.android.com/apk/res/android" android:drawable="@drawable/ekora_logo" android:inset="18%"/>')
 shutil.copyfile(ours/'README.md',root/'EKORA-CHANGES.md')
-print('Ekora overlay applied; local profile, scoped storage, Turkish UI, custom home and server quick play.')
+print('Ekora overlay 0.2.0 applied; local profile, scoped storage, Turkish UI, Ekora home, one-tap setup, server status, Modrinth FPS pack and update check.')
 
 # Turkish first-run flow and accurate Ekora-specific data notices.
 tr = res/'values-tr/strings.xml'

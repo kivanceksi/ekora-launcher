@@ -57,7 +57,7 @@ jobs:
           cp android/README.md android-release/README.txt
           cp permissions.txt android-release/
           cp engine/LICENSE android-release/LICENSE
-          tar --exclude='.git' --exclude='.gradle' --exclude='build' --exclude='target' --exclude='*.jks' -czf android-release/EkoraLauncher-Android-0.1.0-Source.tar.gz engine android assets/logo.png .github/workflows/android.yml
+          tar --exclude='.git' --exclude='.gradle' --exclude='build' --exclude='target' --exclude='*.jks' -czf android-release/EkoraLauncher-Android-0.2.0-Source.tar.gz engine android assets/logo.png .github/workflows/android.yml
           cp "$ANDROID_HOME/build-tools/$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1)/lib/apksigner.jar" android-release/
       - uses: actions/upload-artifact@v4
         with:

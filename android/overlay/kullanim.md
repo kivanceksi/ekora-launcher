@@ -1,14 +1,14 @@
 # Ekora Launcher Android — Kullanım bilgileri
 
-Sürüm: 0.1.0 • 15 Kasım 2026
+Sürüm: 0.2.0 • 16 Kasım 2026
 
 Ekora Launcher, Android için Minecraft: Java Edition başlatıcısıdır. Zalith Launcher 2 ve PojavLauncher altyapısını kullanan gayriresmî değiştirilmiş bir sürümdür. Mojang, Microsoft veya Zalith ekibi tarafından geliştirilmiş ya da onaylanmış değildir.
 
 Bu paket Minecraft oyun dosyalarını veya bir Minecraft lisansını içermez. Oyunun lisans ve kullanım şartları geçerlidir: https://www.minecraft.net/eula . Yerel oyuncu profili, oyun lisansı veya sunucu hesabı doğrulaması yerine geçmez.
 
-İlk kullanımda oyuncu adı ve uyumlu Minecraft sürümü seçilir. Oyun ve seçtiğiniz ek içerikler ilgili sağlayıcılardan indirilir. Ana ekrandaki Oyna düğmesi play.ekoramc.fun adresine bağlanmayı dener. Otomatik başlatma seçeneği kapatılabilir; geri sayım iptal edilebilir. Sunucu çevrimdışıysa veya sürümünüz uyumsuzsa bağlantı gerçekleşmeyebilir.
+İlk kullanımda oyuncu adı ve uyumlu Minecraft sürümü seçilir. Oyun ve seçtiğiniz ek içerikler ilgili sağlayıcılardan indirilir. Ana ekrandaki “EkoraMC’yi kur” düğmesi sunucunun Minecraft sürümünü Fabric ile birlikte kurar; “Ekora’da oyna” düğmesi play.ekoramc.fun adresine bağlanmayı dener. Ana ekran sunucunun durumunu ve yeni launcher sürümlerini kontrol etmek için sunucuya ve GitHub’a bağlanır. FPS paketi ve mod mağazası içerikleri Modrinth’ten indirilir ve Modrinth’in yayımladığı SHA-512 özetiyle doğrulanır. Otomatik başlatma seçeneği kapatılabilir; geri sayım iptal edilebilir. Sunucu çevrimdışıysa veya sürümünüz uyumsuzsa bağlantı gerçekleşmeyebilir.
 
-Modlar ve harici dosyalar kod çalıştırabilir; yalnızca güvendiğiniz içerikleri seçin. Java oyunu cihazın belleğini, işlemcisini, pilini ve depolamasını kullanır. Her cihazda, oyun sürümünde ve modda uyumluluk garantisi verilmez. Bu sürümün fiziksel Android cihazda oyun testi henüz tamamlanmamıştır.
+Modlar ve harici dosyalar kod çalıştırabilir; yalnızca güvendiğiniz içerikleri seçin. Java oyunu cihazın belleğini, işlemcisini, pilini ve depolamasını kullanır. Her cihazda, oyun sürümünde ve modda uyumluluk garantisi verilmez.
 
 ## Açık kaynak
 
