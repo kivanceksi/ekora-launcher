@@ -64,7 +64,7 @@ public final class EkoraIstemciClient implements ClientModInitializer {
 		net.fabricmc.fabric.api.client.screen.v1.ScreenEvents.AFTER_INIT.register((client, screen, w, h) -> {
 			if (!(screen instanceof net.minecraft.client.gui.screens.PauseScreen) || !Ekora.destekli()) return;
 			net.fabricmc.fabric.api.client.screen.v1.Screens.getWidgets(screen).add(
-					net.minecraft.client.gui.components.Button.builder(Component.literal("◆ Ekora Merkezi (K)"), b -> Ekora.istek("menu"))
+					net.minecraft.client.gui.components.Button.builder(Component.literal("» Ekora Merkezi (K)"), b -> Ekora.istek("menu"))
 							.pos(6, 6).size(120, 20).build());
 		});
 

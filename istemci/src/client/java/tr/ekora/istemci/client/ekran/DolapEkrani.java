@@ -116,7 +116,7 @@ public final class DolapEkrani extends EkoraEkran {
 		// bakiye
 		int rz = px + pw - 26 - this.font.width("✦ " + Cizim.sayi(kivilcim)) - 10;
 		rozet(g, rz, py + 6, "✦ " + Cizim.sayi(kivilcim), Cizim.ALTIN);
-		String eps = "◆ " + Cizim.sayi(ep) + " " + epBirim;
+		String eps = Cizim.sayi(ep) + " " + epBirim;
 		rozet(g, rz - this.font.width(eps) - 14, py + 6, eps, Cizim.CAMGOBEGI);
 		// sol: yuvalar
 		int lx = px + 8, lw = 92;
@@ -230,8 +230,8 @@ public final class DolapEkrani extends EkoraEkran {
 			dugmeCiz(g, eylem, et, renk, mx, my);
 			if (epVar) {
 				boolean yeter = ep >= u.epFiyat();
-				String fiyat = "◆ " + Cizim.sayi(u.epFiyat()) + " " + epBirim + (u.epIndirim() > 0 ? " (-%" + u.epIndirim() + ")" : "");
-				String e2 = !yeter ? "Eksik: ◆ " + Cizim.sayi(u.epFiyat() - ep) : onayda(epAl) ? "Emin misin? " + fiyat : fiyat + " ile al";
+				String fiyat = Cizim.sayi(u.epFiyat()) + " " + epBirim + (u.epIndirim() > 0 ? " (-%" + u.epIndirim() + ")" : "");
+				String e2 = !yeter ? "Eksik: " + Cizim.sayi(u.epFiyat() - ep) + " " + epBirim : onayda(epAl) ? "Emin misin? " + fiyat : fiyat + " ile al";
 				epAl.aktif = yeter;
 				epAl.yer(rx + 6, ry + rh - 48, sagW - 12, 20);
 				dugmeCiz(g, epAl, e2, !yeter ? 0xFF6B7280 : onayda(epAl) ? Cizim.KIRMIZI : Cizim.CAMGOBEGI, mx, my);
@@ -242,7 +242,7 @@ public final class DolapEkrani extends EkoraEkran {
 		}
 		if (ipucu != null) {
 			final Urun ip = ipucu;
-			String fiyatlar = ip.sahip() ? "" : (ip.fiyat() > 0 ? "  §6✦ " + Cizim.sayi(ip.fiyat()) : "") + (ip.epFiyat() > 0 ? "  §b◆ " + Cizim.sayi(ip.epFiyat()) + " " + epBirim : "");
+			String fiyatlar = ip.sahip() ? "" : (ip.fiyat() > 0 ? "  §6✦ " + Cizim.sayi(ip.fiyat()) : "") + (ip.epFiyat() > 0 ? "  §b" + Cizim.sayi(ip.epFiyat()) + " " + epBirim : "");
 			g.setTooltipForNextFrame(this.font, net.minecraft.network.chat.Component.literal(ip.ad() + fiyatlar), mx, my);
 		}
 	}
