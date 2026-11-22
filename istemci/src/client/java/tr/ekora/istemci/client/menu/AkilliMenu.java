@@ -101,13 +101,13 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 		ph = Math.min(this.height - 10, 300);
 		px = (this.width - pw) / 2;
 		py = (this.height - ph) / 2;
-		int altH = Ayarlar.menuEnvanter ? 88 : 26;
+		int altH = Ayarlar.menuEnvanter ? 96 : 26;
 		icX = px + 8;
 		icY = py + 26;
 		icW = pw - 16;
 		icH = ph - 26 - altH - 6;
 		envX = px + 10;
-		envY = py + ph - 82;
+		envY = py + ph - 80;
 		// oyuncu envanteri yuvaları sabit konumludur (menüye göre); menü kökünü envanter istenen yere gelecek şekilde kaydır
 		this.leftPos = envX - 8;
 		this.topPos = envY - (satir * 18 + 31);
@@ -202,16 +202,16 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 		if (!eylem.isEmpty()) eylemler(g, mx, my, eylem, icX, icY + kartAlanH + 4, icW);
 
 		// alt bölüm: envanter (isteğe bağlı) + araç çubuğu
-		int aracY = py + ph - (Ayarlar.menuEnvanter ? 86 : 24);
+		int aracY = py + ph - (Ayarlar.menuEnvanter ? 94 : 24);
 		g.fill(px + 6, aracY - 3, px + pw - 6, aracY - 2, Cizim.KENAR);
 		if (Ayarlar.menuEnvanter) {
-			g.text(this.font, "Envanterin", envX, aracY + 1, Cizim.SOLUK, false);
+			g.text(this.font, "Envanterin", envX, aracY + 1, Cizim.SOLUK, false); // yuvalar envY'den başlar (etiketin altında)
 			for (int i = satir * 9; i < menu.slots.size(); i++) {
 				Slot s = menu.slots.get(i);
 				int x = leftPos + s.x - 1, y = topPos + s.y - 1;
 				Cizim.panel(g, x, y, 18, 18, 0xFF141726, 0xFF262A40);
 			}
-			araclar(g, mx, my, arac, envX + 170, aracY + 1, px + pw - 8 - (envX + 170), true);
+			araclar(g, mx, my, arac, envX + 170, aracY + 12, px + pw - 8 - (envX + 170), true);
 		} else {
 			araclar(g, mx, my, arac, px + 8, aracY, pw - 16, false);
 		}
