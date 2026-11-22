@@ -27,6 +27,34 @@ jobs:
           unzip -l build/libs/ekora-istemci-*[0-9].jar | grep "META-INF/jars/" | tee gomulu.txt
           for m in fabric-api-base fabric-lifecycle-events-v1 fabric-key-mapping-api-v1 fabric-networking-api-v1 fabric-rendering-v1; do grep -q "$m" gomulu.txt || { echo "EKSİK: $m"; exit 1; }; done
           sha256sum build/libs/*.jar
+      - name: Oyun API keşfi (javap)
+        run: |
+          mkdir -p build/kesif
+          J=""
+          for f in $(find ~/.gradle/caches .gradle -name "*.jar" 2>/dev/null | grep -i minecraft); do
+            if unzip -l "$f" 2>/dev/null | grep -q "net/minecraft/client/gui/screens/inventory/AbstractContainerScreen.class"; then J="$f"; break; fi
+          done
+          echo "jar: $J" | tee build/kesif/jar.txt
+          [ -n "$J" ] || exit 0
+          unzip -l "$J" | grep -E "net/minecraft/client/gui/screens/inventory/|net/minecraft/client/gui/screens/[A-Z][A-Za-z]*Screen.class|net/minecraft/client/gui/components/toasts/" | awk '{print $4}' > build/kesif/siniflar.txt
+          for c in net.minecraft.client.gui.screens.inventory.AbstractContainerScreen net.minecraft.client.gui.screens.inventory.ContainerScreen \
+                   net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen net.minecraft.client.gui.screens.MenuScreens net.minecraft.world.inventory.Slot \
+                   net.minecraft.world.inventory.AbstractContainerMenu net.minecraft.world.inventory.ChestMenu net.minecraft.world.inventory.MenuType \
+                   net.minecraft.client.gui.GuiGraphicsExtractor net.minecraft.client.gui.screens.Screen net.minecraft.client.gui.screens.ConfirmLinkScreen \
+                   net.minecraft.util.Util net.minecraft.world.item.ItemStack net.minecraft.client.gui.Font net.minecraft.client.gui.screens.inventory.InventoryScreen \
+                   net.minecraft.client.Minecraft net.minecraft.client.gui.Gui net.minecraft.client.gui.components.EditBox net.minecraft.client.player.LocalPlayer \
+                   net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent net.minecraft.network.chat.Component net.minecraft.world.item.component.ItemLore; do
+            echo "=== $c" >> build/kesif/javap.txt
+            javap -p -cp "$J" "$c" >> build/kesif/javap.txt 2>&1 || true
+          done
+          javap -c -p -cp "$J" net.minecraft.client.gui.screens.inventory.AbstractContainerScreen > build/kesif/AbstractContainerScreen.c.txt 2>&1 || true
+          javap -c -p -cp "$J" net.minecraft.client.gui.screens.inventory.ContainerScreen > build/kesif/ContainerScreen.c.txt 2>&1 || true
+          javap -c -p -cp "$J" net.minecraft.client.gui.screens.MenuScreens > build/kesif/MenuScreens.c.txt 2>&1 || true
+          wc -l build/kesif/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kesif
+          path: istemci/build/kesif/
       - uses: actions/upload-artifact@v4
         with:
           name: ekora-istemci-jar
