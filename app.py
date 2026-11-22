@@ -12,6 +12,7 @@ from PySide6.QtWebChannel import QWebChannel
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWebEngineCore import QWebEnginePage, QWebEngineSettings, QWebEngineProfile, QWebEngineUrlRequestInterceptor
 from core import Launcher, validate_settings, VERSION
+from ekora_hesap import HesapHatasi
 from security import asset_allowed, same_local_file, scoped, no_links, is_admin, redact_log
 from i18n import error_tr
 
@@ -191,6 +192,90 @@ class Bridge(QObject):
         path, _ = QFileDialog.getOpenFileName(self.window, 'Java çalıştırılabilir dosyası seç', filter='Java (java.exe javaw.exe java);;Tüm dosyalar (*)')
         if path:
             self.send('java', path)
+
+    # --- Ekora hesabı (site) ---
+    def _hesap_gonder(self, zorla=False):
+        H = self.launcher.hesap
+        d = dict(H.durum(zorla=zorla))
+        if d.get('mcAd'):
+            d['avatar'] = H.avatar(d['mcAd'])
+        self.send('hesap', d)
+
+    def do_hesapGiris(self, data):
+        eposta, sifre = str(data.get('eposta', '')), str(data.get('sifre', ''))
+        def run():
+            try:
+                self.launcher.hesap.giris(eposta, sifre)
+                self._hesap_gonder()
+            except HesapHatasi as e:
+                self.send('hesapHata', {'message': str(e)})
+        self.worker(run)
+
+    def do_hesapCikis(self, data):
+        def run():
+            self.launcher.hesap.cikis()
+            self.send('hesap', {'girisli': False})
+        self.worker(run)
+
+    def do_hesapDurum(self, data):
+        def run():
+            try:
+                self._hesap_gonder(zorla=bool(data.get('yenile')))
+            except HesapHatasi as e:
+                self.send('hesap', {'girisli': self.launcher.hesap.girisli(), 'hata': str(e)})
+        self.worker(run)
+
+    def do_haberler(self, data):
+        def run():
+            H = self.launcher.hesap
+            try:
+                self.send('haberler', {'haberler': H.haberler(), 'etkinlikler': H.etkinlikler()})
+            except HesapHatasi as e:
+                self.send('haberler', {'hata': str(e)})
+        self.worker(run)
+
+    def do_siralamaMeta(self, data):
+        def run():
+            try:
+                self.send('siralamaMeta', {'liste': self.launcher.hesap.siralama_meta()})
+            except HesapHatasi as e:
+                self.send('siralamaMeta', {'hata': str(e)})
+        self.worker(run)
+
+    def do_siralama(self, data):
+        mod, olcu = str(data.get('mod', '')), str(data.get('olcu', ''))
+        def run():
+            H = self.launcher.hesap
+            try:
+                rows = H.siralama(mod, olcu)
+                for r in rows[:3]:
+                    r['avatar'] = H.avatar(r['ad'])
+                self.send('siralama', {'mod': mod, 'olcu': olcu, 'satirlar': rows})
+            except HesapHatasi as e:
+                self.send('siralama', {'mod': mod, 'olcu': olcu, 'hata': str(e)})
+        self.worker(run)
+
+    def do_oyuncu(self, data):
+        ad = str(data.get('ad', ''))
+        def run():
+            H = self.launcher.hesap
+            try:
+                self.send('oyuncu', {'ad': ad, 'istatistik': H.oyuncu(ad), 'cezalar': H.cezalar(ad, 20)})
+            except HesapHatasi as e:
+                self.send('oyuncu', {'ad': ad, 'hata': str(e)})
+        self.worker(run)
+
+    def do_cezalar(self, data):
+        ad = str(data.get('ad', '') or '').strip()
+        def run():
+            try:
+                self.send('cezalar', {'ad': ad, 'liste': self.launcher.hesap.cezalar(ad or None)})
+            except HesapHatasi as e:
+                self.send('cezalar', {'ad': ad, 'hata': str(e)})
+        self.worker(run)
+
+    def do_site(self, data):
+        QDesktopServices.openUrl(QUrl(self.launcher.hesap.site_adresi(str(data.get('yol', '')))))
 
     # --- profiles
     def send_profiles(self):

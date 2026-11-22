@@ -10,8 +10,17 @@ const installing = new Set();
 let content = {profile: null, folder: 'mods', data: null, updates: []};
 let versionsLoaded = false, editing = null;
 
-const nav = [['home', '⌂', 'Ana sayfa'], ['profiles', '▤', 'Kurulumlar'], ['store', '◇', 'Mod Mağazası'], ['content', '▦', 'Modlarım'],
-  ['map', '⌖', 'Harita & konumlar'], ['account', '♙', 'Hesabım'], ['settings', '⚙', 'Ayarlar'], ['privacy', '◈', 'Güvenlik & gizlilik'], ['logs', '≡', 'Günlükler']];
+const nav = [['home', '⌂', 'Ana sayfa'], ['haberler', '✦', 'Haberler'], ['siralama', '♛', 'Sıralamalar'], ['account', '♙', 'Ekora hesabım'],
+  ['profiles', '▤', 'Kurulumlar'], ['store', '◇', 'Mod Mağazası'], ['content', '▦', 'Modlarım'], ['map', '⌖', 'Harita & konumlar'],
+  ['cezalar', '⚖', 'Cezalar'], ['settings', '⚙', 'Ayarlar'], ['privacy', '◈', 'Güvenlik & gizlilik'], ['logs', '≡', 'Günlükler']];
+let hesap = {girisli: false}, lb = {meta: [], mod: null, olcu: null, rows: []}, newsLoaded = false;
+const MODE_LABEL = {smp: 'SMP', bedwars: 'BedWars', skyblock: 'SkyBlock', kasaba: 'Kasaba', parkur: 'Parkur', pvp: 'PvP', manhunt: 'Manhunt',
+  mini: 'Mini Oyunlar', genel: 'Genel', ctf: 'Bayrak Kapmaca', backrooms: 'Backrooms', boxpvp: 'BoxPvP', rpg: 'RPG', duel: 'Düello', duels: 'Düello'};
+const METRIC_LABEL = {wins: 'Galibiyet', kills: 'Öldürme', final_kills: 'Final Öldürme', games: 'Oynanan Maç', playtime: 'Oynama Süresi',
+  balance: 'Servet', level: 'Seviye', value: 'Ada Değeri', members: 'Üye Sayısı', towns: 'Kasaba Sayısı', best_time: 'En Hızlı Süre', score: 'Skor',
+  losses: 'Mağlubiyet', deaths: 'Ölüm', beds: 'Kırılan Yatak', captures: 'Getirilen Bayrak', streak: 'Giriş Serisi', season_level: 'Sezon Seviyesi',
+  prestige: 'Prestij', money: 'Para', elo: 'ELO'};
+const PUN_LABEL = {ban: 'Yasaklama', mute: 'Susturma', uyari: 'Uyarı'};
 const CATS = {
   mod: [['', 'Tüm kategoriler'], ['optimization', 'Performans'], ['utility', 'Yardımcı'], ['decoration', 'Dekorasyon'], ['adventure', 'Macera'],
     ['equipment', 'Ekipman'], ['library', 'Kütüphane'], ['management', 'Yönetim'], ['social', 'Sosyal'], ['storage', 'Depolama'], ['technology', 'Teknoloji']],
@@ -25,6 +34,12 @@ const CATS = {
 const LOADER_NAME = {vanilla: 'Vanilla', fabric: 'Fabric', quilt: 'Quilt'};
 
 /* ---------- helpers ---------- */
+function modeName(m) { return MODE_LABEL[m] || (m ? m[0].toUpperCase() + m.slice(1) : ''); }
+function metricName(m) { return METRIC_LABEL[m] || m.replace(/_/g, ' '); }
+function fmtVal(metric, v) { v = Number(v) || 0; if (metric === 'playtime') { const m = Math.floor(v / 60); return m >= 60 ? Math.floor(m / 60) + ' sa ' + (m % 60) + ' dk' : m + ' dk'; } if (metric.includes('time') || metric.includes('sure')) { const t = Math.round(v); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); } return Math.round(v).toLocaleString('tr-TR'); }
+function tarih(x, saat) { if (!x) return ''; const d = new Date(x); if (isNaN(d)) return ''; return d.toLocaleDateString('tr-TR', {day: 'numeric', month: 'long', year: d.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined}) + (saat ? ' · ' + d.toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'}) : ''); }
+function playName() { return (hesap.girisli && hesap.mcAd) || settings.username || ''; }
+function site(yol) { send('site', {yol}); }
 function h(tag, attrs, ...kids) {
   const el = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs || {})) {
@@ -60,6 +75,10 @@ function navigate(id) {
   if (id === 'store' && !store.hits.length) search(true);
   if (id === 'content') openContent(content.profile || selected);
   if (id === 'profiles') renderProfiles();
+  if (id === 'haberler' && !newsLoaded) send('haberler');
+  if (id === 'siralama') { if (!lb.meta.length) send('siralamaMeta'); }
+  if (id === 'cezalar' && !$('punList').childElementCount) send('cezalar', {});
+  if (id === 'account' && hesap.girisli) send('hesapDurum', {yenile: true});
 }
 nav.forEach(([id, icon, label]) => { const b = h('button', {'data-page': id, class: id === 'home' ? 'active' : '', onclick: () => navigate(id)}, h('span', {text: icon}), label); $('nav').append(b); });
 document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => navigate(b.dataset.go));
@@ -70,10 +89,16 @@ function populate(s) {
   settings = s; $('username').value = s.username || '';
   for (const k of ['ram', 'countdown', 'javaPath', 'theme', 'language']) $(k).value = s[k];
   for (const k of ['autoStart', 'externalMods', 'closeOnLaunch']) $(k).checked = !!s[k];
-  $('sideName').textContent = s.username || 'Oyuncu seç'; $('sideAvatar').textContent = (s.username || 'E')[0].toUpperCase();
+  renderSide(); $('autoLogin').checked = s.autoLogin !== false; $('serverPack').checked = s.serverPack !== false;
   $('ramStat').textContent = (s.ram / 1024) + ' GB'; document.body.classList.toggle('cyan-theme', s.theme === 'cyan'); renderHero();
 }
-function save() { stopCountdown(); const s = {...settings, username: $('username').value.trim(), ram: Number($('ram').value), countdown: Number($('countdown').value), javaPath: $('javaPath').value.trim(), theme: $('theme').value, autoStart: $('autoStart').checked, language: $('language').value, externalMods: $('externalMods').checked, closeOnLaunch: $('closeOnLaunch').checked}; send('save', s); }
+function renderSide() {
+  const n = playName(); $('sideName').textContent = n || 'Giriş yap';
+  $('sideSub').textContent = hesap.girisli ? (hesap.mcAd ? 'Ekora hesabı · bağlı' : 'Ekora hesabı · bağlı değil') : (settings.username ? 'Yerel oyuncu adı' : 'Ekora hesabı');
+  const av = $('sideAvatar'); av.replaceChildren();
+  if (hesap.avatar) av.append(h('img', {src: hesap.avatar, alt: ''})); else av.textContent = (n || 'E')[0].toUpperCase();
+}
+function save() { stopCountdown(); const s = {...settings, username: $('username').value.trim(), autoLogin: $('autoLogin').checked, serverPack: $('serverPack').checked, ram: Number($('ram').value), countdown: Number($('countdown').value), javaPath: $('javaPath').value.trim(), theme: $('theme').value, autoStart: $('autoStart').checked, language: $('language').value, externalMods: $('externalMods').checked, closeOnLaunch: $('closeOnLaunch').checked}; send('save', s); }
 $('saveProfile').onclick = save; $('saveSettings').onclick = save; $('savePrivacy').onclick = save;
 
 /* ---------- home ---------- */
@@ -84,16 +109,17 @@ function renderHero() {
   $('heroProfileInfo').textContent = p.modCount ? p.modCount + ' mod' : '';
   $('versionStat').textContent = p.name + ' · ' + p.version; $('loaderStat').textContent = LOADER_NAME[p.loader] + (p.modCount ? ' · ' + p.modCount + ' mod' : '');
   const joins = p.joinServer; let hint;
-  if (!settings.username) hint = 'İlk adım: oyuncu adını kaydet.';
+  const nm = playName();
+  if (!nm) hint = 'İlk adım: Ekora hesabınla giriş yap (Ekora hesabım).';
   else if (joins && p.version !== serverVersion) hint = '⚠ Bu kurulum ' + p.version + '. EkoraMC ' + serverVersion + ' istiyor; sunucuya giremeyebilirsin.';
-  else hint = 'Oyuncu: ' + settings.username + (joins ? ' · play.ekoramc.fun’a bağlanır' : ' · tek oyunculu / sunucu listesi');
+  else hint = 'Oyuncu: ' + nm + (joins ? ' · play.ekoramc.fun’a bağlanır' + (hesap.girisli && hesap.mcAd && settings.autoLogin !== false ? ' · otomatik giriş açık ✔' : '') : ' · tek oyunculu / sunucu listesi');
   $('launchHint').textContent = hint;
   if (phase === 'ready') $('play').textContent = joins ? '▶  EKORA’YA KATIL' : '▶  OYNA · ' + p.name.toUpperCase();
 }
 $('heroProfile').onchange = e => { stopCountdown(); send('selectProfile', {id: e.target.value}); };
 function stopCountdown() { if (timer) { clearInterval(timer); timer = null; $('cancel').hidden = true; $('statusText').textContent = 'Otomatik başlangıç durduruldu.'; renderHero(); } }
-function startCountdown() { const p = profile(); if (!settings.username || !settings.autoStart || !settings.onboardingDone || !p.joinServer) return; remaining = settings.countdown; $('cancel').hidden = false; const tick = () => { $('play').textContent = '▶  BAŞLATILIYOR · ' + remaining + ' sn'; $('statusText').textContent = 'EkoraMC’ye otomatik bağlantı. Bir yere tıklayarak veya İptal ile durdurabilirsin.'; if (remaining-- <= 0) { stopCountdown(); launch(); } }; timer = setInterval(tick, 1000); tick(); }
-function launch(extra) { stopCountdown(); if (!settings.username) { navigate('account'); $('username').focus(); toast('Önce oyuncu adını kaydet.'); return; } if (phase !== 'ready') return; send('launch', {profile: selected, ...(extra || {})}); }
+function startCountdown() { const p = profile(); if (!playName() || !settings.autoStart || !settings.onboardingDone || !p.joinServer) return; remaining = settings.countdown; $('cancel').hidden = false; const tick = () => { $('play').textContent = '▶  BAŞLATILIYOR · ' + remaining + ' sn'; $('statusText').textContent = 'EkoraMC’ye otomatik bağlantı. Bir yere tıklayarak veya İptal ile durdurabilirsin.'; if (remaining-- <= 0) { stopCountdown(); launch(); } }; timer = setInterval(tick, 1000); tick(); }
+function launch(extra) { stopCountdown(); if (!playName()) { navigate('account'); $('accEmail').focus(); toast('Önce Ekora hesabınla giriş yap ya da bir oyuncu adı kaydet.'); return; } if (phase !== 'ready') return; send('launch', {profile: selected, ...(extra || {})}); }
 $('play').onclick = () => launch();
 $('cancel').onclick = () => { if (timer) stopCountdown(); else { send('cancel'); $('statusText').textContent = 'İptal bekleniyor; mevcut indirmenin bitmesi gerekebilir.'; } };
 $('perfTile').onclick = () => { const p = profile(); confirmBox('FPS paketi', p.name + ' kurulumuna Sodium, Lithium, FerriteCore, Entity Culling, ImmediatelyFast, Dynamic FPS ve Mod Menu kurulsun mu? Kurulum Vanilla ise Fabric açılır.', 'Kur', () => send('perfPack', {profile: p.id})); };
@@ -275,7 +301,7 @@ document.addEventListener('mousedown', e => { if (timer && !e.target.closest('#p
 function receive(raw) {
   let e; try { e = JSON.parse(raw); } catch { return; } const d = e.data;
   switch (e.kind) {
-    case 'init': serverVersion = d.serverVersion || serverVersion; downloadPage = d.downloadPage; $('buildVersion').textContent = 'v' + d.version; populate(d.settings); setProfiles({profiles: d.profiles, selected: d.selected}); $('previewBanner').hidden = true; $('nativeBadge').textContent = 'WINDOWS'; if (d.warning) toast(d.warning); $('welcome').hidden = !!d.settings.onboardingDone; $('pfJoinHint').textContent = 'Sunucuya yalnız sunucunun sürümüyle (' + serverVersion + ') girilebilir.'; startCountdown(); break;
+    case 'init': serverVersion = d.serverVersion || serverVersion; downloadPage = d.downloadPage; $('buildVersion').textContent = 'v' + d.version; populate(d.settings); setProfiles({profiles: d.profiles, selected: d.selected}); $('previewBanner').hidden = true; $('nativeBadge').textContent = 'WINDOWS'; if (d.warning) toast(d.warning); $('welcome').hidden = !!d.settings.onboardingDone; $('pfJoinHint').textContent = 'Sunucuya yalnız sunucunun sürümüyle (' + serverVersion + ') girilebilir.'; startCountdown(); send('hesapDurum', {}); send('haberler'); break;
     case 'saved': populate(d); $('welcome').hidden = !!d.onboardingDone; toast('Ayarlar kaydedildi.'); break;
     case 'profiles': setProfiles(d); break;
     case 'connection': { const el = $('serverStatus'); if (d.online) { el.textContent = 'Çevrimiçi · ' + d.players + '/' + d.max + ' oyuncu' + (d.latency ? ' · ' + d.latency + ' ms' : ''); el.className = 'online'; } else { el.textContent = 'Şu an ulaşılamıyor'; el.className = 'offline'; } break; }
@@ -287,6 +313,13 @@ function receive(raw) {
     case 'error': toast(d.message); $('statusText').textContent = d.message; installing.clear(); if (store.hits.length) renderStore(); $('contentUpdates').textContent = 'Güncellemeleri denetle'; break;
     case 'launchError': updateState({state: 'ready', message: d.message}); toast(d.message); break;
     case 'notice': toast(d.message); break;
+    case 'hesap': hesap = d || {girisli: false}; $('accLoginBtn').disabled = false; renderHesap(); renderSide(); renderHero(); if (hesap.girisli && hesap.mcAd) send('oyuncu', {ad: hesap.mcAd}); if (hesap.hata && hesap.girisli) toast(hesap.hata); break;
+    case 'hesapHata': $('accLoginBtn').disabled = false; $('accLoginBtn').textContent = 'Giriş yap'; $('accError').hidden = false; $('accError').textContent = d.message; break;
+    case 'haberler': renderNews(d); break;
+    case 'siralamaMeta': lbMeta(d); break;
+    case 'siralama': lbRows(d); break;
+    case 'oyuncu': renderOyuncu(d); break;
+    case 'cezalar': renderPun($('punList'), d, true); break;
     case 'java': $('javaPath').value = d; break;
     case 'waypoints': points = d; renderPoints(); break;
     case 'logs': $('logText').textContent = d; break;
@@ -314,3 +347,100 @@ renderPoints();
 window.__ekoraReceive = receive;
 if (window.__ekoraFakeBridge) { bridge = window.__ekoraFakeBridge; bridge.event.connect(receive); send('init'); }
 else if (typeof QWebChannel !== 'undefined' && typeof qt !== 'undefined') { new QWebChannel(qt.webChannelTransport, channel => { bridge = channel.objects.ekora; bridge.event.connect(receive); send('init'); }); }
+
+
+/* ---------- 0.7: Ekora hesabı ---------- */
+function renderHesap() {
+  const g = !!hesap.girisli; $('accLogin').hidden = g; $('accPanel').hidden = !g;
+  $('accLoginBtn').textContent = 'Giriş yap';
+  if (!g) return;
+  $('accError').hidden = true; $('accPass').value = '';
+  $('accName').textContent = hesap.mcAd || hesap.ad || 'Ekora oyuncusu';
+  $('accMail').textContent = (hesap.ad && hesap.mcAd ? hesap.ad + ' · ' : '') + (hesap.eposta || '') + (hesap.bildirim ? ' · ' + hesap.bildirim + ' okunmamış bildirim' : '');
+  const img = $('accAvatar'); if (hesap.avatar) img.src = hesap.avatar; else img.removeAttribute('src');
+  const l = $('accLink'); l.replaceChildren();
+  if (hesap.mcAd) l.append(h('span', {class: 'ok', text: '✔ Minecraft hesabı bağlı: ' + hesap.mcAd + ' · launcher bu adla oynar'}));
+  else l.append(h('span', {class: 'warn', text: '⚠ Minecraft hesabın bağlı değil. Oyunda /webkod yaz, kodu sitede gir. '}), h('button', {class: 'link-btn', text: 'Hesap bağla ↗', onclick: () => site('hesap-bagla')}));
+  if (!hesap.mcAd) { $('accStats').replaceChildren(); empty($('accStats'), 'Hesabını bağladığında istatistiklerin burada görünür.'); $('accPunish').replaceChildren(); }
+}
+$('accLoginBtn').onclick = () => { $('accError').hidden = true; $('accLoginBtn').disabled = true; $('accLoginBtn').textContent = 'Giriş yapılıyor…'; send('hesapGiris', {eposta: $('accEmail').value.trim(), sifre: $('accPass').value}); };
+$('accPass').onkeydown = e => { if (e.key === 'Enter') $('accLoginBtn').click(); };
+$('accRegister').onclick = () => site('kayit'); $('accForgot').onclick = () => site('sifre');
+$('accLogout').onclick = () => confirmBox('Çıkış yap', 'Ekora hesabından çıkılsın mı? Oyuna girerken yeniden /login yazman gerekir.', 'Çıkış yap', () => send('hesapCikis'));
+$('accRefresh').onclick = () => send('hesapDurum', {yenile: true}); $('accProfileSite').onclick = () => site('profil');
+$('saveAccPrefs').onclick = save;
+$('siteStore').onclick = () => site('magaza'); $('shopTile').onclick = () => site('magaza'); $('supportTile').onclick = () => site('destek');
+$('newsSite').onclick = () => site('haberler'); $('eventsSite').onclick = () => site('etkinlikler'); $('lbSite').onclick = () => site('siralamalar'); $('appealSite').onclick = () => site('itiraz');
+document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => navigate(b.dataset.go));
+
+function renderOyuncu(d) {
+  if (!hesap.mcAd || d.ad !== hesap.mcAd) return;
+  const box = $('accStats'); box.replaceChildren();
+  if (d.hata) { empty(box, d.hata); return; }
+  const byMode = {}; (d.istatistik || []).forEach(r => { (byMode[r.mod] = byMode[r.mod] || []).push(r); });
+  const modes = Object.keys(byMode).sort((a, b) => (a === 'genel' ? -1 : b === 'genel' ? 1 : modeName(a).localeCompare(modeName(b), 'tr')));
+  if (!modes.length) empty(box, 'Henüz sıralamalarda görünmüyorsun. Biraz oyna, 10 dakikada bir güncellenir.');
+  modes.forEach(m => box.append(h('div', {class: 'stat-card'}, h('span', {class: 'eyebrow', text: modeName(m).toUpperCase()}),
+    byMode[m].map(r => h('div', {class: 'stat-row'}, h('span', {text: metricName(r.olcu)}), h('b', {text: fmtVal(r.olcu, r.deger)}))))));
+  renderPun($('accPunish'), {liste: d.cezalar || []}, false);
+}
+function renderPun(box, d, adGoster) {
+  box.replaceChildren();
+  if (d.hata) { empty(box, d.hata); return; }
+  const list = d.liste || [];
+  if (!list.length) { empty(box, adGoster ? (d.ad ? d.ad + ' için kayıtlı ceza yok.' : 'Kayıtlı ceza yok.') : 'Temiz sicil. Böyle devam! ✔'); return; }
+  list.forEach(c => box.append(h('div', {class: 'pun'},
+    h('span', {class: 'badge ' + (c.tur || ''), text: (PUN_LABEL[c.tur] || c.tur || '').toUpperCase()}),
+    h('div', {}, h('strong', {text: (adGoster ? c.ad + ' · ' : '') + (c.aktif ? 'Aktif' : 'Bitti')}), h('p', {text: c.sebep})),
+    h('small', {text: tarih(c.bas) + (c.bit ? ' → ' + tarih(c.bit) : ' · süresiz')}))));
+}
+$('punSearch').onclick = () => { const ad = $('punFind').value.trim(); if (ad && !/^[A-Za-z0-9_]{3,16}$/.test(ad)) { toast('Oyuncu adı 3–16 karakter olmalı.'); return; } send('cezalar', {ad}); };
+$('punFind').onkeydown = e => { if (e.key === 'Enter') $('punSearch').click(); };
+
+/* ---------- haberler ---------- */
+function newsItem(n) {
+  return h('button', {class: 'news-item', onclick: () => site('haber/' + n.slug)},
+    h('div', {class: 'meta'}, h('span', {class: 'badge ' + n.tur, text: n.tur === 'duyuru' ? 'DUYURU' : 'HABER'}), n.sabit ? h('span', {class: 'badge sabit', text: 'SABİT'}) : null, h('span', {text: tarih(n.tarih)})),
+    h('h4', {text: n.baslik}), n.ozet ? h('p', {text: n.ozet}) : null);
+}
+function eventItem(e) { return h('div', {class: 'event'}, h('span', {class: 'when', text: tarih(e.bas, true).toUpperCase()}), h('strong', {text: e.baslik}), h('small', {text: (e.mod ? modeName(e.mod) + ' · ' : '') + (e.kayit ? 'Kayıt açık' : (e.aciklama || '').slice(0, 90))})); }
+function renderNews(d) {
+  newsLoaded = !d.hata;
+  const hn = $('homeNews'), nl = $('newsList'), he = $('homeEvents'), el = $('eventList');
+  [hn, nl, he, el].forEach(x => x.replaceChildren());
+  if (d.hata) { [hn, nl].forEach(x => empty(x, d.hata)); [he, el].forEach(x => empty(x, '—')); return; }
+  const ns = d.haberler || [], es = d.etkinlikler || [];
+  if (!ns.length) [hn, nl].forEach(x => empty(x, 'Henüz haber yok.'));
+  ns.slice(0, 3).forEach(n => hn.append(newsItem(n))); ns.forEach(n => nl.append(newsItem(n)));
+  if (!es.length) [he, el].forEach(x => empty(x, 'Planlanmış etkinlik yok.'));
+  es.slice(0, 3).forEach(e => he.append(eventItem(e))); es.forEach(e => el.append(eventItem(e)));
+}
+
+/* ---------- sıralamalar ---------- */
+function lbMeta(d) {
+  const box = $('lbModes'); box.replaceChildren();
+  if (d.hata) { $('lbTable').replaceChildren(); empty($('lbTable'), d.hata); return; }
+  lb.meta = d.liste || [];
+  const modes = [...new Set(lb.meta.map(m => m.mod))];
+  if (!modes.length) { $('lbTable').replaceChildren(); empty($('lbTable'), 'Henüz sıralama verisi yok. Sunucu her 10 dakikada bir gönderir.'); return; }
+  if (!lb.mod || !modes.includes(lb.mod)) lb.mod = modes[0];
+  modes.forEach(m => box.append(h('button', {class: m === lb.mod ? 'active' : '', text: modeName(m), onclick: () => { lb.mod = m; lb.olcu = null; lbMeta({liste: lb.meta}); }})));
+  const ms = lb.meta.filter(x => x.mod === lb.mod); const sel = $('lbMetric'); sel.replaceChildren();
+  ms.forEach(x => sel.add(new Option(metricName(x.olcu) + ' · ' + x.oyuncu + ' oyuncu', x.olcu)));
+  if (!lb.olcu || !ms.some(x => x.olcu === lb.olcu)) lb.olcu = ms[0] && ms[0].olcu;
+  sel.value = lb.olcu; send('siralama', {mod: lb.mod, olcu: lb.olcu});
+}
+$('lbMetric').onchange = e => { lb.olcu = e.target.value; send('siralama', {mod: lb.mod, olcu: lb.olcu}); };
+$('lbFind').oninput = () => lbDraw();
+function lbRows(d) { if (d.mod !== lb.mod || d.olcu !== lb.olcu) return; lb.rows = d.satirlar || []; lb.hata = d.hata; lbDraw(); }
+function lbDraw() {
+  const pod = $('lbPodium'), tb = $('lbTable'); pod.replaceChildren(); tb.replaceChildren();
+  if (lb.hata) { empty(tb, lb.hata); return; }
+  const q = $('lbFind').value.trim().toLowerCase(), me = (playName() || '').toLowerCase();
+  if (!q) lb.rows.slice(0, 3).forEach((r, i) => pod.append(h('div', {class: 'pod r' + (i + 1)},
+    r.avatar ? h('img', {src: r.avatar, alt: ''}) : h('div', {class: 'ph', text: r.ad[0]}), h('span', {class: 'rank', text: '#' + (i + 1)}),
+    h('div', {}, h('strong', {text: r.ad}), h('small', {text: fmtVal(lb.olcu, r.deger) + (r.ek ? ' · ' + r.ek : '')})))));
+  const rows = lb.rows.map((r, i) => [i + 1, r]).filter(([, r]) => !q || r.ad.toLowerCase().includes(q));
+  if (!rows.length) { empty(tb, 'Bu listede kimse yok.'); return; }
+  rows.forEach(([i, r]) => tb.append(h('div', {class: 'lb-row' + (r.ad.toLowerCase() === me ? ' me' : '')}, h('span', {text: '#' + i}), h('span', {text: r.ad + (r.ek ? ' · ' + r.ek : '')}), h('b', {text: fmtVal(lb.olcu, r.deger)}))));
+}

@@ -21,6 +21,15 @@ class CoreTests(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.events = []
         self.l = Launcher(self.tmp.name, lambda k, d: self.events.append((k, d)))
+        # Bu testler başlatma akışını sınar; launcher ile gelen Ekora İstemci modu ayrıca test_istemci_modu.py'de sınanır.
+        import core, managed_mods
+        bos = Path(self.tmp.name) / 'bos-assets'
+        bos.mkdir()
+        (bos / 'managed-mods.json').write_text('{"schemaVersion":1,"mods":[]}')
+        gercek = managed_mods.prepare_mods
+        p = patch.object(core, 'prepare_mods', lambda game, assets, *a, **k: gercek(game, bos, *a, **k))
+        p.start()
+        self.addCleanup(p.stop)
 
     def tearDown(self):
         self.tmp.cleanup()
@@ -84,12 +93,47 @@ class CoreTests(unittest.TestCase):
     @patch('minecraft_launcher_lib.command.get_minecraft_command', return_value=['java', 'test'])
     @patch('core.subprocess.Popen')
     @patch('core.Launcher._java_for', return_value=('java', 25))
+    def test_ekora_hesabi_bagli_adla_oynar_ve_bilet_alir(self, java, popen, command, install):
+        self.l.save({**DEFAULTS, 'username': 'YerelAd'})
+        popen.return_value.wait.return_value = 0
+        biletler = []
+        self.l.hesap.girisli = lambda: True
+        self.l.hesap.durum = lambda zorla=False: {'girisli': True, 'mcAd': 'Bagli_Ad'}
+        self.l.hesap.bilet = lambda: biletler.append(1) or 'Bagli_Ad'
+        self.l.launch()
+        options = command.call_args.args[2]
+        self.assertEqual(options['username'], 'Bagli_Ad')
+        self.assertEqual(biletler, [1])
+        self.assertTrue(any(k == 'notice' and 'Otomatik giriş hazır' in d['message'] for k, d in self.events))
+
+    @patch('minecraft_launcher_lib.install.install_minecraft_version')
+    @patch('minecraft_launcher_lib.command.get_minecraft_command', return_value=['java', 'test'])
+    @patch('core.subprocess.Popen')
+    @patch('core.Launcher._java_for', return_value=('java', 25))
+    def test_bilet_alinamazsa_oyun_yine_acilir(self, java, popen, command, install):
+        from ekora_hesap import HesapHatasi
+        self.l.save({**DEFAULTS, 'username': 'YerelAd'})
+        popen.return_value.wait.return_value = 0
+        self.l.hesap.girisli = lambda: True
+        self.l.hesap.durum = lambda zorla=False: {'girisli': True, 'mcAd': 'Bagli_Ad'}
+        def kotu():
+            raise HesapHatasi('Site yanıt vermedi (500).')
+        self.l.hesap.bilet = kotu
+        self.l.launch()
+        self.assertTrue(popen.called)
+        self.assertTrue(any(k == 'notice' and 'bu sefer olmadı' in d['message'] for k, d in self.events))
+
+    @patch('minecraft_launcher_lib.install.install_minecraft_version')
+    @patch('minecraft_launcher_lib.command.get_minecraft_command', return_value=['java', 'test'])
+    @patch('core.subprocess.Popen')
+    @patch('core.Launcher._java_for', return_value=('java', 25))
     def test_official_launch_uses_quickplay_and_own_folder(self, java, popen, command, install):
         self.l.save({**DEFAULTS, 'username': 'EkoraTest'})
         popen.return_value.wait.return_value = 0
         self.l.launch()
         options = command.call_args.args[2]
-        self.assertEqual(options['quickPlayMultiplayer'], SERVER)
+        self.assertEqual(options['quickPlayMultiplayer'], SERVER + ':25567')
+        self.assertTrue((Path(options['gameDirectory']) / 'servers.dat').exists())
         self.assertTrue(options['gameDirectory'].endswith(str(Path('profiles') / 'ekoramc')))
         self.assertEqual(command.call_args.args[0], '26.3')
         self.assertFalse(self.l.busy)

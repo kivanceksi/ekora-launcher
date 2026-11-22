@@ -24,6 +24,9 @@ def load_manifest(assets,version):
         if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]*\.jar',name) or not re.fullmatch(r'[a-f0-9]{64}',sha):raise ValueError('Geçersiz mod adı veya doğrulama özeti.')
         if name.casefold() in seen:raise ValueError('Tekrarlanan launcher mod adı.')
         seen.add(name.casefold())
+        prefix=entry.get('replaces','')
+        if prefix and (not isinstance(prefix,str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{2,40}',prefix) or not name.startswith(prefix)):
+            raise ValueError('Geçersiz launcher mod önek kaydı.')
         if entry.get('minecraft')==version:
             if entry.get('loader')!='fabric':raise ValueError('Desteklenmeyen launcher mod türü.')
             result[name]=entry
@@ -56,6 +59,14 @@ def prepare_mods(game,assets,version,allow_external=False,known=()):
             if digest(tmp)!=entry['sha256']:
                 tmp.unlink();raise ValueError('Ekora mod kopyası doğrulanamadı.')
             tmp.replace(target);restored.append(name)
+    # Aynı modun eski sürümleri (ör. ekora-istemci-1.0.0.jar → 1.1.0) harici mod izni açık olsa bile ayrılır:
+    # aynı mod kimliği iki kez yüklenirse Fabric açılmaz.
+    prefixes=[e['replaces'] for e in entries.values() if e.get('replaces')]
+    if prefixes:
+        for p in sorted(mods.iterdir()):
+            no_links(p)
+            if p.is_file() and p.suffix.lower()=='.jar' and p.name not in entries and any(p.name.startswith(x) for x in prefixes):
+                disabled.append(preserve_disabled(p,game))
     if not allow_external:
         for p in sorted(mods.iterdir()):
             no_links(p)

@@ -1,1 +1,13 @@
-{"schemaVersion":1,"mods":[]}
+{
+ "schemaVersion": 1,
+ "mods": [
+  {
+   "file": "ekora-istemci-1.0.0.jar",
+   "sha256": "66e7b13be1b8804925504b6de0972a372b53a07bf3a94e249eebb24b606c9581",
+   "minecraft": "26.3",
+   "loader": "fabric",
+   "replaces": "ekora-istemci-",
+   "name": "Ekora İstemci"
+  }
+ ]
+}

@@ -18,13 +18,16 @@ from profiles import Profiles, LOADERS
 import modcheck
 import crash
 import serverping
+import sunucu_listesi
+from ekora_hesap import Hesap, HesapHatasi
 
-VERSION = '0.5.0'
+VERSION = '0.8.0'
 SERVER = 'play.ekoramc.fun'
 CONFIG_DEFAULTS = {'serverHost': SERVER, 'serverPort': 25567, 'serverVersion': '26.3', 'updateRepo': 'kivanceksi/ekora-launcher',
                    'downloadPage': 'https://ekoramc.fun/indir', 'publisher': 'EkoraMC'}
 DEFAULTS = {'username': '', 'ram': 4096, 'autoStart': True, 'countdown': 8, 'apiUrl': '', 'javaPath': '', 'theme': 'violet',
-            'language': 'tr_tr', 'externalMods': False, 'onboardingDone': False, 'closeOnLaunch': False}
+            'language': 'tr_tr', 'externalMods': False, 'onboardingDone': False, 'closeOnLaunch': False, 'serverPack': True,
+            'autoLogin': True}
 
 
 class Cancelled(Exception):
@@ -46,7 +49,7 @@ def validate_settings(data):
     for key, low, high in [('ram', 1024, 32768), ('countdown', 3, 30)]:
         if type(s[key]) is not int or not low <= s[key] <= high:
             raise ValueError('Geçersiz ' + key)
-    for key in ['autoStart', 'externalMods', 'onboardingDone', 'closeOnLaunch']:
+    for key in ['autoStart', 'externalMods', 'onboardingDone', 'closeOnLaunch', 'serverPack', 'autoLogin']:
         if type(s[key]) is not bool:
             raise ValueError('Geçersiz ' + key)
     for key in ['apiUrl', 'javaPath', 'theme']:
@@ -124,6 +127,7 @@ class Launcher:
         self.job_text = ''
         self._api = None
         self._status_cache = (0, None)
+        self.hesap = Hesap(self.root, ua=f'EkoraLauncher/{VERSION}')
 
     # ---------- helpers ----------
     @property
@@ -179,7 +183,8 @@ class Launcher:
         return {'settings': self.settings, 'installed': self.installed(), 'version': VERSION, 'server': self.config['serverHost'],
                 'serverVersion': self.config['serverVersion'], 'gamePath': str(self.game), 'warning': self.warning, 'native': True,
                 'profiles': [self.profile_view(p) for p in self.profiles.items], 'selected': self.profiles.selected,
-                'loaders': list(LOADERS), 'downloadPage': self.config['downloadPage']}
+                'loaders': list(LOADERS), 'downloadPage': self.config['downloadPage'],
+                'account': {'girisli': self.hesap.girisli()}}
 
     def check(self):
         if self.cancel.is_set():
@@ -247,9 +252,18 @@ class Launcher:
                     raise ValueError('Minecraft zaten açık.')
                 self.emit('state', {'state': 'installing'})
                 s = validate_settings(dict(self.settings))
-                if not s['username']:
-                    raise ValueError('Önce Hesabım bölümünde oyuncu adını kaydet.')
-                account = {'name': s['username'], 'id': offline_uuid(s['username']), 'access_token': '0'}
+                name = s['username']
+                ben = {}
+                if self.hesap.girisli():
+                    try:
+                        ben = self.hesap.durum()
+                    except Exception:
+                        ben = {}
+                    if ben.get('mcAd'):
+                        name = ben['mcAd']  # Ekora hesabına bağlı Minecraft adı
+                if not name:
+                    raise ValueError('Önce Hesabım bölümünden Ekora hesabınla giriş yap ya da oyuncu adını kaydet.')
+                account = {'name': name, 'id': offline_uuid(name), 'access_token': '0'}
                 self.audit_tree()
                 gdir = self.profiles.dir_of(p)
                 gdir.mkdir(parents=True, exist_ok=True)
@@ -290,10 +304,25 @@ class Launcher:
                            'launcherName': 'EkoraLauncher', 'launcherVersion': VERSION, 'gameDirectory': str(gdir)}
                 if p['joinServer']:
                     host, port = self.config['serverHost'], self.config['serverPort']
+                    adres = host if port == 25565 else host + ':' + str(port)
                     if version_tuple(p['version']) < (1, 20):
                         options.update({'server': host, 'port': str(port)})
                     else:
-                        options.update({'quickPlayMultiplayer': host, 'quickPlayPath': str(gdir / 'quickPlay.json')})
+                        options.update({'quickPlayMultiplayer': adres, 'quickPlayPath': str(gdir / 'quickPlay.json')})
+                    if s['serverPack']:
+                        try:
+                            sunucu_listesi.ekora_girdisi(str(scoped(gdir, 'servers.dat')), adres)
+                        except (OSError, ValueError):
+                            pass
+                    if s['autoLogin'] and ben.get('mcAd'):
+                        self.status('Otomatik giriş hazırlanıyor…')
+                        try:
+                            self.hesap.bilet()
+                            self.emit('notice', {'message': 'Otomatik giriş hazır: sunucuya ' + name + ' olarak /login yazmadan gireceksin.'})
+                        except (HesapHatasi, OSError, ValueError) as e:
+                            self.emit('notice', {'message': 'Otomatik giriş bu sefer olmadı: ' + str(e) + ' Oyunda /login yazabilirsin.'})
+                        except Exception:
+                            self.emit('notice', {'message': 'Otomatik giriş bu sefer olmadı. Oyunda /login yazabilirsin.'})
                 if s['javaPath']:
                     options['executablePath'] = s['javaPath']
                 self.write_game_language(gdir, s['language'])
