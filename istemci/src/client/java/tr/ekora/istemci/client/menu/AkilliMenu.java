@@ -257,7 +257,10 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 			sutun = n == 1 ? 1 : n == 3 ? 3 : 2;
 			if (sutun == 3 && w < 330) sutun = 2;
 			int satirlar = (n + sutun - 1) / sutun;
-			kh = Math.max(54, Math.min(110, (h - (satirlar - 1) * 6) / satirlar));
+			int enCokSatir = 0;
+			for (MenuOgesi o : l) enCokSatir = Math.max(enCokSatir, o.bilgi.size());
+			int icerikKh = 34 + Math.min(6, enCokSatir) * 9 + 6;
+			kh = Math.max(54, Math.min(Math.min(110, icerikKh), (h - (satirlar - 1) * 6) / satirlar));
 		} else {
 			sutun = Math.max(1, w / 128);
 			kh = 40;
@@ -265,6 +268,7 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 		int kw = (w - (sutun - 1) * 6) / sutun;
 		if (buyuk && n == 1) { kw = Math.min(w, 240); }
 		int ox = buyuk && n == 1 ? x + (w - kw) / 2 : x;
+		if (buyuk && n == 1) y0 = y0 + Math.max(0, (h - kh) / 2);
 		for (int i = 0; i < n; i++) {
 			MenuOgesi o = l.get(i);
 			int kx = ox + (i % sutun) * (kw + 6), ky = y0 + (i / sutun) * (kh + 6);
@@ -276,7 +280,7 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 
 	private void kart(GuiGraphicsExtractor g, int mx, int my, MenuOgesi o, int x, int y, int w, int h, boolean buyuk, boolean tiklanir) {
 		boolean ust = tiklanir && Cizim.icinde(mx, my, x, y, w, h);
-		int r = o.renk;
+		int r = acikMi(o.renk) ? vurgu : o.renk;
 		Cizim.panel(g, x, y, w, h, ust ? Cizim.karis(0xE0141828, Cizim.koyu(r, 0.75f), 0.8f) : 0xE0141828, ust ? r : Cizim.karis(Cizim.KENAR, r, 0.35f));
 		Cizim.degradeX(g, x + 1, y + 1, Math.max(1, w / 2), h - 2, Cizim.alfa(r, 0.12f), 0x00000000);
 		g.fill(x + 1, y + 3, x + 3, y + h - 3, r);
@@ -301,12 +305,6 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 				ly += 9;
 				sat++;
 			}
-			for (MenuOgesi.Alan a : o.digerAlanlar) {
-				if (sat >= max) break;
-				yazi(g, a.anahtar() + ": §f" + a.deger(), tx, ly, x + w - tx - 6, Cizim.SOLUK, 0.65f, false);
-				ly += 9;
-				sat++;
-			}
 			iw = tx;
 		} else {
 			Cizim.panel(g, x + 6, y + (h - 22) / 2, 22, 22, Cizim.koyu(r, 0.78f), 0);
@@ -315,8 +313,7 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 			int tx = x + 33;
 			yaz(g, SandikGorunumu.acikRenk(o.ad), tx, y + 5, x + w - tx - 5);
 			Component ilk = !o.bilgi.isEmpty() ? o.bilgi.get(0) : null;
-			if (o.fiyatlar.isEmpty() && ilk != null) yaz(g, SandikGorunumu.acikRenk(ilk), tx, y + 16, x + w - tx - 5);
-			else if (o.fiyatlar.isEmpty() && !o.digerAlanlar.isEmpty()) yazi(g, o.digerAlanlar.get(0).anahtar() + ": §f" + o.digerAlanlar.get(0).deger(), tx, y + 16, x + w - tx - 5, Cizim.SOLUK, 0.6f, false);
+			if (ilk != null) yaz(g, SandikGorunumu.acikRenk(ilk), tx, y + 16, x + w - tx - 5);
 		}
 		// rozetler: fiyat(lar), kişi, süre, adet
 		int rx = buyuk ? x + 8 : x + 33, ry = y + h - 12;
@@ -342,6 +339,12 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 			MenuOgesi.Ipucu ip = o.ipuclari.get(0);
 			yazi(g, "§e" + ip.tus() + ": §f" + ip.eylem(), x + w - 6 - Math.min(w / 2, this.font.width(ip.tus() + ": " + ip.eylem())), y + h - 12, Math.min(w / 2, this.font.width(ip.tus() + ": " + ip.eylem())), 0xFFFFFFFF, 0.55f, false);
 		}
+	}
+
+	/** Beyaza yakın renk (kart tonu olarak gri görünür; yerine tema rengi). */
+	private static boolean acikMi(int c) {
+		int r = c >> 16 & 255, g = c >> 8 & 255, b = c & 255;
+		return r > 200 && g > 200 && b > 200;
 	}
 
 	private static String kisaAnahtar(String a) {
@@ -418,6 +421,7 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 		int kalan = sx - cx;
 		if (orta.isEmpty() || kalan < 30) return;
 		int bw = Math.min(110, (kalan - (orta.size() - 1) * 4) / orta.size());
+		if (bw < 62) bw = 20; // sığmıyorsa yalnızca simge (adı ipucunda)
 		int ox = cx + (kalan - (bw * orta.size() + (orta.size() - 1) * 4)) / 2;
 		for (int i = 0; i < orta.size(); i++) arac(g, mx, my, orta.get(i), ox + i * (bw + 4), y, bw, bh);
 	}
@@ -428,6 +432,7 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 
 	private void arac(GuiGraphicsExtractor g, int mx, int my, MenuOgesi o, int x, int y, int w, int h) {
 		if (w < 18) return;
+		if (w <= 24) { x += (w - 18) / 2 + 1; }
 		boolean ust = Cizim.icinde(mx, my, x, y, w, h);
 		int r = o.yon == MenuOgesi.Yon.KAPAT ? Cizim.KIRMIZI : o.yon != MenuOgesi.Yon.YOK ? vurgu : o.renk;
 		Cizim.panel(g, x, y, w, h, ust ? Cizim.koyu(r, 0.45f) : 0xE0171A2B, ust ? r : Cizim.karis(Cizim.KENAR, r, 0.3f));
@@ -436,7 +441,7 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 		g.pose().scale(0.75f, 0.75f);
 		g.item(o.stack, 0, 0);
 		g.pose().popMatrix();
-		yaz(g, SandikGorunumu.acikRenk(o.ad), x + 17, y + (h - 8) / 2, w - 20);
+		if (w > 24) yaz(g, SandikGorunumu.acikRenk(o.ad), x + 17, y + (h - 8) / 2, w - 20);
 		alanlar.add(new Alan(x, y, w, h, o));
 		if (ust) g.setTooltipForNextFrame(this.font, o.stack, mx, my);
 	}

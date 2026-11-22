@@ -88,7 +88,7 @@ public final class MenuOgesi {
 			if (adet == null && ak.matches(".*(adet|miktar|stok|teslim|ilerleme|amount|stock|progress).*")) { adet = alan; return; }
 			digerAlanlar.add(alan);
 		}
-		bilgi.add(satir);
+		bilgi.add(satir); // tanınmayan "anahtar: değer" satırları da açıklamada (renkleriyle) gösterilir
 	}
 
 	public boolean bos() { return tur == Tur.DOLGU; }
