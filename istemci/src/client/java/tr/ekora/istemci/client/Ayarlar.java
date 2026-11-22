@@ -25,6 +25,12 @@ public final class Ayarlar {
 	public static boolean animasyon = true;
 	/** Cam dolgu eşyalarını (boş süs camları) sandık menülerinde gizle. */
 	public static boolean camGizle = true;
+	/** Eklenti menülerini kartlı Ekora ekranıyla aç (Akıllı Menü). */
+	public static boolean akilliMenu = true;
+	/** Akıllı Menü'de oyuncu envanterini göster. */
+	public static boolean menuEnvanter = false;
+	/** Oyuncunun "klasik görünüm" seçtiği menü başlıkları. */
+	public static final java.util.Set<String> klasikBasliklar = new java.util.LinkedHashSet<>();
 
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -42,6 +48,10 @@ public final class Ayarlar {
 			sesler = Json.mantik(o, "sesler", sesler);
 			animasyon = Json.mantik(o, "animasyon", animasyon);
 			camGizle = Json.mantik(o, "camGizle", camGizle);
+			akilliMenu = Json.mantik(o, "akilliMenu", akilliMenu);
+			menuEnvanter = Json.mantik(o, "menuEnvanter", menuEnvanter);
+			klasikBasliklar.clear();
+			klasikBasliklar.addAll(Json.yazilar(o, "klasikBasliklar"));
 		} catch (Exception ignored) { }
 	}
 
@@ -53,6 +63,11 @@ public final class Ayarlar {
 			o.addProperty("sesler", sesler);
 			o.addProperty("animasyon", animasyon);
 			o.addProperty("camGizle", camGizle);
+			o.addProperty("akilliMenu", akilliMenu);
+			o.addProperty("menuEnvanter", menuEnvanter);
+			com.google.gson.JsonArray k = new com.google.gson.JsonArray();
+			for (String s : klasikBasliklar) k.add(s);
+			o.add("klasikBasliklar", k);
 			Files.writeString(dosya(), GSON.toJson(o), StandardCharsets.UTF_8);
 		} catch (Exception ignored) { }
 	}

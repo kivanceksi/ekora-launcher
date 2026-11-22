@@ -30,17 +30,40 @@ public final class SandikGorunumu {
 		return Ayarlar.sandikGorunumu && Ekora.destekli();
 	}
 
-	/** Renkli/düz cam bölme ve adı boş (" ") ise süs dolgusudur. */
+	/** Renkli/düz cam bölme ve adı boş (" ") ise ya da kaynak paketinin görünmez dolgusuysa (ekora:bos) süs dolgusudur. */
 	public static boolean susCami(ItemStack s) {
-		if (!Ayarlar.camGizle || s == null || s.isEmpty()) return false;
+		if (s == null || s.isEmpty()) return false;
+		if (gorunmezDolgu(s)) return true;
+		if (!Ayarlar.camGizle) return false;
 		String yol = BuiltInRegistries.ITEM.getKey(s.getItem()).getPath();
 		if (!yol.endsWith("glass_pane")) return false;
 		return s.getHoverName().getString().isBlank();
 	}
 
-	private static int camRengi(ItemStack s) {
+	/** EkoraGui'nin paketli oyunculara koyduğu görünmez dolgu: kağıt + item_model ekora:bos. */
+	public static boolean gorunmezDolgu(ItemStack s) {
+		net.minecraft.resources.Identifier m = s.get(net.minecraft.core.component.DataComponents.ITEM_MODEL);
+		return m != null && "ekora".equals(m.getNamespace()) && "bos".equals(m.getPath());
+	}
+
+	/** Kaynak paketi başlık glifleri (özel kullanım alanı: arka plan resmi, boşluk karakterleri) çıkarılmış düz başlık. */
+	public static String duzBaslik(Component c) {
+		return c.getString().replaceAll("[\uE000-\uF8FF]", "").trim();
+	}
+
+	/** Başlıktaki EkoraGui tema glifinden tema adı (ana, pazar, magaza, oyun, rpg, kasaba, sosyal, parkur) ya da null. */
+	public static String tema(Component c) {
+		String[] t = {"ana", "pazar", "magaza", "oyun", "rpg", "kasaba", "sosyal", "parkur"};
+		for (char ch : c.getString().toCharArray()) {
+			int i = (ch - 0xE200) / 8;
+			if (ch >= 0xE200 && i < t.length) return t[i];
+		}
+		return null;
+	}
+
+	public static int camRengi(ItemStack s) {
 		String yol = BuiltInRegistries.ITEM.getKey(s.getItem()).getPath();
-		return switch (yol.replace("_stained_glass_pane", "")) {
+		return switch (yol.replace("_stained_glass_pane", "").replace("_concrete", "").replace("_terracotta", "").replace("_wool", "")) {
 			case "white" -> 0xFFE5E7EB;
 			case "orange" -> 0xFFF97316;
 			case "magenta" -> 0xFFD946EF;
@@ -62,7 +85,7 @@ public final class SandikGorunumu {
 	}
 
 	/** Eşya adının rengi (yuva kenarına hafif ton verir); yoksa -1. */
-	private static int adRengi(ItemStack s) {
+	public static int adRengi(ItemStack s) {
 		Component ad = s.getHoverName();
 		TextColor c = ad.getStyle().getColor();
 		if (c == null) for (Component k : ad.getSiblings()) { c = k.getStyle().getColor(); if (c != null) break; }
@@ -87,7 +110,7 @@ public final class SandikGorunumu {
 			ItemStack st = s.getItem();
 			boolean sandikta = i < kap;
 			if (sandikta && susCami(st)) {
-				int c = camRengi(st);
+				int c = gorunmezDolgu(st) ? 0xFF0B0D16 : camRengi(st);
 				g.fill(x, y, x + 18, y + 18, Cizim.alfa(c, c == 0xFF0B0D16 ? 0.55f : 0.16f));
 				continue;
 			}
@@ -108,16 +131,18 @@ public final class SandikGorunumu {
 		Component acik = acikRenk(baslik);
 		int kalan = w - x - 2;
 		if (f.width(acik) > kalan) {
-			String duz = Cizim.sigdir(f, baslik.getString(), kalan);
+			String duz = Cizim.sigdir(f, duzBaslik(baslik), kalan);
 			g.text(f, duz, x, 5, Cizim.YAZI, false);
 		} else g.text(f, acik, x, 5, Cizim.YAZI, false);
 		g.text(f, "Envanter", ex, ey, Cizim.SOLUK, false);
 	}
 
 	/** Koyu renkleri (koyu gri, siyah, lacivert…) Ekora'nın soluk yazı rengine çevirir; diğer renkler ve biçimler kalır. */
-	static Component acikRenk(Component c) {
+	public static Component acikRenk(Component c) {
 		List<Component> parcalar = new ArrayList<>();
-		c.visit((stil, metin) -> {
+		c.visit((stil, ham) -> {
+			String metin = ham.replaceAll("[\uE000-\uF8FF]", "");
+			if (metin.isEmpty()) return Optional.empty();
 			Style st = stil;
 			TextColor renk = st.getColor();
 			if (renk == null || parlaklik(renk.getValue()) < 0.36) st = st.withColor(TextColor.fromRgb(renk == null ? Cizim.YAZI & 0xFFFFFF : Cizim.SOLUK & 0xFFFFFF));

@@ -62,6 +62,18 @@ public final class EkoraIstemciClient implements ClientModInitializer {
 
 		// Duraklatma menüsünde (ESC) "Ekora Merkezi" düğmesi: yalnızca Ekora sunucusunda
 		net.fabricmc.fabric.api.client.screen.v1.ScreenEvents.AFTER_INIT.register((client, screen, w, h) -> {
+			// klasik görünüme alınmış menüde "Ekora görünümü" düğmesi: Akıllı Menü'ye geri döner
+			if (screen instanceof net.minecraft.client.gui.screens.inventory.ContainerScreen cs && Ekora.destekli() && Ayarlar.akilliMenu
+					&& Ayarlar.klasikBasliklar.contains(SandikGorunumu.duzBaslik(cs.getTitle()))) {
+				net.fabricmc.fabric.api.client.screen.v1.Screens.getWidgets(screen).add(
+						net.minecraft.client.gui.components.Button.builder(Component.literal("Ekora görünümü"), b -> {
+							Ayarlar.klasikBasliklar.remove(SandikGorunumu.duzBaslik(cs.getTitle()));
+							Ayarlar.kaydet();
+							var mc = net.minecraft.client.Minecraft.getInstance();
+							if (mc.player != null) mc.gui.setScreen(new tr.ekora.istemci.client.menu.AkilliMenu(cs.getMenu(), mc.player.getInventory(), cs.getTitle(), ""));
+						}).pos(6, 6).size(100, 18).build());
+				return;
+			}
 			if (!(screen instanceof net.minecraft.client.gui.screens.PauseScreen) || !Ekora.destekli()) return;
 			net.fabricmc.fabric.api.client.screen.v1.Screens.getWidgets(screen).add(
 					net.minecraft.client.gui.components.Button.builder(Component.literal("» Ekora Merkezi (K)"), b -> Ekora.istek("menu"))

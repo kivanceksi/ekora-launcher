@@ -87,6 +87,22 @@ public class IstemciEkranTesti implements FabricClientGameTest {
 			context.takeScreenshot("ekora_sandik_vanilla");
 			context.runOnClient(c -> { tr.ekora.istemci.client.Ayarlar.sandikGorunumu = true; });
 
+			// Akıllı Menü: eklenti menüleri kartlı Ekora ekranıyla
+			Object[][] akilli = {{"mezat", (java.util.function.Supplier<net.minecraft.client.gui.screens.Screen>) OrnekMenuler::mezat},
+					{"market", (java.util.function.Supplier<net.minecraft.client.gui.screens.Screen>) OrnekMenuler::market},
+					{"onay", (java.util.function.Supplier<net.minecraft.client.gui.screens.Screen>) OrnekMenuler::onay},
+					{"roller", (java.util.function.Supplier<net.minecraft.client.gui.screens.Screen>) OrnekMenuler::roller}};
+			for (Object[] a : akilli) {
+				@SuppressWarnings("unchecked") var sup = (java.util.function.Supplier<net.minecraft.client.gui.screens.Screen>) a[1];
+				context.runOnClient(c -> c.gui.setScreen(sup.get()));
+				context.waitTicks(8);
+				context.takeScreenshot("ekora_akilli_" + a[0]);
+			}
+			context.runOnClient(c -> { tr.ekora.istemci.client.Ayarlar.menuEnvanter = true; c.gui.setScreen(OrnekMenuler.market()); });
+			context.waitTicks(8);
+			context.takeScreenshot("ekora_akilli_market_envanter");
+			context.runOnClient(c -> { tr.ekora.istemci.client.Ayarlar.menuEnvanter = false; });
+
 			context.setScreen(() -> { DolapEkrani d = new DolapEkrani(j(DOLAP)); d.sec("h"); return d; });
 			context.waitTicks(10);
 			context.takeScreenshot("ekora_dolap");

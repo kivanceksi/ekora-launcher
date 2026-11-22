@@ -791,6 +791,13 @@ public final class MerkezEkrani extends EkoraEkran {
 		y += 14;
 		y = anahtar(g, mx, my, "a:sandik", x, y, w, "Sandık menüleri Ekora görünümünde", "Sunucudaki bütün menüler (oyunlar, mağaza, kasaba…) Ekora tasarımıyla açılır.",
 				Ayarlar.sandikGorunumu, () -> Ayarlar.sandikGorunumu = !Ayarlar.sandikGorunumu);
+		y = anahtar(g, mx, my, "a:akilli", x, y, w, "Akıllı Menü (kartlı menüler)", "Mezat, market, siparişler, mağaza, oyun ve rol seçimi kartlarla, aramalı açılır.",
+				Ayarlar.akilliMenu, () -> Ayarlar.akilliMenu = !Ayarlar.akilliMenu);
+		if (!Ayarlar.klasikBasliklar.isEmpty()) {
+			Dugme d = ic("a:klasik", () -> { Ayarlar.klasikBasliklar.clear(); Ayarlar.kaydet(); }, x, y, w, 18);
+			dugmeCiz(g, d, "Eski görünüm seçtiğin " + Ayarlar.klasikBasliklar.size() + " menüyü sıfırla", 0xFF4B5563, mx, my);
+			y += 22;
+		}
 		y = anahtar(g, mx, my, "a:cam", x, y, w, "Süs camlarını gizle", "Menülerdeki boş renkli cam dolgular yerine temiz panel.",
 				Ayarlar.camGizle, () -> Ayarlar.camGizle = !Ayarlar.camGizle);
 		y = anahtar(g, mx, my, "a:bildirim", x, y, w, "Köşe bildirimleri", "Ödül, kozmetik ve etkinlik bildirimleri sağ üstte.",

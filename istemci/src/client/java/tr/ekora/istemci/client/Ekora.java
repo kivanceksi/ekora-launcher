@@ -26,6 +26,24 @@ public final class Ekora {
 	static volatile String surum = "1.1.0";
 	private static boolean selamGosterildi;
 
+	/** Sunucunun "şimdi açılan sandık bir eklenti menüsü" ipucu (Akıllı Menü için). */
+	public record GuiIpucu(String baslik, String eklenti, boolean akilli, long zaman) { }
+
+	private static volatile GuiIpucu ipucu;
+
+	/** Başlığı eşleşen ve 5 sn içinde gelmiş ipucu; yoksa null. Bir kez kullanılır. */
+	public static GuiIpucu ipucuAl(String baslik) {
+		GuiIpucu i = ipucu;
+		if (i == null || System.currentTimeMillis() - i.zaman() > 5000 || !i.baslik().equals(baslik)) return null;
+		ipucu = null;
+		return i;
+	}
+
+	/** Testler için. */
+	public static void ipucuAyarla(String baslik, String eklenti, boolean akilli) {
+		ipucu = new GuiIpucu(baslik, eklenti, akilli, System.currentTimeMillis());
+	}
+
 	public static boolean destekli() { return destek; }
 
 	public static String surum() { return surum; }
@@ -101,6 +119,7 @@ public final class Ekora {
 				else mc.gui.setScreen(new DolapEkrani(o));
 			}
 			case "kasa" -> mc.gui.setScreen(new KasaEkrani(o));
+			case "gui" -> ipucu = new GuiIpucu(Json.yazi(o, "baslik", ""), Json.yazi(o, "eklenti", ""), Json.mantik(o, "akilli", false), System.currentTimeMillis());
 			case "hata" -> {
 				if (acik instanceof CarkEkrani c) c.hata(Json.yazi(o, "mesaj", ""));
 				Bildirimler.ekle(Json.yazi(o, "baslik", "Olmadı"), Json.yazi(o, "mesaj", ""), "minecraft:barrier", Cizim0.KIRMIZI);
