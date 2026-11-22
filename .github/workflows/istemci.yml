@@ -59,3 +59,25 @@ jobs:
             istemci/build/run/**/logs/latest.log
             istemci/run/**/logs/latest.log
           if-no-files-found: warn
+
+  # Çıktılar (jar + ekran görüntüleri) ayrı bir dala da yazılır: geliştirme ortamı artifact deposuna erişemiyor.
+  cikti-dali:
+    needs: [derle, ekran-testi]
+    if: ${{ !cancelled() && needs.derle.result == 'success' }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: cikti
+      - name: istemci-cikti dalına yaz
+        run: |
+          cd cikti
+          find . -type f | sort
+          git init -q -b istemci-cikti
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -qm "Ekora İstemci çıktıları: ${GITHUB_SHA}"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" istemci-cikti
