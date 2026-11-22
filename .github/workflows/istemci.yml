@@ -43,7 +43,7 @@ jobs:
                    net.minecraft.client.gui.GuiGraphicsExtractor net.minecraft.client.gui.screens.Screen net.minecraft.client.gui.screens.ConfirmLinkScreen \
                    net.minecraft.util.Util net.minecraft.world.item.ItemStack net.minecraft.client.gui.Font net.minecraft.client.gui.screens.inventory.InventoryScreen \
                    net.minecraft.client.Minecraft net.minecraft.client.gui.Gui net.minecraft.client.gui.components.EditBox net.minecraft.client.player.LocalPlayer \
-                   net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent net.minecraft.network.chat.Component net.minecraft.world.item.component.ItemLore; do
+                   net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent net.minecraft.network.chat.Component net.minecraft.world.item.component.ItemLore net.minecraft.client.gui.screens.ChatScreen net.minecraft.client.gui.components.ChatComponent; do
             echo "=== $c" >> build/kesif/javap.txt
             javap -p -cp "$J" "$c" >> build/kesif/javap.txt 2>&1 || true
           done

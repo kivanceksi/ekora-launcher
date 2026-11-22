@@ -71,6 +71,8 @@ public final class SandikGorunumu {
 
 	public static void arkaPlan(GuiGraphicsExtractor g, int x0, int y0, int w, int h, AbstractContainerMenu menu, int satir) {
 		int ust = satir * 18 + 17;
+		// arkadaki dünyayı hafifçe karart (okunurluk)
+		Cizim.degradeY(g, 0, 0, g.guiWidth(), g.guiHeight(), 0x60060812, 0x900A0C18);
 		// dış panel
 		Cizim.panel(g, x0 - 7, y0 - 5, w + 14, h + 10, 0x50000000, 0);
 		Cizim.panel(g, x0 - 5, y0 - 3, w + 10, h + 6, Cizim.ARKA, Cizim.KENAR);
