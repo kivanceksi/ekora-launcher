@@ -52,10 +52,18 @@ public class IstemciEkranTesti implements FabricClientGameTest {
 			{"id":"h","ad":"Kar Topu","yuva":"sapka","ikon":"minecraft:snow_block","nadirlik":"yaygin","sahip":false,"takili":false,"fiyat":1200}]}""";
 
 	static final String KASA = """
-			{"t":"kasa","kasa":2,"kivilcim":12500,"kopya":false,"odul":{"ad":"Ejder Başı","ikon":"minecraft:dragon_head","nadirlik":"efsanevi"},"havuz":[
+			{"t":"kasa","hak":2,"fiyat":3500,"kivilcim":12500,"kopya":false,"odul":{"id":"ejder","ad":"Ejder Başı","ikon":"minecraft:dragon_head","nadirlik":"efsanevi"},"havuz":[
 			{"ad":"Balkabağı","ikon":"minecraft:carved_pumpkin","nadirlik":"yaygin"},{"ad":"Mantar","ikon":"minecraft:red_mushroom","nadirlik":"yaygin"},
 			{"ad":"Kafatası","ikon":"minecraft:skeleton_skull","nadirlik":"nadir"},{"ad":"Elmas Miğfer","ikon":"minecraft:diamond_helmet","nadirlik":"destansi"},
 			{"ad":"Kar Topu","ikon":"minecraft:snow_block","nadirlik":"yaygin"},{"ad":"Cam Kubbe","ikon":"minecraft:glass","nadirlik":"nadir"}]}""";
+
+	static final String KASA_ONAY = """
+			{"t":"kasa","onay":true,"hak":0,"fiyat":3500,"kivilcim":12500,"kalan":23,"etkin":true,"oranlar":[
+			{"nadirlik":"yaygin","yuzde":52,"adet":11},{"nadirlik":"nadir","yuzde":30,"adet":7},{"nadirlik":"destansi","yuzde":14,"adet":4},{"nadirlik":"efsanevi","yuzde":4,"adet":1}],"havuz":[
+			{"ad":"Balkabağı","ikon":"minecraft:carved_pumpkin","nadirlik":"yaygin"},{"ad":"Mantar","ikon":"minecraft:red_mushroom","nadirlik":"yaygin"},
+			{"ad":"Kafatası","ikon":"minecraft:skeleton_skull","nadirlik":"nadir"},{"ad":"Elmas Miğfer","ikon":"minecraft:diamond_helmet","nadirlik":"destansi"},
+			{"ad":"Ejder Başı","ikon":"minecraft:dragon_head","nadirlik":"efsanevi"},{"ad":"Kar Topu","ikon":"minecraft:snow_block","nadirlik":"yaygin"},
+			{"ad":"Cam Kubbe","ikon":"minecraft:glass","nadirlik":"nadir"},{"ad":"Taç","ikon":"minecraft:golden_helmet","nadirlik":"destansi"}]}""";
 
 	@Override
 	public void runTest(ClientGameTestContext context) {
@@ -80,6 +88,9 @@ public class IstemciEkranTesti implements FabricClientGameTest {
 			context.waitTicks(170);
 			context.takeScreenshot("ekora_cark_sonuc");
 
+			context.setScreen(() -> new KasaEkrani(j(KASA_ONAY)));
+			context.waitTicks(10);
+			context.takeScreenshot("ekora_kasa_onay");
 			context.setScreen(() -> new KasaEkrani(j(KASA)));
 			context.waitTicks(40);
 			context.takeScreenshot("ekora_kasa_donuyor");

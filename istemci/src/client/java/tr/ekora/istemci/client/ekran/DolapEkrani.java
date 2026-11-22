@@ -80,7 +80,9 @@ public final class DolapEkrani extends EkoraEkran {
 		if (u.sahip()) {
 			if (u.takili()) Ekora.istek("cikar", "yuva", u.yuva());
 			else Ekora.istek("giy", "id", u.id());
-		} else if (u.satista() && u.fiyat() > 0) Ekora.istek("satin", "id", u.id());
+		} else if (u.satista() && u.fiyat() > 0) {
+			if (kivilcim >= u.fiyat() && onay(eylem)) Ekora.istek("satin", "id", u.id());
+		}
 		else Ekora.istek("onizle", "id", u.id());
 	}
 
@@ -194,7 +196,11 @@ public final class DolapEkrani extends EkoraEkran {
 			String et;
 			int renk;
 			if (u.sahip()) { et = u.takili() ? "Çıkar" : "Giy"; renk = u.takili() ? 0xFF6B7280 : Cizim.YESIL; }
-			else if (u.satista() && u.fiyat() > 0) { et = "✦ " + Cizim.sayi(u.fiyat()) + " ile al"; renk = kivilcim >= u.fiyat() ? Cizim.ALTIN : 0xFF6B7280; }
+			else if (u.satista() && u.fiyat() > 0) {
+				boolean yeter = kivilcim >= u.fiyat();
+				et = !yeter ? "Eksik: ✦ " + Cizim.sayi(u.fiyat() - kivilcim) : onayda(eylem) ? "Emin misin? ✦ " + Cizim.sayi(u.fiyat()) : "✦ " + Cizim.sayi(u.fiyat()) + " ile al";
+				renk = !yeter ? 0xFF6B7280 : onayda(eylem) ? Cizim.KIRMIZI : Cizim.ALTIN;
+			}
 			else { et = "Önizle"; renk = Cizim.CAMGOBEGI; }
 			eylem.aktif = true;
 			eylem.yer(rx + 6, ry + rh - 26, sagW - 12, 20);

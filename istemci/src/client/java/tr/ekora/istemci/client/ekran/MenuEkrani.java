@@ -34,7 +34,7 @@ public final class MenuEkrani extends EkoraEkran {
 		long cark = Json.sayi(v, "cark", 0), kasa = Json.sayi(v, "kasa", 0);
 		kart(() -> Ekora.istek("dolap"), "minecraft:leather_chestplate", "Kozmetik Dolabı", Json.sayi(v, "kozmetik", 0) + " kozmetiğin var", Cizim.renk("#EC4899", Cizim.MOR));
 		kart(() -> Ekora.istek("cark"), "minecraft:sunflower", "Şans Çarkı", cark > 0 ? cark + " çevirme hakkın var!" : "Bugünkü hakkını kontrol et", Cizim.ALTIN);
-		kart(() -> Ekora.istek("kasa_ac"), "minecraft:ender_chest", "Kıvılcım Kasası", kasa > 0 ? kasa + " açma hakkın var" : "Rastgele kozmetik kazan", Cizim.MOR);
+		kart(() -> Ekora.istek("kasa"), "minecraft:ender_chest", "Kıvılcım Kasası", kasa > 0 ? kasa + " açma hakkın var" : "Rastgele kozmetik kazan", Cizim.MOR);
 		for (JsonObject k : Json.liste(v, "kisayollar")) {
 			String komut = Json.yazi(k, "id", "");
 			if (komut.isEmpty()) continue;

@@ -100,6 +100,12 @@ public final class Cizim {
 		if (id == null || id.isBlank()) return new ItemStack(Items.PAPER);
 		try {
 			String s = id.toLowerCase(java.util.Locale.ROOT);
+			if (s.startsWith("model:")) { // kaynak paketi modeli (Ekora kozmetikleri): kağıt + item_model bileşeni
+				String m = s.substring(6);
+				ItemStack st = new ItemStack(Items.PAPER);
+				st.set(net.minecraft.core.component.DataComponents.ITEM_MODEL, m.contains(":") ? Identifier.parse(m) : Identifier.fromNamespaceAndPath("ekora", m));
+				return st;
+			}
 			if (!s.contains(":")) s = "minecraft:" + s;
 			Item it = BuiltInRegistries.ITEM.getValue(Identifier.parse(s));
 			if (it == null || it == Items.AIR) return new ItemStack(Items.PAPER);

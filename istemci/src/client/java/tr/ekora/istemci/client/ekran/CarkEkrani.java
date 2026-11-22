@@ -65,6 +65,7 @@ public final class CarkEkrani extends EkoraEkran {
 
 	private void cevir() {
 		if (!cevrilebilir()) return;
+		if (hak <= 0 && !onay(cevir)) return; // Kıvılcım ile çevirme iki tık ister
 		durum = Durum.BEKLIYOR;
 		bekleBas = System.currentTimeMillis();
 		kazanan = -1;
@@ -202,7 +203,7 @@ public final class CarkEkrani extends EkoraEkran {
 		}
 		String etiket = durum == Durum.BEKLIYOR || durum == Durum.YAVASLIYOR ? "Dönüyor…"
 				: hak > 0 ? (durum == Durum.BITTI ? "TEKRAR ÇEVİR!" : "ÇEVİR!")
-				: ucret > 0 ? "✦ " + Cizim.sayi(ucret) + " ile çevir" : "Hakkın yok";
+				: ucret > 0 ? (onayda(cevir) ? "Emin misin? ✦ " + Cizim.sayi(ucret) : "✦ " + Cizim.sayi(ucret) + " ile çevir") : "Hakkın yok";
 		cevir.aktif = cevrilebilir();
 		cevir.yer(rx + 7, ry + ph - 40 - 27, rw - 14, 20);
 		dugmeCiz(g, cevir, etiket, Cizim.ALTIN, mx, my);

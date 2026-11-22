@@ -43,6 +43,25 @@ public abstract class EkoraEkran extends Screen {
 		public boolean ustunde(double mx, double my) { return Cizim.icinde(mx, my, x, y, w, h); }
 	}
 
+	private Dugme onayDugme;
+	private long onayZamani;
+
+	/** Para harcayan düğmeler için iki tık: ilk tık onay ister, 3,5 sn içinde ikinci tık true döner. */
+	protected boolean onay(Dugme d) {
+		long s = System.currentTimeMillis();
+		if (onayDugme == d && s - onayZamani < 3500) {
+			onayDugme = null;
+			return true;
+		}
+		onayDugme = d;
+		onayZamani = s;
+		return false;
+	}
+
+	protected boolean onayda(Dugme d) {
+		return onayDugme == d && System.currentTimeMillis() - onayZamani < 3500;
+	}
+
 	protected Dugme dugme(Runnable eylem) {
 		Dugme d = new Dugme(eylem);
 		dugmeler.add(d);
@@ -75,7 +94,8 @@ public abstract class EkoraEkran extends Screen {
 	public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float delta) {
 		fareX = mouseX;
 		fareY = mouseY;
-		this.extractBackground(g, mouseX, mouseY, delta);
+		// 26.3: Screen.extractRenderState arka planı (bulanıklık) kendisi çizer; kare başına bir kez olmalı
+		super.extractRenderState(g, mouseX, mouseY, delta);
 		float a = acilisOrani();
 		g.pose().pushMatrix();
 		float s = 0.94f + 0.06f * a;
@@ -97,7 +117,6 @@ public abstract class EkoraEkran extends Screen {
 		g.fill(px + 8, py + 22, px + pw - 8, py + 23, Cizim.KENAR);
 		icerik(g, mouseX, mouseY, delta);
 		g.pose().popMatrix();
-		super.extractRenderState(g, mouseX, mouseY, delta);
 		ustKatman(g, mouseX, mouseY, delta);
 	}
 
