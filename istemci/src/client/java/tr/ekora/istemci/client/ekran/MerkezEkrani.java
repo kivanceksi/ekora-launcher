@@ -27,9 +27,11 @@ public final class MerkezEkrani extends EkoraEkran {
 	private static final List<Sekme> SEKMELER = List.of(
 			new Sekme("ana", "Ana Sayfa", Cizim.esya("minecraft:beacon"), Cizim.MOR, false),
 			new Sekme("oyunlar", "Oyunlar", Cizim.esya("minecraft:diamond_sword"), 0xFFF87171, false),
+			new Sekme("gorevler", "Görevler", Cizim.esya("minecraft:writable_book"), 0xFF4ADE80, false),
 			new Sekme("sosyal", "Arkadaşlar", Cizim.esya("minecraft:player_head"), 0xFF38BDF8, false),
 			new Sekme("oduller", "Ödüller", Cizim.esya("minecraft:sunflower"), Cizim.ALTIN, false),
 			new Sekme("sezon", "Sezon Kartı", Cizim.esya("minecraft:experience_bottle"), Cizim.YESIL, false),
+			new Sekme("siralama", "Sıralamalar", Cizim.esya("minecraft:golden_helmet"), 0xFFFACC15, false),
 			new Sekme("kozmetik", "Kozmetik", Cizim.esya("minecraft:leather_chestplate"), 0xFFEC4899, true),
 			new Sekme("cark", "Şans Çarkı", Cizim.esya("minecraft:clock"), 0xFFFACC15, true),
 			new Sekme("kasa", "Kıvılcım Kasası", Cizim.esya("minecraft:ender_chest"), 0xFFA855F7, true),
@@ -49,8 +51,11 @@ public final class MerkezEkrani extends EkoraEkran {
 		guncelle(veri, ilkSekme);
 	}
 
+	private long alinma = System.currentTimeMillis();
+
 	public void guncelle(JsonObject veri, String yeniSekme) {
 		this.v = veri;
+		this.alinma = System.currentTimeMillis();
 		ikonOnbellek.clear();
 		if (yeniSekme != null && !yeniSekme.isEmpty() && SEKMELER.stream().anyMatch(s -> s.id().equals(yeniSekme))) {
 			if (!yeniSekme.equals(sekme)) kaydirma.remove(yeniSekme);
@@ -97,7 +102,7 @@ public final class MerkezEkrani extends EkoraEkran {
 		int sx = px + 8, sy = py + 28, sw = Math.min(104, pw / 4 + 4);
 		Cizim.panel(g, sx, sy, sw, ph - 36, 0xC0101425, Cizim.KENAR);
 		int ty = sy + 4;
-		int sh = Math.max(16, Math.min(20, (ph - 44) / SEKMELER.size()));
+		int sh = Math.max(13, Math.min(20, (ph - 40) / SEKMELER.size()));
 		for (Sekme s : SEKMELER) {
 			Dugme d = dg("sekme:" + s.id(), () -> sekmeSec(s));
 			d.yer(sx + 3, ty, sw - 6, sh - 2);
@@ -134,6 +139,8 @@ public final class MerkezEkrani extends EkoraEkran {
 		icerikYuksekligi = switch (sekme) {
 			case "oyunlar" -> oyunlar(g, mx, my, y0);
 			case "sosyal" -> sosyal(g, mx, my, y0);
+			case "gorevler" -> gorevler(g, mx, my, y0);
+			case "siralama" -> siralama(g, mx, my, y0);
 			case "oduller" -> oduller(g, mx, my, y0);
 			case "sezon" -> sezon(g, mx, my, icY);
 			case "profil" -> profil(g, mx, my, y0);
@@ -155,6 +162,7 @@ public final class MerkezEkrani extends EkoraEkran {
 		return switch (id) {
 			case "oduller" -> Json.mantik(v, "gunlukHazir", false) ? "!" : null;
 			case "sosyal" -> { int n = Json.liste(alt("sosyal"), "istekler").size(); yield n > 0 ? String.valueOf(n) : null; }
+			case "gorevler" -> { JsonObject gr = alt("gorevler"); long b = Json.sayi(gr, "biten", 0); yield gr.has("gunluk") && b < 3 ? b + "/3" : null; }
 			case "sezon" -> { long n = Json.sayi(alt("sezon"), "bekleyen", 0); yield n > 0 ? String.valueOf(n) : null; }
 			case "cark" -> { long n = Json.sayi(v, "cark", 0); yield n > 0 ? String.valueOf(n) : null; }
 			case "kasa" -> { long n = Json.sayi(v, "kasa", 0); yield n > 0 ? String.valueOf(n) : null; }
@@ -260,6 +268,9 @@ public final class MerkezEkrani extends EkoraEkran {
 		kartlar.add(new Object[]{"k:cark", (Runnable) () -> Ekora.istek("cark"), "minecraft:clock", "Şans Çarkı", cark > 0 ? cark + " çevirme hakkı" : "Hakkını kontrol et", 0xFFFACC15});
 		kartlar.add(new Object[]{"k:kasa", (Runnable) () -> Ekora.istek("kasa"), "minecraft:ender_chest", "Kıvılcım Kasası", kasa > 0 ? kasa + " bedava açma" : "Rastgele kozmetik", Cizim.MOR});
 		kartlar.add(new Object[]{"k:dolap", (Runnable) () -> Ekora.istek("dolap"), "minecraft:leather_chestplate", "Kozmetik Dolabı", Json.sayi(v, "kozmetik", 0) + " kozmetik", 0xFFEC4899});
+		JsonObject gr = alt("gorevler");
+		kartlar.add(new Object[]{"k:gorev", (Runnable) () -> sekme = "gorevler", "minecraft:writable_book", "Günlük Görevler",
+				Json.sayi(gr, "biten", 0) + "/3 tamam", 0xFF4ADE80});
 		kartlar.add(new Object[]{"k:oyunlar", (Runnable) () -> sekme = "oyunlar", "minecraft:diamond_sword", "Oyunlar", Json.liste(v, "oyunlar").size() + " mod", 0xFFF87171});
 		long bek = Json.sayi(sz, "bekleyen", 0);
 		kartlar.add(new Object[]{"k:sezon", (Runnable) () -> sekme = "sezon", "minecraft:experience_bottle", "Sezon Kartı", bek > 0 ? bek + " ödül seni bekliyor" : Json.yazi(sz, "ad", "Sezon"), Cizim.YESIL});
@@ -277,6 +288,110 @@ public final class MerkezEkrani extends EkoraEkran {
 		}
 		y += ((kartlar.size() + sutun - 1) / sutun) * (kh + 5);
 		return y - y0 + 4;
+	}
+
+	// ------------------------------------------------------------------ Görevler
+	private static String sure(long sn) {
+		if (sn <= 0) return "şimdi";
+		long g = sn / 86400, s = sn % 86400 / 3600, d = sn % 3600 / 60;
+		return g > 0 ? g + " gün " + s + " sa" : s > 0 ? s + " sa " + d + " dk" : d + " dk";
+	}
+
+	private int gorevKarti(GuiGraphicsExtractor g, JsonObject o, int x, int y, int w, int renk, boolean buyuk) {
+		boolean bitti = Json.mantik(o, "bitti", false);
+		long il = Json.sayi(o, "ilerleme", 0), hd = Math.max(1, Json.sayi(o, "hedef", 1));
+		int h = buyuk ? 40 : 34;
+		Cizim.panel(g, x, y, w, h, bitti ? 0xC0102A1C : 0xC0141828, bitti ? Cizim.koyu(Cizim.YESIL, 0.3f) : Cizim.KENAR);
+		if (!bitti) Cizim.degradeX(g, x + 1, y + 1, w / 3, h - 2, Cizim.alfa(renk, 0.12f), 0x00000000);
+		Cizim.panel(g, x + 5, y + (h - 24) / 2, 24, 24, Cizim.koyu(renk, 0.7f), 0);
+		g.fakeItem(ikon(Json.yazi(o, "ikon", "minecraft:paper")), x + 9, y + (h - 24) / 2 + 4);
+		int tx = x + 36, tw = w - 36 - 8;
+		String odul = Json.yazi(o, "odul", "");
+		int ow = Math.min(tw / 2, this.font.width(odul));
+		sigdirarakYaz(g, (bitti ? "§a✔ " : "") + Json.yazi(o, "metin", ""), tx, y + 5, tw - ow - 8, bitti ? Cizim.YESIL : 0xFFFFFFFF, 0.7f, false);
+		sigdirarakYaz(g, odul, x + w - 8 - ow, y + 5, ow, Cizim.ALTIN, 0.6f, false);
+		int by = y + h - 13;
+		cubuk(g, tx, by + 2, tw - 44, 5, il / (double) hd, bitti ? Cizim.YESIL : renk, bitti ? Cizim.YESIL : Cizim.CAMGOBEGI);
+		String sayi = Math.min(il, hd) + "/" + hd;
+		g.text(this.font, sayi, x + w - 8 - this.font.width(sayi), by, bitti ? Cizim.YESIL : Cizim.YAZI);
+		return y + h + 4;
+	}
+
+	private int gorevler(GuiGraphicsExtractor g, int mx, int my, int y0) {
+		int x = icX, w = icW - 6, y = y0;
+		JsonObject gr = alt("gorevler");
+		if (!gr.has("gunluk")) { g.text(this.font, "Görevler şu an kapalı.", x, y + 10, Cizim.SOLUK); return 30; }
+		long gecen = (System.currentTimeMillis() - alinma) / 1000;
+		bolumBasligi(g, "Günlük görevler", x, y, 0xFF4ADE80);
+		String kalan = "Yenilenir: " + sure(Json.sayi(gr, "kalanSn", 0) - gecen);
+		g.text(this.font, kalan, x + w - this.font.width(kalan), y, Cizim.SOLUK);
+		y += 13;
+		int[] renkler = {0xFF22D3EE, 0xFFA855F7, 0xFFFB923C};
+		List<JsonObject> gl = Json.liste(gr, "gunluk");
+		for (int i = 0; i < gl.size(); i++) y = gorevKarti(g, gl.get(i), x, y, w, renkler[i % 3], false);
+		JsonObject bonus = alt2(gr, "bonus");
+		boolean bb = Json.mantik(bonus, "bitti", false);
+		long biten = Json.sayi(gr, "biten", 0);
+		Cizim.panel(g, x, y, w, 18, bb ? 0xC0102A1C : 0xC0221C10, bb ? Cizim.koyu(Cizim.YESIL, 0.3f) : Cizim.koyu(Cizim.ALTIN, 0.4f));
+		g.fakeItem(ikon("minecraft:totem_of_undying"), x + 4, y + 1);
+		sigdirarakYaz(g, (bb ? "§a✔ " : "") + "Üçünü de bitir: " + Json.yazi(bonus, "metin", ""), x + 24, y + 5, w - 70, bb ? Cizim.YESIL : Cizim.ALTIN, 0.7f, false);
+		String bs = biten + "/3";
+		g.text(this.font, bs, x + w - 8 - this.font.width(bs), y + 5, bb ? Cizim.YESIL : Cizim.YAZI);
+		y += 26;
+		bolumBasligi(g, "Haftalık görev", x, y, 0xFFFACC15);
+		String hk = "Kalan: " + sure(Json.sayi(gr, "haftaKalanSn", 0) - gecen);
+		g.text(this.font, hk, x + w - this.font.width(hk), y, Cizim.SOLUK);
+		y += 13;
+		y = gorevKarti(g, alt2(gr, "haftalik"), x, y, w, 0xFFFACC15, true);
+		sigdirarakYaz(g, "Görev bitince ödül kendiliğinden verilir. Yaratıcı modda, lobide ve kendi koyduğun bloklarda ilerleme sayılmaz.", x, y + 2, w, 0xFF6B7280, 0.6f, false);
+		return y - y0 + 14;
+	}
+
+	private static JsonObject alt2(JsonObject o, String k) {
+		return o.has(k) && o.get(k).isJsonObject() ? o.getAsJsonObject(k) : new JsonObject();
+	}
+
+	// ------------------------------------------------------------------ Sıralamalar
+	private int siralama(GuiGraphicsExtractor g, int mx, int my, int y0) {
+		int x = icX, w = icW - 6, y = y0;
+		List<JsonObject> ls = Json.liste(alt("siralama"), "listeler");
+		if (ls.isEmpty()) { g.text(this.font, "Sıralama yükleniyor…", x, y + 10, Cizim.SOLUK); return 30; }
+		int sutun = w >= 300 ? ls.size() : 1;
+		int kw = (w - (sutun - 1) * 5) / sutun;
+		int enAlt = y;
+		for (int i = 0; i < ls.size(); i++) {
+			JsonObject l = ls.get(i);
+			int kx = x + (i % sutun) * (kw + 5);
+			int ky = sutun == 1 ? enAlt : y;
+			int renk = Cizim.renk(Json.yazi(l, "renk", null), Cizim.CAMGOBEGI);
+			List<JsonObject> ilk = Json.liste(l, "ilk");
+			int kh = 22 + Math.max(1, ilk.size()) * 13 + 20;
+			Cizim.panel(g, kx, ky, kw, kh, 0xC0141828, Cizim.koyu(renk, 0.45f));
+			Cizim.degradeY(g, kx + 1, ky + 1, kw - 2, 20, Cizim.alfa(renk, 0.22f), 0x00000000);
+			g.fakeItem(ikon(Json.yazi(l, "ikon", "minecraft:paper")), kx + 4, ky + 3);
+			sigdirarakYaz(g, "§l" + Json.yazi(l, "ad", ""), kx + 23, ky + 7, kw - 27, renk, 0.7f, false);
+			int ry = ky + 22;
+			if (ilk.isEmpty()) g.text(this.font, "Henüz kimse yok", kx + 6, ry, Cizim.SOLUK);
+			for (int j = 0; j < ilk.size(); j++) {
+				JsonObject r = ilk.get(j);
+				boolean ben = Json.mantik(r, "ben", false);
+				int sr = j == 0 ? 0xFFFACC15 : j == 1 ? 0xFFCBD5E1 : j == 2 ? 0xFFD97706 : Cizim.SOLUK;
+				if (ben) g.fill(kx + 2, ry - 2, kx + kw - 2, ry + 10, Cizim.alfa(renk, 0.25f));
+				g.text(this.font, "#" + (j + 1), kx + 5, ry, sr);
+				String deger = Json.yazi(r, "deger", "");
+				int dw = (int) (this.font.width(deger) * 0.75f);
+				sigdirarakYaz(g, Json.yazi(r, "ad", ""), kx + 24, ry, kw - 32 - dw, ben ? 0xFFFFFFFF : Cizim.YAZI, 0.7f, false);
+				sigdirarakYaz(g, deger, kx + kw - 5 - dw, ry, dw, renk, 0.75f, false);
+				ry += 13;
+			}
+			g.fill(kx + 4, ky + kh - 19, kx + kw - 4, ky + kh - 18, Cizim.KENAR);
+			long sira = Json.sayi(l, "sira", 0);
+			String sen = sira > 0 ? "Sen: #" + sira + " • " + Json.yazi(l, "deger", "") : "Henüz listede değilsin";
+			sigdirarakYaz(g, sen, kx + 5, ky + kh - 13, kw - 10, sira > 0 ? 0xFFFFFFFF : Cizim.SOLUK, 0.6f, false);
+			enAlt = Math.max(enAlt, ky + kh + 6);
+		}
+		sigdirarakYaz(g, "Sıralamalar dakikada bir yenilenir. Seri: bugün ya da dün günlük ödülü alanlar.", x, enAlt, w, 0xFF6B7280, 0.6f, false);
+		return enAlt - y0 + 12;
 	}
 
 	/** "2.000 ✦ • +1 çark" → "2.000 ✦" (kart altına sığsın; tamamı ipucunda). */

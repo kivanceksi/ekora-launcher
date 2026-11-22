@@ -21,23 +21,25 @@ public final class DolapEkrani extends EkoraEkran {
 	private record Yuva(String kod, String ad, ItemStack ikon) { }
 
 	private record Urun(String id, String ad, String yuva, ItemStack ikon, String nadirlik, boolean sahip, boolean takili, long fiyat,
-						List<String> aciklama, boolean satista) { }
+						List<String> aciklama, boolean satista, long epFiyat, long epIndirim) { }
 
 	private final List<Yuva> yuvalar = new ArrayList<>();
 	private final List<Urun> urunler = new ArrayList<>();
 	private final List<Dugme> yuvaDugmeleri = new ArrayList<>();
 	private final List<Dugme> kartDugmeleri = new ArrayList<>();
 	private String seciliYuva = null, seciliUrun = null;
-	private long kivilcim;
+	private long kivilcim, ep;
+	private String epBirim = "EP";
 	private boolean sadeceSahip = false;
 	private int kaydir = 0;
-	private final Dugme eylem, sahipFiltre, tumunuCikar;
+	private final Dugme eylem, sahipFiltre, tumunuCikar, epAl;
 	private long sonTik;
 	private String sonTikId;
 
 	public DolapEkrani(JsonObject v) {
 		super("Kozmetik Dolabı");
 		eylem = dugme(this::eylemYap);
+		epAl = dugme(this::epIleAl);
 		sahipFiltre = dugme(() -> { sadeceSahip = !sadeceSahip; kaydir = 0; });
 		tumunuCikar = dugme(() -> Ekora.istek("cikar", "yuva", "*"));
 		guncelle(v);
@@ -45,6 +47,8 @@ public final class DolapEkrani extends EkoraEkran {
 
 	public void guncelle(JsonObject v) {
 		kivilcim = Json.sayi(v, "kivilcim", kivilcim);
+		ep = Json.sayi(v, "ep", ep);
+		epBirim = Json.yazi(v, "epBirim", epBirim);
 		List<JsonObject> ys = Json.liste(v, "yuvalar");
 		if (!ys.isEmpty()) {
 			yuvalar.clear();
@@ -54,13 +58,18 @@ public final class DolapEkrani extends EkoraEkran {
 		for (JsonObject u : Json.liste(v, "urunler")) {
 			urunler.add(new Urun(Json.yazi(u, "id", ""), Json.yazi(u, "ad", ""), Json.yazi(u, "yuva", ""), Cizim.esya(Json.yazi(u, "ikon", "minecraft:paper")),
 					Json.yazi(u, "nadirlik", "yaygin"), Json.mantik(u, "sahip", false), Json.mantik(u, "takili", false), Json.sayi(u, "fiyat", 0),
-					Json.yazilar(u, "aciklama"), Json.mantik(u, "satista", true)));
+					Json.yazilar(u, "aciklama"), Json.mantik(u, "satista", true), Json.sayi(u, "epFiyat", 0), Json.sayi(u, "epIndirim", 0)));
 		}
 		if (seciliYuva == null || yuvalar.stream().noneMatch(y -> y.kod().equals(seciliYuva))) seciliYuva = yuvalar.isEmpty() ? null : yuvalar.get(0).kod();
 		while (yuvaDugmeleri.size() < yuvalar.size()) {
 			int idx = yuvaDugmeleri.size();
 			yuvaDugmeleri.add(dugme(() -> { if (idx < yuvalar.size()) { seciliYuva = yuvalar.get(idx).kod(); kaydir = 0; seciliUrun = null; } }));
 		}
+	}
+
+	/** Bir ürünü seçili yap (ör. kasadan yeni çıkan ürüne odaklanmak için). */
+	public void sec(String id) {
+		for (Urun u : urunler) if (u.id().equals(id)) { seciliUrun = id; seciliYuva = u.yuva(); }
 	}
 
 	private List<Urun> gorunen() {
@@ -83,7 +92,14 @@ public final class DolapEkrani extends EkoraEkran {
 		} else if (u.satista() && u.fiyat() > 0) {
 			if (kivilcim >= u.fiyat() && onay(eylem)) Ekora.istek("satin", "id", u.id());
 		}
-		else Ekora.istek("onizle", "id", u.id());
+		else if (u.epFiyat() <= 0) Ekora.istek("onizle", "id", u.id());
+	}
+
+	/** Ekora Puanı ile satın alma (gerçek parayla yüklenen bakiye): iki tık ister. */
+	private void epIleAl() {
+		Urun u = secili();
+		if (u == null || u.sahip() || u.epFiyat() <= 0 || ep < u.epFiyat()) return;
+		if (onay(epAl)) Ekora.istekCok("satin", "id", u.id(), "para", "ep");
 	}
 
 	@Override
@@ -98,7 +114,10 @@ public final class DolapEkrani extends EkoraEkran {
 	protected void icerik(GuiGraphicsExtractor g, int mx, int my, float delta) {
 		int ust = py + 28;
 		// bakiye
-		rozet(g, px + pw - 26 - this.font.width("✦ " + Cizim.sayi(kivilcim)) - 10, py + 6, "✦ " + Cizim.sayi(kivilcim), Cizim.ALTIN);
+		int rz = px + pw - 26 - this.font.width("✦ " + Cizim.sayi(kivilcim)) - 10;
+		rozet(g, rz, py + 6, "✦ " + Cizim.sayi(kivilcim), Cizim.ALTIN);
+		String eps = "◆ " + Cizim.sayi(ep) + " " + epBirim;
+		rozet(g, rz - this.font.width(eps) - 14, py + 6, eps, Cizim.CAMGOBEGI);
 		// sol: yuvalar
 		int lx = px + 8, lw = 92;
 		for (int i = 0; i < yuvalar.size() && i < yuvaDugmeleri.size(); i++) {
@@ -181,14 +200,17 @@ public final class DolapEkrani extends EkoraEkran {
 			g.centeredText(this.font, "Bir kozmetik seç", rx + sagW / 2, ty + 4, Cizim.SOLUK);
 			eylem.aktif = false;
 			eylem.yer(-100, -100, 0, 0);
+			epAl.aktif = false;
+			epAl.yer(-100, -100, 0, 0);
 		} else {
+			boolean epVar = !u.sahip() && u.epFiyat() > 0;
 			int nr = Cizim.nadirlikRengi(u.nadirlik());
 			g.text(this.font, Cizim.sigdir(this.font, u.ad(), sagW - 12), rx + 6, ty, 0xFFFFFFFF);
 			g.text(this.font, Cizim.nadirlikAdi(u.nadirlik()), rx + 6, ty + 10, nr);
 			int ay = ty + 22;
 			for (String s : u.aciklama()) {
 				for (var parca : this.font.split(net.minecraft.network.chat.Component.literal(s), sagW - 12)) {
-					if (ay > ry + rh - 34) break;
+					if (ay > ry + rh - (epVar ? 56 : 34)) break;
 					g.text(this.font, parca, rx + 6, ay, Cizim.SOLUK);
 					ay += 9;
 				}
@@ -201,14 +223,27 @@ public final class DolapEkrani extends EkoraEkran {
 				et = !yeter ? "Eksik: ✦ " + Cizim.sayi(u.fiyat() - kivilcim) : onayda(eylem) ? "Emin misin? ✦ " + Cizim.sayi(u.fiyat()) : "✦ " + Cizim.sayi(u.fiyat()) + " ile al";
 				renk = !yeter ? 0xFF6B7280 : onayda(eylem) ? Cizim.KIRMIZI : Cizim.ALTIN;
 			}
+			else if (epVar) { et = "Önizle"; renk = Cizim.CAMGOBEGI; }
 			else { et = "Önizle"; renk = Cizim.CAMGOBEGI; }
 			eylem.aktif = true;
 			eylem.yer(rx + 6, ry + rh - 26, sagW - 12, 20);
 			dugmeCiz(g, eylem, et, renk, mx, my);
+			if (epVar) {
+				boolean yeter = ep >= u.epFiyat();
+				String fiyat = "◆ " + Cizim.sayi(u.epFiyat()) + " " + epBirim + (u.epIndirim() > 0 ? " (-%" + u.epIndirim() + ")" : "");
+				String e2 = !yeter ? "Eksik: ◆ " + Cizim.sayi(u.epFiyat() - ep) : onayda(epAl) ? "Emin misin? " + fiyat : fiyat + " ile al";
+				epAl.aktif = yeter;
+				epAl.yer(rx + 6, ry + rh - 48, sagW - 12, 20);
+				dugmeCiz(g, epAl, e2, !yeter ? 0xFF6B7280 : onayda(epAl) ? Cizim.KIRMIZI : Cizim.CAMGOBEGI, mx, my);
+			} else {
+				epAl.aktif = false;
+				epAl.yer(-100, -100, 0, 0);
+			}
 		}
 		if (ipucu != null) {
 			final Urun ip = ipucu;
-			g.setTooltipForNextFrame(this.font, net.minecraft.network.chat.Component.literal(ip.ad() + (ip.sahip() ? "" : "  §6✦ " + Cizim.sayi(ip.fiyat()))), mx, my);
+			String fiyatlar = ip.sahip() ? "" : (ip.fiyat() > 0 ? "  §6✦ " + Cizim.sayi(ip.fiyat()) : "") + (ip.epFiyat() > 0 ? "  §b◆ " + Cizim.sayi(ip.epFiyat()) + " " + epBirim : "");
+			g.setTooltipForNextFrame(this.font, net.minecraft.network.chat.Component.literal(ip.ad() + fiyatlar), mx, my);
 		}
 	}
 
