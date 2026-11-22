@@ -114,7 +114,7 @@ public final class DolapEkrani extends EkoraEkran {
 			g.fakeItem(y.ikon(), 0, 0);
 			g.pose().popMatrix();
 			long sahip = urunler.stream().filter(u -> u.yuva().equals(y.kod()) && u.sahip()).count();
-			sigdirarakYaz(g, y.ad(), d.x + 23, d.y + 5, lw - 36, sec ? 0xFFFFFFFF : Cizim.YAZI, 0.7f, false);
+			sigdirarakYaz(g, y.ad(), d.x + 23, d.y + 5, lw - 23 - 6 - this.font.width(String.valueOf(sahip)) - 3, sec ? 0xFFFFFFFF : Cizim.YAZI, 0.7f, false);
 			String s = String.valueOf(sahip);
 			g.text(this.font, s, d.x + d.w - 5 - this.font.width(s), d.y + 5, Cizim.SOLUK);
 		}

@@ -195,7 +195,7 @@ public final class CarkEkrani extends EkoraEkran {
 			float p = Math.min(1f, (System.currentTimeMillis() - bitisZaman) / 300f);
 			int c = dilimler.get(kazanan).renk();
 			Cizim.panel(g, rx + 5, altY - 4, rw - 10, 20, Cizim.alfa(Cizim.koyu(c, 0.6f), p), Cizim.alfa(c, p));
-			g.centeredText(this.font, Cizim.sigdir(this.font, "KAZANDIN: " + mesaj, rw - 16), rx + rw / 2, altY + 2, Cizim.alfa(0xFFFFFFFF, Math.max(0.1f, p)));
+			sigdirarakYaz(g, "KAZANDIN: " + mesaj, rx + 9, altY + 2, rw - 18, Cizim.alfa(0xFFFFFFFF, Math.max(0.1f, p)), 0.7f, true);
 		} else if (!hataMesaji.isEmpty()) {
 			g.centeredText(this.font, Cizim.sigdir(this.font, hataMesaji, rw - 12), rx + rw / 2, altY + 2, Cizim.KIRMIZI);
 		} else if (durum == Durum.BEKLIYOR || durum == Durum.YAVASLIYOR) {
