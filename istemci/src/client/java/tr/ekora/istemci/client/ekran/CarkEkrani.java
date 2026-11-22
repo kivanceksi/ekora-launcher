@@ -272,9 +272,13 @@ public final class CarkEkrani extends EkoraEkran {
 			boolean ters = Math.cos(norm(th)) < 0;
 			g.pose().pushMatrix();
 			g.pose().rotate(ters ? th + (float) Math.PI : th);
-			g.pose().scale(0.75f, 0.75f);
-			String s = Cizim.sigdir(this.font, dilimler.get(i).kisa(), (int) ((R * 0.62f - 22) / 0.75f));
-			int yr = (int) ((R * 0.25f) / 0.75f);
+			// uzun etiketler kesilmez, sığacak kadar küçülür (en az 0,55)
+			String ham = dilimler.get(i).kisa();
+			float bas = R * 0.23f, yer = R * 0.64f - 21;
+			float olc = Math.max(0.55f, Math.min(0.75f, yer / Math.max(1, this.font.width(ham))));
+			g.pose().scale(olc, olc);
+			String s = Cizim.sigdir(this.font, ham, (int) (yer / olc));
+			int yr = (int) (bas / olc);
 			if (ters) g.text(this.font, s, -yr - this.font.width(s), -4, 0xFFFFFFFF);
 			else g.text(this.font, s, yr, -4, 0xFFFFFFFF);
 			g.pose().popMatrix();

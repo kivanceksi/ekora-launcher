@@ -144,8 +144,24 @@ public abstract class EkoraEkran extends Screen {
 		g.fill(d.x + 1, d.y - yuk + 2, d.x + 3, d.y - yuk + d.h - 2, renk);
 		Cizim.panel(g, d.x + 8, d.y - yuk + (d.h - 22) / 2, 22, 22, Cizim.koyu(renk, 0.7f), 0);
 		g.fakeItem(ikon, d.x + 11, d.y - yuk + (d.h - 22) / 2 + 3);
-		g.text(this.font, Cizim.sigdir(this.font, baslik, d.w - 42), d.x + 36, d.y - yuk + d.h / 2 - 9, Cizim.YAZI);
-		g.text(this.font, Cizim.sigdir(this.font, alt, d.w - 42), d.x + 36, d.y - yuk + d.h / 2 + 2, Cizim.SOLUK);
+		sigdirarakYaz(g, baslik, d.x + 36, d.y - yuk + d.h / 2 - 9, d.w - 42, Cizim.YAZI, 0.8f, false);
+		sigdirarakYaz(g, alt, d.x + 36, d.y - yuk + d.h / 2 + 2, d.w - 42, Cizim.SOLUK, 0.72f, false);
+	}
+
+	/**
+	 * Yazıyı genişliğe sığdırır: önce küçültür (en az enAz ölçeğine), yine sığmazsa sonunu "…" ile keser.
+	 * Dikeyde 8 piksellik satırın ortasında kalır.
+	 */
+	protected void sigdirarakYaz(GuiGraphicsExtractor g, String yazi, int x, int y, int genislik, int renk, float enAz, boolean ortala) {
+		int w = this.font.width(yazi);
+		float s = w <= genislik ? 1f : Math.max(enAz, genislik / (float) w);
+		String t = s < 1f ? Cizim.sigdir(this.font, yazi, (int) (genislik / s)) : yazi;
+		int tw = (int) (this.font.width(t) * s);
+		g.pose().pushMatrix();
+		g.pose().translate(ortala ? x + (genislik - tw) / 2f : x, y + (8 - 8 * s) / 2f);
+		g.pose().scale(s, s);
+		g.text(this.font, t, 0, 0, renk);
+		g.pose().popMatrix();
 	}
 
 	/** Küçük değer rozeti ("✦ 12.500"). */

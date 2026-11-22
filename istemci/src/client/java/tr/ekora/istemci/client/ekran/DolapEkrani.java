@@ -114,7 +114,7 @@ public final class DolapEkrani extends EkoraEkran {
 			g.fakeItem(y.ikon(), 0, 0);
 			g.pose().popMatrix();
 			long sahip = urunler.stream().filter(u -> u.yuva().equals(y.kod()) && u.sahip()).count();
-			g.text(this.font, Cizim.sigdir(this.font, y.ad(), lw - 44), d.x + 23, d.y + 5, sec ? 0xFFFFFFFF : Cizim.YAZI);
+			sigdirarakYaz(g, y.ad(), d.x + 23, d.y + 5, lw - 36, sec ? 0xFFFFFFFF : Cizim.YAZI, 0.7f, false);
 			String s = String.valueOf(sahip);
 			g.text(this.font, s, d.x + d.w - 5 - this.font.width(s), d.y + 5, Cizim.SOLUK);
 		}
@@ -126,12 +126,12 @@ public final class DolapEkrani extends EkoraEkran {
 		List<Urun> l = gorunen();
 		int toplamSatir = (l.size() + sutun - 1) / sutun;
 		kaydir = Math.max(0, Math.min(kaydir, Math.max(0, toplamSatir - satir)));
-		sahipFiltre.yer(gx, ust, 92, 14);
+		sahipFiltre.yer(gx, ust, Math.min(104, gw - 74), 14);
 		Cizim.panel(g, sahipFiltre.x, sahipFiltre.y, sahipFiltre.w, sahipFiltre.h, sadeceSahip ? 0xFF1F3A2C : 0xFF181B2C, sadeceSahip ? Cizim.YESIL : Cizim.KENAR);
-		g.text(this.font, (sadeceSahip ? "☑" : "☐") + " Sahip olduklarım", sahipFiltre.x + 4, sahipFiltre.y + 3, sadeceSahip ? Cizim.YESIL : Cizim.SOLUK);
-		tumunuCikar.yer(gx + gw - 66, ust, 66, 14);
+		sigdirarakYaz(g, (sadeceSahip ? "☑" : "☐") + " Sahip olduklarım", sahipFiltre.x + 4, sahipFiltre.y + 3, sahipFiltre.w - 8, sadeceSahip ? Cizim.YESIL : Cizim.SOLUK, 0.75f, false);
+		tumunuCikar.yer(gx + gw - 70, ust, 70, 14);
 		Cizim.panel(g, tumunuCikar.x, tumunuCikar.y, tumunuCikar.w, tumunuCikar.h, tumunuCikar.ustunde(mx, my) ? 0xFF3A2030 : 0xFF181B2C, Cizim.KENAR);
-		g.centeredText(this.font, "Tümünü çıkar", tumunuCikar.x + tumunuCikar.w / 2, tumunuCikar.y + 3, Cizim.SOLUK);
+		sigdirarakYaz(g, "Tümünü çıkar", tumunuCikar.x + 3, tumunuCikar.y + 3, tumunuCikar.w - 6, tumunuCikar.ustunde(mx, my) ? Cizim.KIRMIZI : Cizim.SOLUK, 0.75f, true);
 		while (kartDugmeleri.size() < sutun * satir) {
 			int idx = kartDugmeleri.size();
 			kartDugmeleri.add(dugme(() -> kartTik(idx)));

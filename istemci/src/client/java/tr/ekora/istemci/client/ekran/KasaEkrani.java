@@ -122,7 +122,7 @@ public final class KasaEkrani extends EkoraEkran {
 		g.fakeItem(Cizim.esya("minecraft:ender_chest"), 0, 0);
 		g.pose().popMatrix();
 		g.centeredText(this.font, "§lKIVILCIM KASASI", kx + kw / 2, ky + 6, Cizim.ALTIN);
-		g.centeredText(this.font, kalan >= 0 ? kalan + " kozmetik seni bekliyor" : "Rastgele kozmetik", kx + kw / 2, ky + kh - 13, Cizim.SOLUK);
+		sigdirarakYaz(g, kalan >= 0 ? kalan + " kozmetik seni bekliyor" : "Rastgele kozmetik", kx + 4, ky + kh - 13, kw - 8, Cizim.SOLUK, 0.7f, true);
 
 		// sağ: oranlar
 		int rx = kx + kw + 8, ry = ky, rw = px + pw - 10 - rx;
@@ -207,7 +207,11 @@ public final class KasaEkrani extends EkoraEkran {
 		g.disableScissor();
 		Cizim.degradeX(g, sx + 1, sy - 5, 30, KH + 10, 0xF00D0F1A, 0x000D0F1A);
 		Cizim.degradeX(g, sx + sw - 31, sy - 5, 30, KH + 10, 0x000D0F1A, 0xF00D0F1A);
-		g.fill(orta - 1, sy - 9, orta + 1, sy + KH + 9, Cizim.ALTIN);
+		// orta işaret: kartların üstünü kapatmasın diye yalnızca şeridin üstünde ve altında
+		g.fill(orta - 1, sy - 9, orta + 1, sy - 2, Cizim.ALTIN);
+		g.fill(orta - 1, sy + KH + 2, orta + 1, sy + KH + 9, Cizim.ALTIN);
+		Cizim.degradeY(g, orta - KW / 2 - 2, sy - 2, KW + 4, 6, Cizim.alfa(Cizim.ALTIN, 0.35f), 0x00000000);
+		Cizim.degradeY(g, orta - KW / 2 - 2, sy + KH - 4, KW + 4, 6, 0x00000000, Cizim.alfa(Cizim.ALTIN, 0.35f));
 		for (int r = 0; r < 5; r++) {
 			g.fill(orta - 5 + r, sy - 9 - 5 + r, orta + 5 - r, sy - 8 - 5 + r, Cizim.ALTIN);
 			g.fill(orta - 5 + r, sy + KH + 13 - r, orta + 5 - r, sy + KH + 14 - r, Cizim.ALTIN);
