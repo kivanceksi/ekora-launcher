@@ -85,7 +85,11 @@ public abstract class EkoraEkran extends Screen {
 		return false;
 	}
 
+	/** Başlıkta "◂" (Ekora Merkezi'ne dön) düğmesi gösterilsin mi? */
+	protected boolean merkezDugmesi() { return true; }
+
 	protected float acilisOrani() {
+		if (!tr.ekora.istemci.client.Ayarlar.animasyon) return 1f;
 		float t = Math.min(1f, (System.currentTimeMillis() - acilis) / 220f);
 		return 1 - (1 - t) * (1 - t) * (1 - t);
 	}
@@ -107,8 +111,16 @@ public abstract class EkoraEkran extends Screen {
 		Cizim.panel(g, px, py, pw, ph, Cizim.ARKA, Cizim.KENAR);
 		Cizim.degradeX(g, px + 2, py + 1, pw - 4, 2, Cizim.MOR, Cizim.CAMGOBEGI);
 		// başlık
-		Cizim.degradeYazi(g, this.font, "EKORA", px + 10, py + 9, Cizim.MOR, Cizim.CAMGOBEGI);
-		g.text(this.font, "§8•§r " + this.title.getString(), px + 10 + this.font.width("EKORA") + 4, py + 9, Cizim.YAZI);
+		int bx = px + 10;
+		if (merkezDugmesi()) {
+			boolean gv = Cizim.icinde(mouseX, mouseY, px + 6, py + 6, 12, 12);
+			Cizim.panel(g, px + 6, py + 6, 12, 12, gv ? 0xFF2A1F4A : 0xFF181B2C, gv ? Cizim.MOR : Cizim.KENAR);
+			g.centeredText(this.font, "◂", px + 12, py + 8, gv ? 0xFFFFFFFF : Cizim.SOLUK);
+			if (gv) g.setTooltipForNextFrame(this.font, Component.literal("Ekora Merkezi"), mouseX, mouseY);
+			bx = px + 23;
+		}
+		Cizim.degradeYazi(g, this.font, "EKORA", bx, py + 9, Cizim.MOR, Cizim.CAMGOBEGI);
+		g.text(this.font, "§8•§r " + this.title.getString(), bx + this.font.width("EKORA") + 4, py + 9, Cizim.YAZI);
 		// kapat
 		int kx = px + pw - 18, ky = py + 6;
 		boolean kv = Cizim.icinde(mouseX, mouseY, kx, ky, 12, 12);
@@ -179,6 +191,11 @@ public abstract class EkoraEkran extends Screen {
 		if (Cizim.icinde(mx, my, kx, ky, 12, 12)) {
 			tik();
 			this.onClose();
+			return true;
+		}
+		if (merkezDugmesi() && Cizim.icinde(mx, my, px + 6, py + 6, 12, 12)) {
+			tik();
+			Ekora.istek("menu");
 			return true;
 		}
 		for (Dugme d : List.copyOf(dugmeler)) {

@@ -22,6 +22,7 @@ public final class Bildirimler {
 	private static final long SURE = 4800;
 
 	public static void ekle(String baslik, String metin, String ikon, int renk) {
+		if (!Ayarlar.bildirimler) return;
 		synchronized (KUYRUK) {
 			if (KUYRUK.size() >= 4) KUYRUK.pollFirst();
 			KUYRUK.addLast(new Bildirim(baslik == null ? "" : baslik, metin == null ? "" : metin, Cizim.esya(ikon), renk, System.currentTimeMillis()));

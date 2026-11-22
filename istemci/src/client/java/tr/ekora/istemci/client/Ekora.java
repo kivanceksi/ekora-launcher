@@ -14,7 +14,7 @@ import tr.ekora.istemci.ag.EkoraIstek;
 import tr.ekora.istemci.client.ekran.CarkEkrani;
 import tr.ekora.istemci.client.ekran.DolapEkrani;
 import tr.ekora.istemci.client.ekran.KasaEkrani;
-import tr.ekora.istemci.client.ekran.MenuEkrani;
+import tr.ekora.istemci.client.ekran.MerkezEkrani;
 
 /** Sunucu bağlantısı durumu, gelen veriyi ekranlara dağıtma ve istek gönderme. */
 public final class Ekora {
@@ -23,9 +23,15 @@ public final class Ekora {
 	/** Sunucu "merhaba" dedi mi (Ekora İstemci'yi destekleyen bir EkoraMC sunucusunda mıyız)? */
 	static volatile boolean destek;
 	static volatile boolean merhabaGitti;
-	static volatile String surum = "1.0.0";
+	static volatile String surum = "1.1.0";
+	private static boolean selamGosterildi;
 
 	public static boolean destekli() { return destek; }
+
+	public static String surum() { return surum; }
+
+	/** Testler için: sunucu desteğini elle aç/kapat. */
+	public static void destekAyarla(boolean d) { destek = d; }
 
 	public static void gonder(JsonObject o) {
 		if (!ClientPlayNetworking.canSend(EkoraIstek.TYPE)) return;
@@ -45,7 +51,16 @@ public final class Ekora {
 		gonder(o);
 	}
 
+	/** Birden çok alanlı istek: istekCok("sezon_al", "sv", "3", "elit", "1"). */
+	public static void istekCok(String t, String... anahtarDeger) {
+		JsonObject o = new JsonObject();
+		o.addProperty("t", t);
+		for (int i = 0; i + 1 < anahtarDeger.length; i += 2) o.addProperty(anahtarDeger[i], anahtarDeger[i + 1]);
+		gonder(o);
+	}
+
 	public static void ses(SoundEvent ses, float ton, float hacim) {
+		if (!Ayarlar.sesler) return;
 		Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(ses, ton, hacim));
 	}
 
@@ -61,10 +76,18 @@ public final class Ekora {
 		Minecraft mc = Minecraft.getInstance();
 		Screen acik = mc.gui.screen();
 		switch (t) {
-			case "merhaba" -> destek = true;
+			case "merhaba" -> {
+				boolean ilk = !destek;
+				destek = true;
+				if (ilk && !selamGosterildi) {
+					selamGosterildi = true;
+					Bildirimler.ekle("Ekora İstemci hazır", "K: Ekora Merkezi", "minecraft:nether_star", Cizim0.MOR);
+				}
+			}
 			case "menu" -> {
-				if (acik instanceof MenuEkrani m) m.guncelle(o);
-				else mc.gui.setScreen(new MenuEkrani(o));
+				String sekme = Json.yazi(o, "sekme", "");
+				if (acik instanceof MerkezEkrani m) m.guncelle(o, sekme);
+				else mc.gui.setScreen(new MerkezEkrani(o, sekme));
 			}
 			case "cark" -> {
 				if (acik instanceof CarkEkrani c) c.guncelle(o);
@@ -85,7 +108,7 @@ public final class Ekora {
 			case "bildirim" -> Bildirimler.ekle(Json.yazi(o, "baslik", ""), Json.yazi(o, "metin", ""), Json.yazi(o, "ikon", ""),
 					tr.ekora.istemci.client.ekran.Cizim.renk(Json.yazi(o, "renk", null), Cizim0.MOR));
 			case "kapat" -> {
-				if (acik instanceof MenuEkrani || acik instanceof CarkEkrani || acik instanceof DolapEkrani || acik instanceof KasaEkrani) mc.gui.setScreen(null);
+				if (acik instanceof MerkezEkrani || acik instanceof CarkEkrani || acik instanceof DolapEkrani || acik instanceof KasaEkrani) mc.gui.setScreen(null);
 			}
 			default -> { }
 		}

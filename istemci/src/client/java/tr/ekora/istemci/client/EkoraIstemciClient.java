@@ -27,6 +27,7 @@ public final class EkoraIstemciClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		Ayarlar.yukle();
 		Ekora.surum = FabricLoader.getInstance().getModContainer("ekora").map(m -> m.getMetadata().getVersion().getFriendlyString()).orElse("1.0.0");
 
 		ClientPlayNetworking.registerGlobalReceiver(EkoraVeri.TYPE, (payload, context) -> {
