@@ -32,7 +32,7 @@ class IstemciModuTests(unittest.TestCase):
             gomulu = [n for n in z.namelist() if n.startswith('META-INF/jars/')]
         self.assertEqual(meta['id'], 'ekora')
         self.assertEqual(meta['environment'], 'client')
-        for m in ('fabric-api-base', 'fabric-networking-api-v1', 'fabric-key-mapping-api-v1', 'fabric-lifecycle-events-v1', 'fabric-rendering-v1'):
+        for m in ('fabric-api-base', 'fabric-networking-api-v1', 'fabric-key-mapping-api-v1', 'fabric-lifecycle-events-v1', 'fabric-rendering-v1', 'fabric-screen-api-v1'):
             self.assertTrue(any(m in g for g in gomulu), m)
         with tempfile.TemporaryDirectory() as t:
             mods = Path(t) / 'mods'
@@ -46,10 +46,12 @@ class IstemciModuTests(unittest.TestCase):
             game = Path(t) / 'game'
             (game / 'mods').mkdir(parents=True)
             (game / 'mods' / 'ekora-istemci-0.9.0.jar').write_bytes(b'eski')
+            (game / 'mods' / 'ekora-istemci-1.0.0.jar').write_bytes(b'onceki')
             (game / 'mods' / 'sodium.jar').write_bytes(b'kullanici modu')
             r = prepare_mods(game, ASSETS, '26.3', allow_external=True)
             self.assertTrue(r['fabricRequired'])
             self.assertIn('ekora-istemci-0.9.0.jar', r['disabled'])
+            self.assertIn('ekora-istemci-1.0.0.jar', r['disabled'])
             self.assertTrue((game / 'mods' / 'sodium.jar').exists(), 'harici izinle kullanıcı modu kalır')
             self.assertTrue((game / 'disabled-mods' / 'ekora-istemci-0.9.0.jar').exists())
             name = next(iter(load_manifest(ASSETS, '26.3')))
@@ -83,7 +85,8 @@ class ResmiKurulumTests(unittest.TestCase):
             self.assertEqual(p['loader'], 'fabric')
             self.assertTrue(fabric.install_fabric.called)
             mods = Path(l.profiles.dir_of(p)) / 'mods'
-            self.assertTrue((mods / 'ekora-istemci-1.0.0.jar').is_file())
+            name = next(iter(load_manifest(ASSETS, '26.3')))
+            self.assertTrue((mods / name).is_file())
             self.assertTrue(any(k == 'notice' and 'Fabric' in d.get('message', '') for k, d in olaylar))
 
 

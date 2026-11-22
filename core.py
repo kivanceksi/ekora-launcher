@@ -21,7 +21,7 @@ import serverping
 import sunucu_listesi
 from ekora_hesap import Hesap, HesapHatasi
 
-VERSION = '0.8.0'
+VERSION = '0.9.0'
 SERVER = 'play.ekoramc.fun'
 CONFIG_DEFAULTS = {'serverHost': SERVER, 'serverPort': 25567, 'serverVersion': '26.3', 'updateRepo': 'kivanceksi/ekora-launcher',
                    'downloadPage': 'https://ekoramc.fun/indir', 'publisher': 'EkoraMC'}
