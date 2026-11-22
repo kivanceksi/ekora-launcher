@@ -54,7 +54,7 @@ public final class EkoraIstemciClient implements ClientModInitializer {
 			while (MENU_TUSU.consumeClick()) {
 				if (client.player == null) break;
 				if (Ekora.destekli()) Ekora.istek("menu");
-				else client.player.displayClientMessage(Component.literal("§dEkora menüsü §7yalnızca §fplay.ekoramc.fun§7 sunucusunda açılır."), true);
+				else Bildirimler.ekle("Ekora Menüsü", "Yalnızca play.ekoramc.fun sunucusunda açılır.", "minecraft:barrier", 0xFFEC4899);
 			}
 			Bildirimler.tik();
 		});
