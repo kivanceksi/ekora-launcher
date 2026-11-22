@@ -47,6 +47,18 @@ jobs:
             echo "=== $c" >> build/kesif/javap.txt
             javap -p -cp "$J" "$c" >> build/kesif/javap.txt 2>&1 || true
           done
+          # ortak (sunucu+istemci) sınıflar ayrı jar'da olabilir: hepsini sınıf yoluna ekle
+          CP="$J"
+          for f in $(find ~/.gradle/caches .gradle -name "*.jar" 2>/dev/null | grep -i minecraft); do
+            if unzip -l "$f" 2>/dev/null | grep -q "net/minecraft/world/inventory/AbstractContainerMenu.class"; then CP="$CP:$f"; echo "ortak: $f" >> build/kesif/jar.txt; break; fi
+          done
+          for c in net.minecraft.world.inventory.ContainerInput net.minecraft.client.input.MouseButtonEvent net.minecraft.client.input.MouseButtonInfo net.minecraft.client.input.KeyEvent \
+                   net.minecraft.client.input.CharacterEvent net.minecraft.world.inventory.Slot net.minecraft.world.inventory.AbstractContainerMenu net.minecraft.world.inventory.ChestMenu \
+                   net.minecraft.world.item.ItemStack net.minecraft.world.item.TooltipFlag net.minecraft.world.item.Item\$TooltipContext net.minecraft.client.gui.components.EditBox \
+                   net.minecraft.client.gui.components.AbstractWidget net.minecraft.client.gui.screens.inventory.AbstractContainerScreen; do
+            echo "=== $c" >> build/kesif/javap2.txt
+            javap -p -cp "$CP" "$c" >> build/kesif/javap2.txt 2>&1 || true
+          done
           javap -c -p -cp "$J" net.minecraft.client.gui.screens.inventory.AbstractContainerScreen > build/kesif/AbstractContainerScreen.c.txt 2>&1 || true
           javap -c -p -cp "$J" net.minecraft.client.gui.screens.inventory.ContainerScreen > build/kesif/ContainerScreen.c.txt 2>&1 || true
           javap -c -p -cp "$J" net.minecraft.client.gui.screens.MenuScreens > build/kesif/MenuScreens.c.txt 2>&1 || true
