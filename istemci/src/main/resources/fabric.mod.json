@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "ekora",
+  "version": "${version}",
+  "name": "Ekora İstemci",
+  "description": "EkoraMC için özel oyun içi menüler: şans çarkı, kozmetik dolabı, kasa açma ve Ekora menüsü. Ekora Launcher ile gelir.",
+  "authors": ["EkoraMC"],
+  "contact": { "homepage": "https://ekoramc.fun" },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/ekora/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": ["tr.ekora.istemci.EkoraIstemci"],
+    "client": ["tr.ekora.istemci.client.EkoraIstemciClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.0",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

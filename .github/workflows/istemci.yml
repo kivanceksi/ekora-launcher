@@ -1,0 +1,56 @@
+name: Ekora İstemci modu
+
+on:
+  push:
+    branches: [istemci-mod]
+    paths: ['istemci/**', '.github/workflows/istemci.yml']
+  workflow_dispatch:
+
+jobs:
+  derle:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: istemci
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+      - uses: gradle/actions/setup-gradle@v4
+      - run: chmod +x gradlew
+      - name: Derle
+        run: ./gradlew build --stacktrace --no-configuration-cache
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ekora-istemci-jar
+          path: istemci/build/libs/*.jar
+
+  ekran-testi:
+    needs: derle
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: istemci
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+      - uses: gradle/actions/setup-gradle@v4
+      - run: sudo apt-get update && sudo apt-get install -y xvfb mesa-vulkan-drivers libgl1-mesa-dri
+      - run: chmod +x gradlew
+      - name: Oyunu ekransız aç ve ekran görüntüsü al
+        run: xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClientGameTest --stacktrace --no-configuration-cache
+        timeout-minutes: 25
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ekran-goruntuleri
+          path: |
+            istemci/**/screenshots/**
+            istemci/build/run/**/logs/latest.log
+            istemci/run/**/logs/latest.log
+          if-no-files-found: warn

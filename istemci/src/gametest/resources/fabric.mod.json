@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "id": "ekora-istemci-test",
+  "version": "1.0.0",
+  "name": "Ekora İstemci testleri",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-client-gametest": ["tr.ekora.istemci.test.IstemciEkranTesti"]
+  }
+}
