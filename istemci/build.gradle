@@ -28,6 +28,11 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	// Kullanılan Fabric API modülleri jar içine gömülür: oyuncunun ayrıca Fabric API kurması gerekmez,
+	// kurmuşsa Fabric Loader en yeni sürümü seçer (çakışma olmaz).
+	for (String m : ["fabric-api-base", "fabric-lifecycle-events-v1", "fabric-key-mapping-api-v1", "fabric-networking-api-v1", "fabric-rendering-v1"]) {
+		include fabricApi.module(m, project.fabric_api_version)
+	}
 }
 
 processResources {

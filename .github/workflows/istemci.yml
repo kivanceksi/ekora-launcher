@@ -22,6 +22,11 @@ jobs:
       - run: chmod +x gradlew
       - name: Derle
         run: ./gradlew build --stacktrace --no-configuration-cache
+      - name: Gömülü Fabric API modüllerini doğrula
+        run: |
+          unzip -l build/libs/ekora-istemci-*[0-9].jar | grep "META-INF/jars/" | tee gomulu.txt
+          for m in fabric-api-base fabric-lifecycle-events-v1 fabric-key-mapping-api-v1 fabric-networking-api-v1 fabric-rendering-v1; do grep -q "$m" gomulu.txt || { echo "EKSİK: $m"; exit 1; }; done
+          sha256sum build/libs/*.jar
       - uses: actions/upload-artifact@v4
         with:
           name: ekora-istemci-jar

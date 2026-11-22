@@ -68,9 +68,14 @@ public final class KasaEkrani extends EkoraEkran {
 			kaydirmaSon = 0;
 		}
 		bedavaAc = dugme(() -> Ekora.istek("kasa_ac", "bedava", "1"));
-		kivilcimAc = dugme(() -> { if (onay(this.kivilcimAc)) Ekora.istek("kasa_ac", "bedava", "0"); });
+		kivilcimAc = dugme(this::kivilcimIleAc);
 		giy = dugme(() -> { if (!odulId.isEmpty() && !giyildi) { giyildi = true; Ekora.istek("giy", "id", odulId); } });
 		kapat = dugme(this::onClose);
+	}
+
+	/** Kıvılcım harcar: iki tık ister. */
+	private void kivilcimIleAc() {
+		if (onay(kivilcimAc)) Ekora.istek("kasa_ac", "bedava", "0");
 	}
 
 	/** Şeritte yaygınlar daha sık görünsün (gerçek olasılık sunucudadır; bu yalnızca görsel). */
