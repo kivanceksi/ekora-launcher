@@ -335,8 +335,13 @@ public final class MerkezEkrani extends EkoraEkran {
 			g.fill(kx + 15, ky + 15, kx + 19, ky + 19, on ? Cizim.YESIL : 0xFF6B7280);
 			g.text(this.font, ad, kx + 23, ky + 3, on ? 0xFFFFFFFF : Cizim.SOLUK);
 			String durum = on ? "◉ " + Json.yazi(a, "modAd", "Lobi") : "son: " + once(Json.sayi(a, "son", 0));
-			sigdirarakYaz(g, durum, kx + 23, ky + 12, kw - 23 - (on ? 52 : 4), on ? Cizim.YESIL : 0xFF6B7280, 0.65f, false);
-			if (on) dugmeCiz(g, ic("ar:k:" + ad, () -> Ekora.istekCok("sosyal", "islem", "katil", "ad", ad), kx + kw - 50, ky + 4, 46, 14), "Katıl ›", Cizim.CAMGOBEGI, mx, my);
+			sigdirarakYaz(g, durum, kx + 23, ky + 12, kw - 23 - (on ? 70 : 4), on ? Cizim.YESIL : 0xFF6B7280, 0.65f, false);
+			if (on) {
+				Dugme m = ic("ar:m:" + ad, () -> sohbetAc("/fmsg " + ad + " "), kx + kw - 68, ky + 4, 16, 14);
+				dugmeCiz(g, m, "✉", Cizim.MOR, mx, my);
+				if (m.aktif && m.ustunde(mx, my)) g.setTooltipForNextFrame(this.font, Component.literal("Özel mesaj yaz: " + ad), mx, my);
+				dugmeCiz(g, ic("ar:k:" + ad, () -> Ekora.istekCok("sosyal", "islem", "katil", "ad", ad), kx + kw - 50, ky + 4, 46, 14), "Katıl ›", Cizim.CAMGOBEGI, mx, my);
+			}
 		}
 		y += ((ark.size() + sutun - 1) / sutun) * 25 + 6;
 		}
@@ -352,7 +357,8 @@ public final class MerkezEkrani extends EkoraEkran {
 			String ad = Json.yazi(o, "ad", "?");
 			boolean ar = Json.mantik(o, "arkadas", false), ben = Json.mantik(o, "ben", false);
 			int kx = x + (i % cs) * (cw + 4), ky = y + (i / cs) * 19;
-			Cizim.panel(g, kx, ky, cw, 16, 0xA0161A2B, ar ? Cizim.koyu(Cizim.YESIL, 0.4f) : 0);
+			Dugme yaz = ic("oy:m:" + ad, () -> { if (!ben) sohbetAc((ar ? "/fmsg " : "/msg ") + ad + " "); }, kx, ky, cw - 16, 16);
+			Cizim.panel(g, kx, ky, cw, 16, yaz.aktif && yaz.ustunde(mx, my) && !ben ? 0xC0222842 : 0xA0161A2B, ar ? Cizim.koyu(Cizim.YESIL, 0.4f) : 0);
 			sigdirarakYaz(g, ad, kx + 4, ky + 4, cw - 22, ben ? Cizim.ALTIN : Cizim.YAZI, 0.7f, false);
 			if (sistem && !ar && !ben) {
 				Dugme d = ic("oy:+:" + ad, () -> Ekora.istekCok("sosyal", "islem", "ekle", "ad", ad), kx + cw - 15, ky + 2, 12, 12);
@@ -360,10 +366,14 @@ public final class MerkezEkrani extends EkoraEkran {
 				if (d.aktif && d.ustunde(mx, my)) g.setTooltipForNextFrame(this.font, Component.literal("Arkadaşlık isteği gönder: " + ad), mx, my);
 			} else if (ar) g.text(this.font, "♥", kx + cw - 10, ky + 4, Cizim.YESIL);
 			if (Cizim.icinde(mx, my, kx, ky, cw - 16, 16) && my >= icY && my < icY + icH)
-				g.setTooltipForNextFrame(this.font, Component.literal(ad + " §7• " + Json.yazi(o, "modAd", "")), mx, my);
+				g.setTooltipForNextFrame(this.font, Component.literal(ad + " §7• " + Json.yazi(o, "modAd", "") + (ben ? "" : " §8(tıkla: mesaj yaz)")), mx, my);
 		}
 		y += ((oy.size() + cs - 1) / cs) * 19;
 		return y - y0 + 4;
+	}
+
+	private void sohbetAc(String metin) {
+		this.minecraft.gui.setScreen(new net.minecraft.client.gui.screens.ChatScreen(metin, false));
 	}
 
 	private static String once(long ms) {
