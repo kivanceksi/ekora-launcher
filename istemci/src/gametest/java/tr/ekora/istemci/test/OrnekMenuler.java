@@ -52,7 +52,11 @@ final class OrnekMenuler {
 	static Component baslik(String s) { return Component.literal(s).withStyle(st -> st.withColor(TextColor.fromRgb(0x3B2A18))); }
 
 	static Screen mezat() {
-		return ac(6, baslik("Mezat • SMP (1/3)"), "EkoraPazar", "Mezatta ara", c -> {
+		return ac(6, baslik("Mezat • SMP (1/3)"), "EkoraPazar", "Mezatta ara", OrnekMenuler::mezatDoldur);
+	}
+
+	static void mezatDoldur(Container c) {
+		{
 			Object[][] ilan = {{"diamond_sword", 1, "Keskinlik V Kılıç", "4.500 SMP Coin", "Deniz_42", "1g 4s"}, {"elytra", 1, "Elytra", "38.000 SMP Coin", "MertPvP", "11s 20d"},
 					{"netherite_ingot", 4, "Netherit Külçesi", "9.600 SMP Coin (2.400 / adet)", "KasabaReisi", "2g 1s"}, {"golden_apple", 16, "Altın Elma", "1.120 SMP Coin (70 / adet)", "Zeynep", "5s 2d"},
 					{"enchanted_book", 1, "Onarım Kitabı", "6.000 SMP Coin", "ElifYapar", "3g"}, {"shulker_box", 1, "Shulker Kutusu", "3.200 SMP Coin", "Kaan", "22s"},
@@ -72,7 +76,7 @@ final class OrnekMenuler {
 			c.setItem(50, es("writable_book", 1, r("İlanlarım", YESIL), r("Aktif ilanlarını gör ve geri çek.", GRI)));
 			c.setItem(51, es("ender_chest", 1, r("Teslim Kutusu", ALTIN), r("Satın aldıkların ve iade edilenler.", GRI)));
 			c.setItem(53, es("arrow", 1, r("Sonraki sayfa »", SARI)));
-		});
+		}
 	}
 
 	static Screen market() {

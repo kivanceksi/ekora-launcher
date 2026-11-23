@@ -98,6 +98,18 @@ public class IstemciEkranTesti implements FabricClientGameTest {
 				context.waitTicks(8);
 				context.takeScreenshot("ekora_akilli_" + a[0]);
 			}
+			// gerçek ağ yolu: sunucunun "menü aç" paketi MenuScreens.create ile işlenir; kaynak paketi başlık glifi (özel kullanım alanı) de var
+			context.runOnClient(c -> {
+				Ekora.ipucuAyarla("Mezat • SMP (1/3)", "EkoraPazar", true, "Mezatta ara");
+				net.minecraft.client.gui.screens.MenuScreens.create(net.minecraft.world.inventory.MenuType.GENERIC_9x6, c, 7,
+						net.minecraft.network.chat.Component.literal("\uE20E").append(OrnekMenuler.baslik("Mezat • SMP (1/3)")));
+				if (c.player.containerMenu instanceof net.minecraft.world.inventory.ChestMenu m) OrnekMenuler.mezatDoldur(m.getContainer());
+			});
+			context.waitTicks(6);
+			context.takeScreenshot("ekora_akilli_paket_yolu");
+			context.runOnClient(c -> {
+				if (!(c.gui.screen() instanceof tr.ekora.istemci.client.menu.AkilliMenu)) throw new AssertionError("Sunucu menüsü Akıllı Menü ile açılmadı: " + c.gui.screen());
+			});
 			context.runOnClient(c -> { c.gui.setScreen(OrnekMenuler.mezat()); });
 			context.waitTicks(4);
 			context.runOnClient(c -> { if (c.gui.screen() instanceof tr.ekora.istemci.client.menu.AkilliMenu m) m.testAramaYaz("elmas"); });
