@@ -22,9 +22,15 @@ modrinth() { # proje yükleyici
 }
 LP=$(modrinth luckperms bukkit); echo "LuckPerms: $LP" | tee -a $OUT/surumler.txt
 [ -n "$LP" ] && [ "$LP" != "null" ] && curl -fsSL -A "$UA" -o $S/plugins/LuckPerms.jar "$LP"
-AM=$(curl -fsSL -A "$UA" "https://api.github.com/repos/AuthMe/AuthMeReloaded/releases/latest" | jq -r '[.assets[] | select(.name|test("(?i)spigot|bukkit|authme.*jar"))][0].browser_download_url')
+curl -fsSL -A "$UA" "https://api.github.com/repos/AuthMe/AuthMeReloaded/releases/latest" > /tmp/am.json
+jq -r '.assets[].name' /tmp/am.json | tee $OUT/authme-dosyalari.txt
+AM=$(jq -r '[.assets[] | select(.name|test("(?i)(paper|spigot|bukkit)")) | select(.name|test("(?i)(bungee|velocity|legacy)")|not)][0].browser_download_url' /tmp/am.json)
 echo "AuthMe: $AM" | tee -a $OUT/surumler.txt
 [ -n "$AM" ] && [ "$AM" != "null" ] && curl -fsSL -A "$UA" -L -o $S/plugins/AuthMe.jar "$AM"
+for v in viaversion viabackwards; do
+  U=$(modrinth $v paper); echo "$v: $U" | tee -a $OUT/surumler.txt
+  [ -n "$U" ] && [ "$U" != "null" ] && curl -fsSL -A "$UA" -o $S/plugins/$v.jar "$U"
+done
 cp eklentiler/*.jar $S/plugins/
 
 cd $S
@@ -42,6 +48,7 @@ calistir() { # $1 = tur adı, $2 = komut dosyası
   sleep 8
   while IFS= read -r c; do
     [ -z "$c" ] && continue
+    if [ "$c" = "bot" ]; then timeout 300 node ../bot-test.js "$PWD/giris" "$OUT/bot.log" > $OUT/bot-stdout.log 2>&1; continue; fi
     if [[ "$c" == bekle* ]]; then sleep "${c#bekle }"; continue; fi
     echo ">>> $c" >> $LOG
     echo "$c" >&3
@@ -76,6 +83,7 @@ gecmis YokBoyleBiri
 bekle 3
 EOF
 calistir tur1 /tmp/tur1.txt || true
+cp plugins/AuthMe/config.yml $OUT/authme-config.yml 2>/dev/null
 cp config/paper-world-defaults.yml $OUT/ 2>/dev/null; cp config/paper-global.yml $OUT/ 2>/dev/null
 find . -name "paper-world.yml" -path "*nether*" -exec cp {} $OUT/paper-world-nether.yml \; 2>/dev/null
 find . -name "paper-world.yml" -path "*end*" -exec cp {} $OUT/paper-world-end.yml \; 2>/dev/null
@@ -89,14 +97,26 @@ EOF
 calistir tur2 /tmp/tur2.txt || true
 cp plugins/EkoraYetki/config.yml $OUT/ekorayetki-config.yml 2>/dev/null
 cp plugins/EkoraKalkan/config.yml $OUT/ekorakalkan-config.yml 2>/dev/null
+
+# ---- tur 3: iki botla oyuncu akışı (AuthMe ayarı OKU_BENI'deki gibi; test için IP başına kayıt sınırı gevşek)
+if [ -f plugins/AuthMe/config.yml ]; then
+  sed -i -E 's/^(\s*)noTeleport: false/\1noTeleport: true/; s/^(\s*)teleportUnAuthedToSpawn: true/\1teleportUnAuthedToSpawn: false/; s/^(\s*)maxRegPerIp: [0-9]+/\1maxRegPerIp: 10/; s/^(\s*)maxLoginPerIp: [0-9]+/\1maxLoginPerIp: 0/; s/^(\s*)maxJoinPerIp: [0-9]+/\1maxJoinPerIp: 0/' plugins/AuthMe/config.yml
+  grep -nE "noTeleport|teleportUnAuthedToSpawn|maxRegPerIp|allowMovement|timeout" plugins/AuthMe/config.yml > $OUT/authme-ayar.txt
+fi
+( cd .. && npm install --silent --no-audit --no-fund mineflayer@4.39.0 minecraft-data > $OUT/npm.log 2>&1 )
+echo "bot" > /tmp/tur3.txt
+echo "bekle 3" >> /tmp/tur3.txt
+calistir tur3 /tmp/tur3.txt || true
 ls -R plugins/EkoraYetki > $OUT/ekorayetki-dosyalar.txt 2>/dev/null
 
 # ---- özet: hata ve istisnalar
 cd $OUT
 {
-  for t in tur1 tur2; do
+  for t in tur1 tur2 tur3; do
     echo "===== $t"
-    grep -E "Done \(|EkoraYetki|EkoraKalkan|Yetkili Bölgesi|Giriş adası|Giriş alanı|Paper koruma|ERROR|Exception|Caused by|SEVERE|Could not|Failed|ÇIKIŞ KODU" $t.log | grep -v "^\s*at " | head -150
+    grep -E "Done \(|EkoraYetki|EkoraKalkan|EkoraHub|AuthMe|Yetkili Bölgesi|Giriş adası|Giriş alanı|Paper koruma|KALKAN|EKORA|✔|ERROR|Exception|Caused by|SEVERE|Could not|Failed|ÇIKIŞ KODU" $t.log | grep -v "^\s*at " | head -150
   done
+  echo "===== bot"
+  cat bot.log 2>/dev/null | grep -vE "MESAJ" | head -120
 } > ozet.txt
 cat ozet.txt
