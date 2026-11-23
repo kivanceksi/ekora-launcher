@@ -1,0 +1,176 @@
+Compiled from "MenuScreens.java"
+public class net.minecraft.client.gui.screens.MenuScreens {
+  private static final org.slf4j.Logger LOGGER;
+
+  private static final java.util.Map<net.minecraft.world.inventory.MenuType<?>, net.minecraft.client.gui.screens.MenuScreens$ScreenConstructor<?, ?>> SCREENS;
+
+  public net.minecraft.client.gui.screens.MenuScreens();
+    Code:
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+
+  public static <T extends net.minecraft.world.inventory.AbstractContainerMenu> void create(net.minecraft.world.inventory.MenuType<T>, net.minecraft.client.Minecraft, int, net.minecraft.network.chat.Component);
+    Code:
+         0: aload_0
+         1: invokestatic  #7                  // Method getConstructor:(Lnet/minecraft/world/inventory/MenuType;)Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+         4: astore        4
+         6: aload         4
+         8: ifnonnull     31
+        11: getstatic     #13                 // Field LOGGER:Lorg/slf4j/Logger;
+        14: ldc           #17                 // String Failed to create screen for menu type: {}
+        16: getstatic     #19                 // Field net/minecraft/core/registries/BuiltInRegistries.MENU:Lnet/minecraft/core/Registry;
+        19: aload_0
+        20: invokeinterface #25,  2           // InterfaceMethod net/minecraft/core/Registry.getKey:(Ljava/lang/Object;)Lnet/minecraft/resources/Identifier;
+        25: invokeinterface #31,  3           // InterfaceMethod org/slf4j/Logger.warn:(Ljava/lang/String;Ljava/lang/Object;)V
+        30: return
+        31: aload         4
+        33: aload_3
+        34: aload_0
+        35: aload_1
+        36: iload_2
+        37: invokeinterface #37,  5           // InterfaceMethod net/minecraft/client/gui/screens/MenuScreens$ScreenConstructor.fromPacket:(Lnet/minecraft/network/chat/Component;Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/Minecraft;I)V
+        42: return
+
+  private static <T extends net.minecraft.world.inventory.AbstractContainerMenu> net.minecraft.client.gui.screens.MenuScreens$ScreenConstructor<T, ?> getConstructor(net.minecraft.world.inventory.MenuType<T>);
+    Code:
+         0: getstatic     #43                 // Field SCREENS:Ljava/util/Map;
+         3: aload_0
+         4: invokeinterface #47,  2           // InterfaceMethod java/util/Map.get:(Ljava/lang/Object;)Ljava/lang/Object;
+         9: checkcast     #38                 // class net/minecraft/client/gui/screens/MenuScreens$ScreenConstructor
+        12: areturn
+
+  private static <M extends net.minecraft.world.inventory.AbstractContainerMenu, U extends net.minecraft.client.gui.screens.Screen & net.minecraft.client.gui.screens.inventory.MenuAccess<M>> void register(net.minecraft.world.inventory.MenuType<? extends M>, net.minecraft.client.gui.screens.MenuScreens$ScreenConstructor<M, U>);
+    Code:
+         0: getstatic     #43                 // Field SCREENS:Ljava/util/Map;
+         3: aload_0
+         4: aload_1
+         5: invokeinterface #53,  3           // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+        10: checkcast     #38                 // class net/minecraft/client/gui/screens/MenuScreens$ScreenConstructor
+        13: astore_2
+        14: aload_2
+        15: ifnull        43
+        18: new           #57                 // class java/lang/IllegalStateException
+        21: dup
+        22: getstatic     #19                 // Field net/minecraft/core/registries/BuiltInRegistries.MENU:Lnet/minecraft/core/Registry;
+        25: aload_0
+        26: invokeinterface #25,  2           // InterfaceMethod net/minecraft/core/Registry.getKey:(Ljava/lang/Object;)Lnet/minecraft/resources/Identifier;
+        31: invokestatic  #59                 // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+        34: invokedynamic #65,  0             // InvokeDynamic #0:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+        39: invokespecial #69                 // Method java/lang/IllegalStateException."<init>":(Ljava/lang/String;)V
+        42: athrow
+        43: return
+
+  public static boolean selfTest();
+    Code:
+         0: iconst_0
+         1: istore_0
+         2: getstatic     #19                 // Field net/minecraft/core/registries/BuiltInRegistries.MENU:Lnet/minecraft/core/Registry;
+         5: invokeinterface #72,  1           // InterfaceMethod net/minecraft/core/Registry.iterator:()Ljava/util/Iterator;
+        10: astore_1
+        11: aload_1
+        12: invokeinterface #76,  1           // InterfaceMethod java/util/Iterator.hasNext:()Z
+        17: ifeq          66
+        20: aload_1
+        21: invokeinterface #82,  1           // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+        26: checkcast     #86                 // class net/minecraft/world/inventory/MenuType
+        29: astore_2
+        30: getstatic     #43                 // Field SCREENS:Ljava/util/Map;
+        33: aload_2
+        34: invokeinterface #88,  2           // InterfaceMethod java/util/Map.containsKey:(Ljava/lang/Object;)Z
+        39: ifne          63
+        42: getstatic     #13                 // Field LOGGER:Lorg/slf4j/Logger;
+        45: ldc           #92                 // String Menu {} has no matching screen
+        47: getstatic     #19                 // Field net/minecraft/core/registries/BuiltInRegistries.MENU:Lnet/minecraft/core/Registry;
+        50: aload_2
+        51: invokeinterface #25,  2           // InterfaceMethod net/minecraft/core/Registry.getKey:(Ljava/lang/Object;)Lnet/minecraft/resources/Identifier;
+        56: invokeinterface #94,  3           // InterfaceMethod org/slf4j/Logger.debug:(Ljava/lang/String;Ljava/lang/Object;)V
+        61: iconst_1
+        62: istore_0
+        63: goto          11
+        66: iload_0
+        67: ireturn
+
+  static {};
+    Code:
+         0: invokestatic  #97                 // Method com/mojang/logging/LogUtils.getLogger:()Lorg/slf4j/Logger;
+         3: putstatic     #13                 // Field LOGGER:Lorg/slf4j/Logger;
+         6: invokestatic  #103                // Method com/google/common/collect/Maps.newHashMap:()Ljava/util/HashMap;
+         9: putstatic     #43                 // Field SCREENS:Ljava/util/Map;
+        12: getstatic     #109                // Field net/minecraft/world/inventory/MenuType.GENERIC_9x1:Lnet/minecraft/world/inventory/MenuType;
+        15: invokedynamic #113,  0            // InvokeDynamic #1:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+        20: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+        23: getstatic     #121                // Field net/minecraft/world/inventory/MenuType.GENERIC_9x2:Lnet/minecraft/world/inventory/MenuType;
+        26: invokedynamic #113,  0            // InvokeDynamic #1:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+        31: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+        34: getstatic     #124                // Field net/minecraft/world/inventory/MenuType.GENERIC_9x3:Lnet/minecraft/world/inventory/MenuType;
+        37: invokedynamic #113,  0            // InvokeDynamic #1:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+        42: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+        45: getstatic     #127                // Field net/minecraft/world/inventory/MenuType.GENERIC_9x4:Lnet/minecraft/world/inventory/MenuType;
+        48: invokedynamic #113,  0            // InvokeDynamic #1:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+        53: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+        56: getstatic     #130                // Field net/minecraft/world/inventory/MenuType.GENERIC_9x5:Lnet/minecraft/world/inventory/MenuType;
+        59: invokedynamic #113,  0            // InvokeDynamic #1:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+        64: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+        67: getstatic     #133                // Field net/minecraft/world/inventory/MenuType.GENERIC_9x6:Lnet/minecraft/world/inventory/MenuType;
+        70: invokedynamic #113,  0            // InvokeDynamic #1:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+        75: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+        78: getstatic     #136                // Field net/minecraft/world/inventory/MenuType.GENERIC_3x3:Lnet/minecraft/world/inventory/MenuType;
+        81: invokedynamic #139,  0            // InvokeDynamic #2:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+        86: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+        89: getstatic     #140                // Field net/minecraft/world/inventory/MenuType.CRAFTER_3x3:Lnet/minecraft/world/inventory/MenuType;
+        92: invokedynamic #143,  0            // InvokeDynamic #3:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+        97: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       100: getstatic     #144                // Field net/minecraft/world/inventory/MenuType.ANVIL:Lnet/minecraft/world/inventory/MenuType;
+       103: invokedynamic #147,  0            // InvokeDynamic #4:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       108: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       111: getstatic     #148                // Field net/minecraft/world/inventory/MenuType.BEACON:Lnet/minecraft/world/inventory/MenuType;
+       114: invokedynamic #151,  0            // InvokeDynamic #5:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       119: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       122: getstatic     #152                // Field net/minecraft/world/inventory/MenuType.BLAST_FURNACE:Lnet/minecraft/world/inventory/MenuType;
+       125: invokedynamic #155,  0            // InvokeDynamic #6:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       130: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       133: getstatic     #156                // Field net/minecraft/world/inventory/MenuType.BREWING_STAND:Lnet/minecraft/world/inventory/MenuType;
+       136: invokedynamic #159,  0            // InvokeDynamic #7:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       141: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       144: getstatic     #160                // Field net/minecraft/world/inventory/MenuType.CRAFTING:Lnet/minecraft/world/inventory/MenuType;
+       147: invokedynamic #163,  0            // InvokeDynamic #8:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       152: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       155: getstatic     #164                // Field net/minecraft/world/inventory/MenuType.ENCHANTMENT:Lnet/minecraft/world/inventory/MenuType;
+       158: invokedynamic #167,  0            // InvokeDynamic #9:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       163: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       166: getstatic     #168                // Field net/minecraft/world/inventory/MenuType.FURNACE:Lnet/minecraft/world/inventory/MenuType;
+       169: invokedynamic #171,  0            // InvokeDynamic #10:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       174: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       177: getstatic     #172                // Field net/minecraft/world/inventory/MenuType.GRINDSTONE:Lnet/minecraft/world/inventory/MenuType;
+       180: invokedynamic #175,  0            // InvokeDynamic #11:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       185: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       188: getstatic     #176                // Field net/minecraft/world/inventory/MenuType.HOPPER:Lnet/minecraft/world/inventory/MenuType;
+       191: invokedynamic #179,  0            // InvokeDynamic #12:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       196: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       199: getstatic     #180                // Field net/minecraft/world/inventory/MenuType.LECTERN:Lnet/minecraft/world/inventory/MenuType;
+       202: invokedynamic #183,  0            // InvokeDynamic #13:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       207: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       210: getstatic     #184                // Field net/minecraft/world/inventory/MenuType.LOOM:Lnet/minecraft/world/inventory/MenuType;
+       213: invokedynamic #187,  0            // InvokeDynamic #14:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       218: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       221: getstatic     #188                // Field net/minecraft/world/inventory/MenuType.MERCHANT:Lnet/minecraft/world/inventory/MenuType;
+       224: invokedynamic #191,  0            // InvokeDynamic #15:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       229: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       232: getstatic     #192                // Field net/minecraft/world/inventory/MenuType.SHULKER_BOX:Lnet/minecraft/world/inventory/MenuType;
+       235: invokedynamic #195,  0            // InvokeDynamic #16:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       240: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       243: getstatic     #196                // Field net/minecraft/world/inventory/MenuType.SMITHING:Lnet/minecraft/world/inventory/MenuType;
+       246: invokedynamic #199,  0            // InvokeDynamic #17:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       251: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       254: getstatic     #200                // Field net/minecraft/world/inventory/MenuType.SMOKER:Lnet/minecraft/world/inventory/MenuType;
+       257: invokedynamic #203,  0            // InvokeDynamic #18:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       262: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       265: getstatic     #204                // Field net/minecraft/world/inventory/MenuType.CARTOGRAPHY_TABLE:Lnet/minecraft/world/inventory/MenuType;
+       268: invokedynamic #207,  0            // InvokeDynamic #19:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       273: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       276: getstatic     #208                // Field net/minecraft/world/inventory/MenuType.STONECUTTER:Lnet/minecraft/world/inventory/MenuType;
+       279: invokedynamic #211,  0            // InvokeDynamic #20:create:()Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+       284: invokestatic  #117                // Method register:(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+       287: return
+}
