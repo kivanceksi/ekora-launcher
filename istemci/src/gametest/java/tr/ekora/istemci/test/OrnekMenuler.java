@@ -104,6 +104,14 @@ final class OrnekMenuler {
 		});
 	}
 
+	/** Eklentinin açtığı depo (BedWars takım sandığı gibi): adsız eşyalar → klasik görünüme kendiliğinden geçmeli. */
+	static Screen depo() {
+		return ac(3, baslik("Mavi Takım Ganimeti"), "EkoraOyunlar", c -> {
+			String[] e = {"iron_ingot", "gold_ingot", "diamond", "wool", "oak_planks", "ender_pearl", "golden_apple", "arrow"};
+			for (int i = 0; i < e.length; i++) c.setItem(i * 2, Cizim.esya("minecraft:" + (e[i].equals("wool") ? "blue_wool" : e[i])).copyWithCount(8 + i * 3));
+		});
+	}
+
 	static Screen roller() {
 		return ac(3, baslik("Manhunt • Roller"), "EkoraOyunlar", c -> {
 			Object[][] o = {{"EkoraOyuncu", true, true}, {"Deniz_42", false, false}, {"MertPvP", false, false}, {"Zeynep", true, false}};

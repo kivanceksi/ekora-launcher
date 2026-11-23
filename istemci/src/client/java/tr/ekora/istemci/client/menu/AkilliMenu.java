@@ -540,10 +540,41 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 		return super.keyPressed(e);
 	}
 
+	private int denetimTik;
+
+	/**
+	 * Güvenlik ağı: içerik geldikten sonra bu bir depo gibi görünüyorsa (süs camı yok, eşyaların çoğu adsız: takım sandığı, ganimet sandığı…)
+	 * eşya alıp koymak için klasik görünüme kendiliğinden geçilir (hatırlanmaz).
+	 */
+	@Override
+	protected void containerTick() {
+		super.containerTick();
+		if (gecis || denetimTik > 40) return;
+		int dolu = 0, adli = 0, cam = 0;
+		for (int i = 0; i < satir * 9; i++) {
+			ItemStack st = menu.slots.get(i).getItem();
+			if (st.isEmpty()) continue;
+			dolu++;
+			if (SandikGorunumu.susCami(st) || net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(st.getItem()).getPath().endsWith("glass_pane")) cam++;
+			else {
+				// ITEM_NAME ve boş LORE her eşyada varsayılan olarak bulunur; yalnızca özel ad ya da dolu açıklama sayılır
+				net.minecraft.world.item.component.ItemLore l = st.get(net.minecraft.core.component.DataComponents.LORE);
+				if (st.has(net.minecraft.core.component.DataComponents.CUSTOM_NAME) || (l != null && !l.lines().isEmpty())) adli++;
+			}
+		}
+		if (dolu == 0) { denetimTik++; return; }
+		denetimTik = 99;
+		if (cam == 0 && adli * 2 < dolu) klasigeGec(false);
+	}
+
 	/** Bu başlığı klasik (sandık) görünümle yeniden açar ve hatırlar. */
-	private void klasigeGec() {
-		Ayarlar.klasikBasliklar.add(baslikDuz);
-		Ayarlar.kaydet();
+	private void klasigeGec() { klasigeGec(true); }
+
+	private void klasigeGec(boolean hatirla) {
+		if (hatirla) {
+			Ayarlar.klasikBasliklar.add(baslikDuz);
+			Ayarlar.kaydet();
+		}
 		gecis = true;
 		Minecraft.getInstance().gui.setScreen(new ContainerScreen(menu, envanter, this.title));
 	}

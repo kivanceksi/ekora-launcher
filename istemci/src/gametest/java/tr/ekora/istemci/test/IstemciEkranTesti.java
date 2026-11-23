@@ -102,6 +102,14 @@ public class IstemciEkranTesti implements FabricClientGameTest {
 			context.waitTicks(8);
 			context.takeScreenshot("ekora_akilli_market_envanter");
 			context.runOnClient(c -> { tr.ekora.istemci.client.Ayarlar.menuEnvanter = false; });
+			// depo güvenlik ağı: ipucu "menü" dese de adsız ganimet → klasik sandık görünümü
+			context.runOnClient(c -> c.gui.setScreen(OrnekMenuler.depo()));
+			context.waitTicks(12);
+			context.takeScreenshot("ekora_akilli_depo_klasige_dondu");
+			context.runOnClient(c -> {
+				if (!(c.gui.screen() instanceof net.minecraft.client.gui.screens.inventory.ContainerScreen))
+					throw new AssertionError("depo menüsü klasik görünüme geçmedi: " + c.gui.screen());
+			});
 
 			context.setScreen(() -> { DolapEkrani d = new DolapEkrani(j(DOLAP)); d.sec("h"); return d; });
 			context.waitTicks(10);
