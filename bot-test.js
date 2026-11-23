@@ -80,7 +80,7 @@ const geldi = (kim, re, sonra = 0) => mesajlar[kim].slice(sonra).some(m => re.te
     // Yetkili Paneli
     let p = pencere(B); B.chat('/yetkili'); let w = await p
     log('PANEL', w.title, w.slots.filter(Boolean).map(ad).filter(x => !/glass_pane|"bos"/.test(x)).slice(0, 12).join(' | '))
-    kontrol(/Yetkili Paneli/.test(w.title), 'Yetkili Paneli açıldı')
+    kontrol(/Yetkili Paneli/.test(JSON.stringify(w.title)), 'Yetkili Paneli açıldı')
     B.closeWindow(w); await bekle(800)
 
     // ceza menüsü: Küfür'e iki tık → susturma
@@ -128,7 +128,8 @@ const geldi = (kim, re, sonra = 0) => mesajlar[kim].slice(sonra).some(m => re.te
     kontrol(p0.distanceTo(A.entity.position) > 0.6, 'bırakılınca çözüldü (yürüyebiliyor)')
 
     // Yetkili Bölgesi
-    B.chat('/yb'); await bekle(5000)
+    B.chat('/yb'); await bekle(3000)
+    if (Math.abs(B.entity.position.y - 65) > 2) { B.chat('/yb'); await bekle(4000) } // sorgudan sonra zaten bölgedeyse ilk /yb çıkarır
     const yazilar = Object.values(B.entities).filter(e => /text_display/.test(e.name || '')).length
     const etkilesim = Object.values(B.entities).filter(e => /interaction/.test(e.name || '')).length
     log('B bölgede', konum(B), 'metin', yazilar, 'etkileşim', etkilesim)
