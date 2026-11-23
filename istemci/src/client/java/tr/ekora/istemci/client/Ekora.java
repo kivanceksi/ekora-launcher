@@ -27,7 +27,7 @@ public final class Ekora {
 	private static boolean selamGosterildi;
 
 	/** Sunucunun "şimdi açılan sandık bir eklenti menüsü" ipucu (Akıllı Menü için). */
-	public record GuiIpucu(String baslik, String eklenti, boolean akilli, long zaman) { }
+	public record GuiIpucu(String baslik, String eklenti, boolean akilli, String arama, long zaman) { }
 
 	private static volatile GuiIpucu ipucu;
 
@@ -41,7 +41,12 @@ public final class Ekora {
 
 	/** Testler için. */
 	public static void ipucuAyarla(String baslik, String eklenti, boolean akilli) {
-		ipucu = new GuiIpucu(baslik, eklenti, akilli, System.currentTimeMillis());
+		ipucu = new GuiIpucu(baslik, eklenti, akilli, "", System.currentTimeMillis());
+	}
+
+	/** Testler için: sunucu aramalı menü ipucu. */
+	public static void ipucuAyarla(String baslik, String eklenti, boolean akilli, String arama) {
+		ipucu = new GuiIpucu(baslik, eklenti, akilli, arama, System.currentTimeMillis());
 	}
 
 	public static boolean destekli() { return destek; }
@@ -119,7 +124,7 @@ public final class Ekora {
 				else mc.gui.setScreen(new DolapEkrani(o));
 			}
 			case "kasa" -> mc.gui.setScreen(new KasaEkrani(o));
-			case "gui" -> ipucu = new GuiIpucu(Json.yazi(o, "baslik", ""), Json.yazi(o, "eklenti", ""), Json.mantik(o, "akilli", false), System.currentTimeMillis());
+			case "gui" -> ipucu = new GuiIpucu(Json.yazi(o, "baslik", ""), Json.yazi(o, "eklenti", ""), Json.mantik(o, "akilli", false), Json.yazi(o, "arama", ""), System.currentTimeMillis());
 			case "hata" -> {
 				if (acik instanceof CarkEkrani c) c.hata(Json.yazi(o, "mesaj", ""));
 				Bildirimler.ekle(Json.yazi(o, "baslik", "Olmadı"), Json.yazi(o, "mesaj", ""), "minecraft:barrier", Cizim0.KIRMIZI);

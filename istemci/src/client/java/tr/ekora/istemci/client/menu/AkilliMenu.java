@@ -60,6 +60,11 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 	private int icerikH;
 	private EditBox arama;
 	private String sorgu = "";
+	/** Sunucu araması (tüm sayfalarda): boş değilse arama çubuğu büyük ve Enter sunucuda arar. */
+	private final String sunucuArama;
+	/** Az önce sunucuda aranan sorgu: sonuç menüsü açılınca kutuda kalsın. */
+	private static String sonSunucuSorgu = "";
+	private static long sonSunucuZaman;
 	private boolean gecis;
 	private final Map<Integer, MenuOgesi> onbellek = new HashMap<>();
 	private final Map<Integer, ItemStack> onbellekYigin = new HashMap<>();
@@ -70,9 +75,16 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 	}
 
 	private final List<Alan> alanlar = new ArrayList<>();
+	private String sorguIlk = "";
 
 	public AkilliMenu(ChestMenu menu, Inventory inv, Component title, String eklenti) {
+		this(menu, inv, title, eklenti, "");
+	}
+
+	public AkilliMenu(ChestMenu menu, Inventory inv, Component title, String eklenti, String sunucuArama) {
 		super(menu, inv, title, 176, 166);
+		this.sunucuArama = sunucuArama == null ? "" : sunucuArama;
+		if (!this.sunucuArama.isEmpty() && System.currentTimeMillis() - sonSunucuZaman < 4000) sorguIlk = sonSunucuSorgu;
 		this.envanter = inv;
 		this.satir = menu.getRowCount();
 		String t = SandikGorunumu.tema(title);
@@ -91,7 +103,7 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 		if (i == null || !i.akilli() || Ayarlar.klasikBasliklar.contains(b)) return s;
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.player == null) return s;
-		return new AkilliMenu(cs.getMenu(), mc.player.getInventory(), cs.getTitle(), i.eklenti());
+		return new AkilliMenu(cs.getMenu(), mc.player.getInventory(), cs.getTitle(), i.eklenti(), i.arama());
 	}
 
 	// ================================================================== yerleşim
@@ -103,9 +115,10 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 		py = (this.height - ph) / 2;
 		int altH = Ayarlar.menuEnvanter ? 96 : 26;
 		icX = px + 8;
-		icY = py + 26;
+		boolean genisArama = !sunucuArama.isEmpty();
+		icY = py + 26 + (genisArama ? 22 : 0);
 		icW = pw - 16;
-		icH = ph - 26 - altH - 6;
+		icH = ph - 26 - altH - 6 - (genisArama ? 22 : 0);
 		envX = px + 10;
 		envY = py + ph - 80;
 		// oyuncu envanteri yuvaları sabit konumludur (menüye göre); menü kökünü envanter istenen yere gelecek şekilde kaydır
@@ -114,14 +127,19 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 		this.titleLabelX = -9999;
 		int ogeSayisi = 0;
 		for (int i = 0; i < satir * 9; i++) if (!menu.slots.get(i).getItem().isEmpty()) ogeSayisi++;
-		if (ogeSayisi >= 8) {
+		if (genisArama) {
+			// büyük arama çubuğu: yazdıkça bu sayfayı süzer, Enter bütün sayfalarda (sunucuda) arar
+			arama = new EditBox(this.font, px + 30, py + 31, pw - 30 - 120, 12, Component.literal("Ara"));
+			arama.setHint(Component.literal("§8" + sunucuArama + "… (ör. elmas, elytra)"));
+		} else if (ogeSayisi >= 8) {
 			int aw = Math.min(110, pw / 4);
 			arama = new EditBox(this.font, px + pw - 18 - 60 - 6 - aw, py + 6, aw, 12, Component.literal("Ara"));
 			arama.setHint(Component.literal("§8Ara…"));
 			arama.setBordered(false);
 			arama.setMaxLength(40);
 			arama.setTextColor(0xFFFFFFFF);
-			arama.setValue(sorgu);
+			// sunucu araması sonucu: sorgu kutuda görünür ama yerel süzme yapılmaz (sonuçlar zaten süzülmüş; oyuncu İngilizce dilde olabilir)
+			arama.setValue(genisArama && sorgu.isEmpty() && !sorguIlk.isEmpty() ? sorguIlk : sorgu);
 			arama.setResponder(v -> { sorgu = v.toLowerCase(TR).trim(); kaydir = 0; });
 			this.addRenderableWidget(arama);
 		} else arama = null;
@@ -155,11 +173,25 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 		int bx = px + 8 + this.font.width("EKORA") + 4;
 		g.text(this.font, "•", bx, py + 8, 0xFF5B6188, false);
 		bx += this.font.width("• ");
-		int sag = px + pw - 18 - 60 - 6 - (arama != null ? Math.min(110, pw / 4) + 6 : 0);
+		int sag = px + pw - 18 - 60 - 6 - (arama != null && sunucuArama.isEmpty() ? Math.min(110, pw / 4) + 6 : 0);
 		yaz(g, baslikAcik, bx, py + 8, sag - bx - 4);
 		// arama kutusu çerçevesi
-		if (arama != null) {
+		if (arama != null && sunucuArama.isEmpty()) {
 			Cizim.panel(g, arama.getX() - 4, py + 4, Math.min(110, pw / 4) + 6, 14, 0xFF0D101C, arama.isFocused() ? vurgu : Cizim.KENAR);
+		} else if (arama != null) {
+			int ay = py + 27;
+			Cizim.panel(g, px + 8, ay, pw - 16, 18, 0xFF0D101C, arama.isFocused() ? vurgu : Cizim.karis(Cizim.KENAR, vurgu, 0.35f));
+			Cizim.degradeX(g, px + 9, ay + 1, (pw - 18) / 3, 16, Cizim.alfa(vurgu, 0.12f), 0x00000000);
+			// büyüteç: halka + sap
+			int bx0 = px + 14, by0 = ay + 4;
+			g.fill(bx0 + 1, by0, bx0 + 6, by0 + 1, vurgu); g.fill(bx0 + 1, by0 + 6, bx0 + 6, by0 + 7, vurgu);
+			g.fill(bx0, by0 + 1, bx0 + 1, by0 + 6, vurgu); g.fill(bx0 + 6, by0 + 1, bx0 + 7, by0 + 6, vurgu);
+			g.fill(bx0 + 6, by0 + 6, bx0 + 8, by0 + 8, vurgu); g.fill(bx0 + 8, by0 + 8, bx0 + 10, by0 + 10, vurgu);
+			int dx = px + pw - 112;
+			boolean ust = Cizim.icinde(mx, my, dx, ay + 2, 100, 14);
+			Cizim.panel(g, dx, ay + 2, 100, 14, ust ? Cizim.koyu(vurgu, 0.35f) : Cizim.koyu(vurgu, 0.65f), vurgu);
+			yazi(g, "§lTümünde ara ↵", dx + 2, ay + 5, 96, 0xFFFFFFFF, 0.6f, true);
+			if (ust) g.setTooltipForNextFrame(this.font, Component.literal("Bütün sayfalarda ara (Enter). Yazarken bu sayfa anında süzülür."), mx, my);
 		}
 		// sağ üst düğmeler: envanter, klasik, kapat
 		dugme(g, mx, my, px + pw - 18 - 60, py + 5, 28, 12, Ayarlar.menuEnvanter ? "§fÇanta" : "§7Çanta", Ayarlar.menuEnvanter ? vurgu : 0xFF3A3F5C);
@@ -476,6 +508,7 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 	public boolean mouseClicked(MouseButtonEvent e, boolean cift) {
 		double mx = e.x(), my = e.y();
 		if (arama != null && arama.isMouseOver(mx, my)) return super.mouseClicked(e, cift);
+		if (arama != null && !sunucuArama.isEmpty() && Cizim.icinde(mx, my, px + pw - 112, py + 29, 100, 14)) { tik(); sunucudaAra(); return true; }
 		if (arama != null) arama.setFocused(false);
 		if (Cizim.icinde(mx, my, px + pw - 16, py + 5, 12, 12)) { tik(); this.onClose(); return true; }
 		if (Cizim.icinde(mx, my, px + pw - 18 - 60, py + 5, 28, 12)) {
@@ -534,6 +567,7 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 	public boolean keyPressed(KeyEvent e) {
 		if (arama != null && arama.isFocused()) {
 			if (e.key() == 256 || e.key() == 27) { arama.setFocused(false); return true; } // ESC: önce aramadan çık
+			if ((e.key() == 257 || e.key() == 335 || e.key() == 13) && !sunucuArama.isEmpty()) { sunucudaAra(); return true; } // Enter
 			arama.keyPressed(e);
 			return true; // yazarken envanter tuşu (E) menüyü kapatmasın
 		}
@@ -565,6 +599,14 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 		if (dolu == 0) { denetimTik++; return; }
 		denetimTik = 99;
 		if (cam == 0 && adli * 2 < dolu) klasigeGec(false);
+	}
+
+	private void sunucudaAra() {
+		String q = arama == null ? "" : arama.getValue().trim();
+		if (q.isEmpty()) return;
+		sonSunucuSorgu = q;
+		sonSunucuZaman = System.currentTimeMillis();
+		Ekora.istekCok("ara", "sorgu", q);
 	}
 
 	/** Bu başlığı klasik (sandık) görünümle yeniden açar ve hatırlar. */

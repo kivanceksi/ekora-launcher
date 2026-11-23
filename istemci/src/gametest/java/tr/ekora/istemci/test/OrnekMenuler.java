@@ -37,18 +37,22 @@ final class OrnekMenuler {
 	private static final int GRI = 0xAAAAAA, KOYU = 0x555555, BEYAZ = 0xFFFFFF, SARI = 0xFFFF55, YESIL = 0x55FF55, KIRMIZI = 0xFF5555, ALTIN = 0xFFAA00, AQUA = 0x55FFFF;
 
 	private static Screen ac(int satir, Component baslik, String eklenti, java.util.function.Consumer<Container> doldur) {
+		return ac(satir, baslik, eklenti, "", doldur);
+	}
+
+	private static Screen ac(int satir, Component baslik, String eklenti, String arama, java.util.function.Consumer<Container> doldur) {
 		var mc = Minecraft.getInstance();
 		var inv = mc.player.getInventory();
 		ChestMenu m = switch (satir) { case 3 -> ChestMenu.threeRows(0, inv); case 4 -> ChestMenu.fourRows(0, inv); case 5 -> ChestMenu.fiveRows(0, inv); default -> ChestMenu.sixRows(0, inv); };
 		doldur.accept(m.getContainer());
-		Ekora.ipucuAyarla(baslik.getString().trim(), eklenti, true);
+		Ekora.ipucuAyarla(baslik.getString().trim(), eklenti, true, arama);
 		return new ContainerScreen(m, inv, baslik);
 	}
 
 	static Component baslik(String s) { return Component.literal(s).withStyle(st -> st.withColor(TextColor.fromRgb(0x3B2A18))); }
 
 	static Screen mezat() {
-		return ac(6, baslik("Mezat • SMP (1/3)"), "EkoraPazar", c -> {
+		return ac(6, baslik("Mezat • SMP (1/3)"), "EkoraPazar", "Mezatta ara", c -> {
 			Object[][] ilan = {{"diamond_sword", 1, "Keskinlik V Kılıç", "4.500 SMP Coin", "Deniz_42", "1g 4s"}, {"elytra", 1, "Elytra", "38.000 SMP Coin", "MertPvP", "11s 20d"},
 					{"netherite_ingot", 4, "Netherit Külçesi", "9.600 SMP Coin (2.400 / adet)", "KasabaReisi", "2g 1s"}, {"golden_apple", 16, "Altın Elma", "1.120 SMP Coin (70 / adet)", "Zeynep", "5s 2d"},
 					{"enchanted_book", 1, "Onarım Kitabı", "6.000 SMP Coin", "ElifYapar", "3g"}, {"shulker_box", 1, "Shulker Kutusu", "3.200 SMP Coin", "Kaan", "22s"},
@@ -72,7 +76,7 @@ final class OrnekMenuler {
 	}
 
 	static Screen market() {
-		return ac(6, baslik("Bloklar (1/2)"), "EkoraPazar", c -> {
+		return ac(6, baslik("Bloklar (1/2)"), "EkoraPazar", "Markette ara", c -> {
 			Object[][] u = {{"oak_log", "Meşe Kütüğü", 12, 4, 32}, {"stone", "Taş", 2, 1, 0}, {"glass", "Cam", 6, 2, 12}, {"bricks", "Tuğla", 9, 3, 0},
 					{"quartz_block", "Kuvars Bloğu", 30, 10, 0}, {"sea_lantern", "Deniz Feneri", 48, 0, 0}, {"obsidian", "Obsidyen", 60, 20, 5}, {"terracotta", "Pişmiş Kil", 5, 2, 0}};
 			for (int i = 0; i < u.length; i++) {
