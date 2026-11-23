@@ -98,6 +98,11 @@ public class IstemciEkranTesti implements FabricClientGameTest {
 				context.waitTicks(8);
 				context.takeScreenshot("ekora_akilli_" + a[0]);
 			}
+			context.runOnClient(c -> { c.gui.setScreen(OrnekMenuler.mezat()); });
+			context.waitTicks(4);
+			context.runOnClient(c -> { if (c.gui.screen() instanceof tr.ekora.istemci.client.menu.AkilliMenu m) m.testAramaYaz("elmas"); });
+			context.waitTicks(4);
+			context.takeScreenshot("ekora_akilli_mezat_arama");
 			context.runOnClient(c -> { tr.ekora.istemci.client.Ayarlar.menuEnvanter = true; c.gui.setScreen(OrnekMenuler.market()); });
 			context.waitTicks(8);
 			context.takeScreenshot("ekora_akilli_market_envanter");

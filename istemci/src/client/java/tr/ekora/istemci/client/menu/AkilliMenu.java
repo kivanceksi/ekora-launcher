@@ -130,11 +130,13 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 		if (genisArama) {
 			// büyük arama çubuğu: yazdıkça bu sayfayı süzer, Enter bütün sayfalarda (sunucuda) arar
 			arama = new EditBox(this.font, px + 30, py + 31, pw - 30 - 120, 12, Component.literal("Ara"));
-			arama.setHint(Component.literal("§8" + sunucuArama + "… (ör. elmas, elytra)"));
+			arama.setHint(Component.literal("§7" + sunucuArama + "… §8(ör. elmas, elytra)"));
 		} else if (ogeSayisi >= 8) {
 			int aw = Math.min(110, pw / 4);
 			arama = new EditBox(this.font, px + pw - 18 - 60 - 6 - aw, py + 6, aw, 12, Component.literal("Ara"));
-			arama.setHint(Component.literal("§8Ara…"));
+			arama.setHint(Component.literal("§7Ara…"));
+		} else arama = null;
+		if (arama != null) {
 			arama.setBordered(false);
 			arama.setMaxLength(40);
 			arama.setTextColor(0xFFFFFFFF);
@@ -142,7 +144,7 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 			arama.setValue(genisArama && sorgu.isEmpty() && !sorguIlk.isEmpty() ? sorguIlk : sorgu);
 			arama.setResponder(v -> { sorgu = v.toLowerCase(TR).trim(); kaydir = 0; });
 			this.addRenderableWidget(arama);
-		} else arama = null;
+		}
 	}
 
 	private MenuOgesi oge(int slot) {
@@ -599,6 +601,11 @@ public final class AkilliMenu extends AbstractContainerScreen<ChestMenu> {
 		if (dolu == 0) { denetimTik++; return; }
 		denetimTik = 99;
 		if (cam == 0 && adli * 2 < dolu) klasigeGec(false);
+	}
+
+	/** Testler için: arama kutusuna yaz (bu sayfayı süzer). */
+	public void testAramaYaz(String s) {
+		if (arama != null) { arama.setValue(s); arama.setFocused(true); }
 	}
 
 	private void sunucudaAra() {
