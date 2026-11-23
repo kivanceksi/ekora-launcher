@@ -36,7 +36,7 @@ function baglan (ad) {
     bot.on('error', e => log(ad, 'HATA', e.message))
     bot.once('spawn', () => res(bot))
     bot.once('end', r => rej(new Error(ad + ' bağlantı kapandı: ' + r)))
-    setTimeout(() => rej(new Error('bağlanamadı ' + ad)), 40000)
+    setTimeout(() => rej(new Error('bağlanamadı ' + ad)), 90000)
   })
 }
 const pencere = (b, ms = 6000) => new Promise((res, rej) => { const f = w => res(w); b.once('windowOpen', f); setTimeout(() => { b.removeListener('windowOpen', f); rej(new Error('pencere açılmadı')) }, ms) })
