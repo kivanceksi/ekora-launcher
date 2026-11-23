@@ -74,6 +74,7 @@ const geldi = (kim, re, sonra = 0) => mesajlar[kim].slice(sonra).some(m => re.te
     await bekle(5000)
     if (Math.abs(B.entity.position.y - 101) < 2) { B.chat('/login Sifre1234'); await bekle(4000) }
     log('B konum', konum(B))
+    konsol('lp user Yetkili1 parent add kurucu'); await bekle(1500)
     konsol('lp user Yetkili1 info'); await bekle(1000)
 
     // Yetkili Paneli
