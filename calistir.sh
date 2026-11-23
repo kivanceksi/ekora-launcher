@@ -22,9 +22,18 @@ modrinth() { # proje yükleyici
 }
 LP=$(modrinth luckperms bukkit); echo "LuckPerms: $LP" | tee -a $OUT/surumler.txt
 [ -n "$LP" ] && [ "$LP" != "null" ] && curl -fsSL -A "$UA" -o $S/plugins/LuckPerms.jar "$LP"
-curl -fsSL -A "$UA" "https://api.github.com/repos/AuthMe/AuthMeReloaded/releases/latest" > /tmp/am.json
-jq -r '.assets[].name' /tmp/am.json | tee $OUT/authme-dosyalari.txt
-AM=$(jq -r '[.assets[] | select(.name|test("(?i)(paper|spigot|bukkit)")) | select(.name|test("(?i)(bungee|velocity|legacy)")|not)][0].browser_download_url' /tmp/am.json)
+AM=""
+for slug in authmereloaded authme authme-reloaded; do
+  for ld in paper spigot bukkit; do
+    [ -n "$AM" ] && [ "$AM" != "null" ] && break
+    AM=$(curl -fsSL -A "$UA" "https://api.modrinth.com/v2/project/$slug/version?loaders=%5B%22$ld%22%5D" 2>/dev/null | jq -r '.[0].files[0].url' 2>/dev/null)
+  done
+done
+if [ -z "$AM" ] || [ "$AM" = "null" ]; then
+  curl -sSL -A "$UA" "https://api.github.com/repos/AuthMe/AuthMeReloaded/releases?per_page=5" > /tmp/am.json
+  jq -r '.[].assets[].name' /tmp/am.json > $OUT/authme-dosyalari.txt 2>&1 || head -c 400 /tmp/am.json > $OUT/authme-dosyalari.txt
+  AM=$(jq -r '[.[].assets[] | select(.name|test("(?i)\\.jar$")) | select(.name|test("(?i)(bungee|velocity|legacy|sources|javadoc)")|not)][0].browser_download_url' /tmp/am.json)
+fi
 echo "AuthMe: $AM" | tee -a $OUT/surumler.txt
 [ -n "$AM" ] && [ "$AM" != "null" ] && curl -fsSL -A "$UA" -L -o $S/plugins/AuthMe.jar "$AM"
 for v in viaversion viabackwards; do
@@ -35,7 +44,7 @@ cp eklentiler/*.jar $S/plugins/
 
 cd $S
 echo "eula=true" > eula.txt
-printf "online-mode=false\nmotd=EkoraTest\nspawn-protection=0\nview-distance=4\nsimulation-distance=4\nlevel-seed=42\n" > server.properties
+printf "online-mode=false\nwhite-list=false\nenforce-whitelist=false\nmotd=EkoraTest\nspawn-protection=0\nview-distance=4\nsimulation-distance=4\nlevel-seed=42\n" > server.properties
 
 calistir() { # $1 = tur adı, $2 = komut dosyası
   local LOG=$OUT/$1.log
@@ -104,7 +113,8 @@ if [ -f plugins/AuthMe/config.yml ]; then
   grep -nE "noTeleport|teleportUnAuthedToSpawn|maxRegPerIp|allowMovement|timeout" plugins/AuthMe/config.yml > $OUT/authme-ayar.txt
 fi
 ( cd .. && npm install --silent --no-audit --no-fund mineflayer@4.39.0 minecraft-data > $OUT/npm.log 2>&1 )
-echo "bot" > /tmp/tur3.txt
+printf "whitelist off\nbekle 1\n" > /tmp/tur3.txt
+echo "bot" >> /tmp/tur3.txt
 echo "bekle 3" >> /tmp/tur3.txt
 calistir tur3 /tmp/tur3.txt || true
 ls -R plugins/EkoraYetki > $OUT/ekorayetki-dosyalar.txt 2>/dev/null
