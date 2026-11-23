@@ -64,6 +64,8 @@ const geldi = (kim, re, sonra = 0) => mesajlar[kim].slice(sonra).some(m => re.te
     kontrol(geldi('Deneme1', /hızlı yazıyorsun/i, n0), 'sohbet seli engellendi')
     await bekle(3500)
 
+    konsol('lp creategroup kurucu'); await bekle(800)
+    konsol('lp user Yetkili1 parent add kurucu'); await bekle(800)
     konsol('op Yetkili1')
     await bekle(1500)
     B = await baglan('Yetkili1')
@@ -72,6 +74,7 @@ const geldi = (kim, re, sonra = 0) => mesajlar[kim].slice(sonra).some(m => re.te
     await bekle(5000)
     if (Math.abs(B.entity.position.y - 101) < 2) { B.chat('/login Sifre1234'); await bekle(4000) }
     log('B konum', konum(B))
+    konsol('lp user Yetkili1 info'); await bekle(1000)
 
     // Yetkili Paneli
     let p = pencere(B); B.chat('/yetkili'); let w = await p
