@@ -138,7 +138,7 @@ const geldi = (kim, re, sonra = 0) => mesajlar[kim].slice(sonra).some(m => re.te
     // oyuncu duvarındaki ilk kafaya (Deneme1) tıkla → izleme
     const kafa = Object.values(B.entities).filter(e => /interaction/.test(e.name || '') && e.position.z < -15).sort((a, b) => b.position.y - a.position.y || a.position.x - b.position.x)[0]
     if (kafa) {
-      konsol(`tp Yetkili1 ${kafa.position.x.toFixed(1)} 65 ${(kafa.position.z + 1.6).toFixed(1)} 180 0`)
+      konsol(`execute in minecraft:ekora_yetkili run tp Yetkili1 ${kafa.position.x.toFixed(1)} 65 ${(kafa.position.z + 1.6).toFixed(1)} 180 0`)
       await bekle(2500)
       log('B duvar önünde', konum(B), 'kafa', kafa.position.toString())
       await B.lookAt(kafa.position.offset(0, 0.6, 0), true)
