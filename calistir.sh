@@ -110,7 +110,15 @@ cp plugins/EkoraKalkan/config.yml $OUT/ekorakalkan-config.yml 2>/dev/null
 # ---- tur 3: iki botla oyuncu akışı (AuthMe ayarı OKU_BENI'deki gibi; test için IP başına kayıt sınırı gevşek)
 if [ -f plugins/AuthMe/config.yml ]; then
   sed -i -E 's/^(\s*)noTeleport: false/\1noTeleport: true/; s/^(\s*)teleportUnAuthedToSpawn: true/\1teleportUnAuthedToSpawn: false/; s/^(\s*)maxRegPerIp: [0-9]+/\1maxRegPerIp: 10/; s/^(\s*)maxLoginPerIp: [0-9]+/\1maxLoginPerIp: 0/; s/^(\s*)maxJoinPerIp: [0-9]+/\1maxJoinPerIp: 0/; s/^(\s*)timeout: 30$/\1timeout: 0/' plugins/AuthMe/config.yml
-  grep -nE "noTeleport|teleportUnAuthedToSpawn|maxRegPerIp|allowMovement|timeout" plugins/AuthMe/config.yml > $OUT/authme-ayar.txt
+  python3 - <<'PY'
+import re
+p='plugins/AuthMe/config.yml'; s=open(p).read()
+s=re.sub(r'(loginTimeout|registerTimeout): \d+', r'\1: 0', s)
+s=re.sub(r'(preJoin:\n(?:\s*#.*\n)*\s*enable:) true', r'\1 false', s)
+s=re.sub(r'(postJoin:\n(?:\s*#.*\n)*\s*enable:) true', r'\1 false', s)
+open(p,'w').write(s)
+PY
+  grep -nE -A0 "noTeleport|teleportUnAuthedToSpawn|maxRegPerIp|allowMovement|Timeout|enable:" plugins/AuthMe/config.yml > $OUT/authme-ayar.txt
 fi
 ( cd .. && npm install --silent --no-audit --no-fund mineflayer@4.39.0 minecraft-data > $OUT/npm.log 2>&1 )
 printf "whitelist off\nbekle 1\n" > /tmp/tur3.txt
