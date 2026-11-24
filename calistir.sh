@@ -44,7 +44,7 @@ cp eklentiler/*.jar $S/plugins/
 
 cd $S
 echo "eula=true" > eula.txt
-printf "online-mode=false\nwhite-list=false\nenforce-whitelist=false\nmotd=EkoraTest\nspawn-protection=0\nview-distance=4\nsimulation-distance=4\nlevel-seed=42\n" > server.properties
+printf "online-mode=false\nenable-command-block=true\nwhite-list=false\nenforce-whitelist=false\nmotd=EkoraTest\nspawn-protection=0\nview-distance=4\nsimulation-distance=4\nlevel-seed=42\n" > server.properties
 
 calistir() { # $1 = tur adı, $2 = komut dosyası
   local LOG=$OUT/$1.log
