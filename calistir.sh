@@ -87,6 +87,8 @@ kalkan temizlik
 kalkan paper uygula
 kalkan acil
 kalkan acil
+forceload add 0 0
+bekle 2
 setblock 0 200 0 minecraft:repeating_command_block{Command:"pardon Tingimanog",auto:1b}
 setblock 2 200 0 minecraft:repeating_command_block{Command:"execute as @a run yasakkaldir SUUUperM0nki",auto:1b}
 bekle 3
