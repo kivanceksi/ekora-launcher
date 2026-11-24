@@ -49,30 +49,21 @@ const bekleMesaj = async (re, ms, sonra = 0) => { const t = Date.now(); while (D
     await bekle(4000)
     log('giriş sonrası konum', konum(A))
 
-    // ---------------- saklambaç
-    let bas = mesajlar.length
-    A.chat('/saklambac')
-    await bekle(3000)
-    log('saklambaç odası konumu', konum(A))
     const izle = setInterval(() => {
       const yakin = Object.values(A.entities).filter(e => e.type === 'player' && e !== A.entity).map(e => `${e.username}@${e.position.x.toFixed(1)},${e.position.y.toFixed(1)},${e.position.z.toFixed(1)}`)
       log('GÖZLEM ben', konum(A), 'oyun modu', A.game && A.game.gameMode, '| görünen oyuncular:', yakin.join(' ') || '-')
     }, 10000)
-    const bitti = await bekleMesaj(/kazand|BİTTİ|bitti|Oyun sona|süre doldu|Süre doldu|Kazanan/i, 300000, bas)
-    log('SAKLAMBAÇ bitti mi:', bitti)
-    await bekle(12000)
-
-    // ---------------- sumo
-    bas = mesajlar.length
-    A.chat('/hub')
-    await bekle(3000)
-    A.chat('/sumo')
-    await bekle(3000)
-    log('sumo odası konumu', konum(A))
-    // gerçek oyuncu sumoda kıpırdamadan durur; bot onu itip düşürmeli
-    const sumoBitti = await bekleMesaj(/kazand|Kazanan|bitti|düştü|elendi/i, 150000, bas)
-    log('SUMO bitti mi:', sumoBitti)
-    await bekle(8000)
+    const oyna = async (komut, sure) => {
+      const bas = mesajlar.length
+      log('======== OYUN', komut)
+      A.chat('/hub'); await bekle(2500)
+      A.chat('/' + komut); await bekle(3000)
+      log(komut, 'odası konumu', konum(A))
+      const bitti = await bekleMesaj(/kazand|Kazanan|berabere|Oyun bitti|OYUN BİTTİ/i, sure, bas)
+      log('======== SONUÇ', komut, bitti ? 'bitti' : 'süre doldu (bitmedi)')
+      await bekle(9000)
+    }
+    for (const [k, s] of [['saklambac', 280000], ['sumo', 120000], ['spleef', 150000], ['tntrun', 150000], ['sicakpatates', 150000], ['katil', 200000]]) await oyna(k, s)
     clearInterval(izle)
   } catch (e) {
     log('TEST HATASI', e.stack || e.message)

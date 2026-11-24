@@ -17,7 +17,7 @@ jobs:
           distribution: temurin
           java-version: 25
       - name: Paper 26.3 ile çalıştır
-        timeout-minutes: 25
+        timeout-minutes: 45
         run: bash calistir.sh
       - name: sunucu-test-cikti dalına yaz
         if: ${{ always() }}

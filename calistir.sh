@@ -57,7 +57,7 @@ calistir() { # $1 = tur adı, $2 = komut dosyası
   sleep 8
   while IFS= read -r c; do
     [ -z "$c" ] && continue
-    if [ "$c" = "oyun" ]; then timeout 520 node ../oyun-test.js "$PWD/giris" "$OUT/oyun.log" > $OUT/oyun-stdout.log 2>&1; continue; fi
+    if [ "$c" = "oyun" ]; then timeout 1500 node ../oyun-test.js "$PWD/giris" "$OUT/oyun.log" > $OUT/oyun-stdout.log 2>&1; continue; fi
     if [ "$c" = "bot" ]; then timeout 300 node ../bot-test.js "$PWD/giris" "$OUT/bot.log" > $OUT/bot-stdout.log 2>&1; continue; fi
     if [[ "$c" == bekle* ]]; then sleep "${c#bekle }"; continue; fi
     echo ">>> $c" >> $LOG
@@ -88,6 +88,9 @@ import re
 p='plugins/EkoraOyunlar/config.yml'; s=open(p).read()
 s=s.replace('core-olmadan-izin: false','core-olmadan-izin: true')
 s=s.replace('ayrintili-gunluk: false','ayrintili-gunluk: true')
+s=re.sub(r'bekleme-saniye: \d+','bekleme-saniye: 6',s)
+s=re.sub(r'geri-sayim: \d+','geri-sayim: 8',s)
+s=re.sub(r'(\nkatil:\n(?:.*\n)*?\s*sure-saniye:) \d+', r'\1 120', s, count=1)
 s=re.sub(r'(\nsaklambac:\n(?:.*\n)*?\s*geri-sayim:) \d+', r'\1 10', s, count=1)
 s=re.sub(r'(\nsaklambac:\n(?:.*\n)*?\s*sure-saniye:) \d+', r'\1 120', s, count=1)
 s=re.sub(r'(\nsumo:\n(?:.*\n)*?\s*geri-sayim:) \d+', r'\1 10', s, count=1)
