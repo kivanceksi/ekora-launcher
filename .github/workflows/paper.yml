@@ -1,0 +1,39 @@
+name: Paper 26.3 sunucu sınıfları
+
+on:
+  push:
+    branches: [paper-indir]
+
+jobs:
+  indir:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+      - name: Paper'ı indir ve yamala
+        run: |
+          set -e
+          mkdir -p s out && cd s
+          URL=$(curl -fsSL "https://fill.papermc.io/v3/projects/paper/versions/26.3/builds/latest" | jq -r '.downloads["server:default"].url')
+          echo "$URL" > ../out/url.txt
+          curl -fsSL -o paper.jar "$URL"
+          java -Dpaperclip.patchonly=true -jar paper.jar || true
+          find . -name "*.jar" | sort > ../out/jarlar.txt
+          cp versions/*/*.jar ../out/ 2>/dev/null || true
+          for p in authlib brigadier datafixerupper netty-buffer netty-common netty-transport netty-codec-4 joml fastutil gson guava adventure-api adventure-key examination-api slf4j-api log4j-api jspecify; do
+            find libraries -name "${p}*.jar" -exec cp {} ../out/ \; 2>/dev/null || true
+          done
+          ls -la ../out
+      - name: paper-26.3-sinif dalına yaz
+        run: |
+          cd out
+          git init -q -b paper-26.3-sinif
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -qm "Paper 26.3 sunucu sınıfları (derleme için)"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" paper-26.3-sinif
