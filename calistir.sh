@@ -57,6 +57,7 @@ calistir() { # $1 = tur adı, $2 = komut dosyası
   sleep 8
   while IFS= read -r c; do
     [ -z "$c" ] && continue
+    if [ "$c" = "oyun" ]; then timeout 520 node ../oyun-test.js "$PWD/giris" "$OUT/oyun.log" > $OUT/oyun-stdout.log 2>&1; continue; fi
     if [ "$c" = "bot" ]; then timeout 300 node ../bot-test.js "$PWD/giris" "$OUT/bot.log" > $OUT/bot-stdout.log 2>&1; continue; fi
     if [[ "$c" == bekle* ]]; then sleep "${c#bekle }"; continue; fi
     echo ">>> $c" >> $LOG
@@ -72,30 +73,7 @@ calistir() { # $1 = tur adı, $2 = komut dosyası
 
 cat > /tmp/tur1.txt <<'EOF'
 plugins
-lp creategroup rehber
-lp group rehber setweight 60
-lp creategroup medya
-lp group medya meta setsuffix 50 " &fM"
-ekorayetki
-ekorayetki site
-yetkililer
-raporlar
-kalkan
-kalkan paper
-kalkan lag
-kalkan temizlik
-kalkan paper uygula
-kalkan acil
-kalkan acil
-forceload add 0 0
-bekle 2
-setblock 0 200 0 minecraft:repeating_command_block{Command:"pardon Tingimanog",auto:1b}
-setblock 2 200 0 minecraft:repeating_command_block{Command:"execute as @a run yasakkaldir SUUUperM0nki",auto:1b}
-bekle 3
-kalkan komutblok
-yasakla YokBoyleBiri 1g deneme
-gecmis YokBoyleBiri
-bekle 3
+bekle 20
 EOF
 calistir tur1 /tmp/tur1.txt || true
 cp plugins/AuthMe/config.yml $OUT/authme-config.yml 2>/dev/null
@@ -104,14 +82,18 @@ find . -name "paper-world.yml" -path "*nether*" -exec cp {} $OUT/paper-world-net
 find . -name "paper-world.yml" -path "*end*" -exec cp {} $OUT/paper-world-end.yml \; 2>/dev/null
 ls config > $OUT/config-dosyalari.txt
 
-cat > /tmp/tur2.txt <<'EOF'
-kalkan paper
-ekorayetki
-bekle 3
-EOF
-calistir tur2 /tmp/tur2.txt || true
-cp plugins/EkoraYetki/config.yml $OUT/ekorayetki-config.yml 2>/dev/null
-cp plugins/EkoraKalkan/config.yml $OUT/ekorakalkan-config.yml 2>/dev/null
+# ---- EkoraOyunlar test ayarı: Core yok (test), kısa süreler, ayrıntılı bot günlüğü
+python3 - <<'PY'
+import re
+p='plugins/EkoraOyunlar/config.yml'; s=open(p).read()
+s=s.replace('core-olmadan-izin: false','core-olmadan-izin: true')
+s=s.replace('ayrintili-gunluk: false','ayrintili-gunluk: true')
+s=re.sub(r'(\nsaklambac:\n(?:.*\n)*?\s*geri-sayim:) \d+', r'\1 10', s, count=1)
+s=re.sub(r'(\nsaklambac:\n(?:.*\n)*?\s*sure-saniye:) \d+', r'\1 120', s, count=1)
+s=re.sub(r'(\nsumo:\n(?:.*\n)*?\s*geri-sayim:) \d+', r'\1 10', s, count=1)
+open(p,'w').write(s)
+PY
+cp plugins/EkoraOyunlar/config.yml $OUT/ekoraoyunlar-config.yml 2>/dev/null
 
 # ---- tur 3: iki botla oyuncu akışı (AuthMe ayarı OKU_BENI'deki gibi; test için IP başına kayıt sınırı gevşek)
 if [ -f plugins/AuthMe/config.yml ]; then
@@ -128,7 +110,7 @@ PY
 fi
 ( cd .. && npm install --silent --no-audit --no-fund mineflayer@4.39.0 minecraft-data > $OUT/npm.log 2>&1 )
 printf "whitelist off\nbekle 1\n" > /tmp/tur3.txt
-echo "bot" >> /tmp/tur3.txt
+echo "oyun" >> /tmp/tur3.txt
 echo "bekle 3" >> /tmp/tur3.txt
 calistir tur3 /tmp/tur3.txt || true
 ls -R plugins/EkoraYetki > $OUT/ekorayetki-dosyalar.txt 2>/dev/null
@@ -136,11 +118,13 @@ ls -R plugins/EkoraYetki > $OUT/ekorayetki-dosyalar.txt 2>/dev/null
 # ---- özet: hata ve istisnalar
 cd $OUT
 {
-  for t in tur1 tur2 tur3; do
+  for t in tur1 tur3; do
     echo "===== $t"
     grep -E "Done \(|EkoraYetki|EkoraKalkan|EkoraHub|AuthMe|Yetkili Bölgesi|Giriş adası|Giriş alanı|Paper koruma|KALKAN|EKORA|✔|ERROR|Exception|Caused by|SEVERE|Could not|Failed|ÇIKIŞ KODU" $t.log | grep -v "^\s*at " | head -150
   done
-  echo "===== bot"
-  cat bot.log 2>/dev/null | grep -vE "MESAJ" | head -120
+  echo "===== bot günlüğü (tur3)"
+  grep -E "\[BOT\]|Alıştırma botu|Bot beyni|EkoraOyunlar" tur3.log | cut -c1-260 | head -400
+  echo "===== oyuncu (oyun.log)"
+  cat oyun.log 2>/dev/null | cut -c1-300 | head -400
 } > ozet.txt
 cat ozet.txt
