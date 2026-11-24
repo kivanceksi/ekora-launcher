@@ -30,7 +30,12 @@ jobs:
           ls -la ../out
           mkdir -p ../tam/eklenti && cp paper.jar ../tam/
           for u in https://cdn.modrinth.com/data/P1OZGk5p/versions/f4R145KC/ViaVersion-5.12.3-SNAPSHOT.jar https://cdn.modrinth.com/data/NpvuJQoq/versions/7DqQGlNz/ViaBackwards-5.12.3-SNAPSHOT.jar https://cdn.modrinth.com/data/Vebnzrzj/versions/b0mk8uS6/LuckPerms-Bukkit-5.5.71.jar https://cdn.modrinth.com/data/9js4IEHC/versions/fPuH4uYs/AuthMe-6.0.1-Paper.jar; do curl -fsSL -o ../tam/eklenti/$(basename $u) "$u" || echo "indirilemedi $u"; done
-          tar -czf - cache libraries versions | split -b 45m - ../tam/paper-tam.tgz.
+          # eklenti kütüphaneleri (LuckPerms, AuthMe çalışırken indirir): bir kez açıp kapat
+          mkdir -p plugins && cp ../tam/eklenti/LuckPerms*.jar ../tam/eklenti/AuthMe*.jar plugins/ && echo "eula=true" > eula.txt
+          printf "online-mode=false\nview-distance=2\n" > server.properties
+          (sleep 150; echo stop) | timeout 300 java -Xmx2G -jar paper.jar --nogui > acilis.log 2>&1 || true
+          grep -E "Done|ERROR" acilis.log | head -20
+          tar -czf - cache libraries versions plugins/LuckPerms/libs | split -b 45m - ../tam/paper-tam.tgz.
           ls -la ../tam
       - name: paper-26.3-sinif dalına yaz
         run: |
