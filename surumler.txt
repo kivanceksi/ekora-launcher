@@ -1,0 +1,5 @@
+Paper: https://fill-data.papermc.io/v1/objects/5efbc6ce4b8e128bfa77fa0d3e79132dfeaaab827abe0f87dd930535e5e489fd/paper-26.3-259.jar
+LuckPerms: https://cdn.modrinth.com/data/Vebnzrzj/versions/b0mk8uS6/LuckPerms-Bukkit-5.5.71.jar
+AuthMe: https://cdn.modrinth.com/data/9js4IEHC/versions/fPuH4uYs/AuthMe-6.0.1-Paper.jar
+viaversion: https://cdn.modrinth.com/data/P1OZGk5p/versions/f4R145KC/ViaVersion-5.12.3-SNAPSHOT.jar
+viabackwards: https://cdn.modrinth.com/data/NpvuJQoq/versions/7DqQGlNz/ViaBackwards-5.12.3-SNAPSHOT.jar

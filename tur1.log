@@ -1,0 +1,386 @@
+Downloading mojang_26.3.jar
+Applying patches
+Starting org.bukkit.craftbukkit.Main
+2026-11-24T05:51:17.792651718Z ServerMain WARN Advanced terminal features are not available in this environment
+[05:51:18 INFO]: [bootstrap] Running Java 25 (OpenJDK 64-Bit Server VM 25.0.5+8-LTS; Eclipse Adoptium Temurin-25.0.5+8) on Linux 7.0.0-1014-aws (amd64)
+[05:51:18 INFO]: [bootstrap] Loading Paper 26.3-259-main@c7097a9 (2026-11-23T10:00:22Z) for Minecraft 26.3
+[05:51:18 INFO]: [PluginInitializerManager] Initializing plugins...
+[05:51:18 INFO]: [PluginInitializerManager] Initialized 9 plugins
+[05:51:18 INFO]: [PluginInitializerManager] Bukkit plugins (9):
+ - AuthMe (6.0.1-b2770), EkoraHub (4.3.1), EkoraKalkan (2.0.2), EkoraOyunlar (1.9.0), EkoraPuan (1.12.1), EkoraYetki (1.0.1), LuckPerms (5.5.71), ViaBackwards (5.12.3-SNAPSHOT), ViaVersion (5.12.3-SNAPSHOT)
+[05:51:21 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Initialising converters for DataConverter...
+[05:51:21 INFO]: [com.destroystokyo.paper.profile.PaperServicesDiscoveryService] Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[05:51:22 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Finished initialising converters for DataConverter in 395.7ms
+[05:51:22 INFO]: Found new data pack paper, loading it automatically
+[05:51:22 INFO]: No existing world data, creating new world
+[05:51:23 INFO]: Loaded 1866 advancements
+[05:51:23 INFO]: Starting minecraft server version 26.3
+[05:51:23 INFO]: Loading properties
+[05:51:23 INFO]: This server is running Paper version 26.3-259-main@c7097a9 (2026-11-23T10:00:22Z) (Implementing API version 26.3.build.259-stable)
+[05:51:23 INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
+[05:51:23 INFO]: Server Ping Player Sample Count: 12
+[05:51:23 INFO]: Using 4 threads for Netty based IO
+[05:51:24 INFO]: [MoonriseCommon] Paper is using 1 worker threads, 1 I/O threads
+[05:51:24 INFO]: [ca.spottedleaf.moonrise.common.util.FMA] FMA supported: true for Linux platform with feature flag: flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq monitor vmx ssse3 fma cx16 pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 wbnoinvd ida arat vnmi avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq rdpid bus_lock_detect cldemote movdiri movdir64b md_clear serialize amx_bf16 avx512_fp16 amx_tile amx_int8 flush_l1d arch_capabilities
+[05:51:24 INFO]: Default game type: SURVIVAL
+[05:51:24 INFO]: Generating keypair
+[05:51:24 INFO]: Starting Minecraft server on *:25565
+[05:51:24 INFO]: Paper: Using libdeflate (Linux x86_64) compression from Velocity.
+[05:51:24 INFO]: Paper: Using OpenSSL 3.x.x (Linux x86_64) cipher from Velocity.
+[05:51:24 INFO]: [SpigotLibraryLoader] [AuthMe] Loading 15 libraries... please wait
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/ch/jalu/injector/1.0/injector-1.0.pom
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/ch/jalu/injector-parent/1.0/injector-parent-1.0.pom
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/javax/inject/javax.inject/1/javax.inject-1.pom
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/javax/annotation/javax.annotation-api/1.3.1/javax.annotation-api-1.3.1.pom
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/net/java/jvnet-parent/3/jvnet-parent-3.pom
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/net/ricecode/string-similarity/1.0.0/string-similarity-1.0.0.pom
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/maxmind/geoip2/geoip2/4.3.0/geoip2-4.3.0.pom
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/maxmind/db/maxmind-db/3.1.1/maxmind-db-3.1.1.pom
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/core/jackson-databind/2.19.0/jackson-databind-2.19.0.pom
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/jackson-base/2.19.0/jackson-base-2.19.0.pom
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/jackson-bom/2.19.0/jackson-bom-2.19.0.pom
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/jackson-parent/2.19/jackson-parent-2.19.pom
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/oss-parent/65/oss-parent-65.pom
+[05:51:25 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/junit/junit-bom/5.11.4/junit-bom-5.11.4.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/core/jackson-annotations/2.19.0/jackson-annotations-2.19.0.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/core/jackson-core/2.19.0/jackson-core-2.19.0.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.19.0/jackson-datatype-jsr310-2.19.0.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/module/jackson-modules-java8/2.19.0/jackson-modules-java8-2.19.0.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/javatar/javatar/2.5/javatar-2.5.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/commons/commons-email/1.6.0/commons-email-1.6.0.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/commons/commons-parent/65/commons-parent-65.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/apache/31/apache-31.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/junit/junit-bom/5.10.1/junit-bom-5.10.1.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/sun/mail/jakarta.mail/1.6.7/jakarta.mail-1.6.7.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/sun/mail/all/1.6.7/all-1.6.7.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/eclipse/ee4j/project/1.0.6/project-1.0.6.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/sun/activation/jakarta.activation/1.2.1/jakarta.activation-1.2.1.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/sun/activation/all/1.2.1/all-1.2.1.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/eclipse/ee4j/project/1.0.2/project-1.0.2.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.pom
+[05:51:26 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/slf4j/slf4j-parent/2.0.17/slf4j-parent-2.0.17.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/slf4j/slf4j-bom/2.0.17/slf4j-bom-2.0.17.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/slf4j/slf4j-simple/2.0.13/slf4j-simple-2.0.13.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/slf4j/slf4j-parent/2.0.13/slf4j-parent-2.0.13.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/slf4j/slf4j-bom/2.0.13/slf4j-bom-2.0.13.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/slf4j/slf4j-api/2.0.13/slf4j-api-2.0.13.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/ch/jalu/datasourcecolumns/0.1.2/datasourcecolumns-0.1.2.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/mysql/mysql-connector-j/9.3.0/mysql-connector-j-9.3.0.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/google/protobuf/protobuf-java/4.29.0/protobuf-java-4.29.0.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/google/protobuf/protobuf-parent/4.29.0/protobuf-parent-4.29.0.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/google/protobuf/protobuf-bom/4.29.0/protobuf-bom-4.29.0.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/mariadb/jdbc/mariadb-java-client/3.5.7/mariadb-java-client-3.5.7.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/junit/junit-bom/5.7.0/junit-bom-5.7.0.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/software/amazon/awssdk/bom/2.21.1/bom-2.21.1.pom
+[05:51:27 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/software/amazon/awssdk/aws-sdk-java-pom/2.21.1/aws-sdk-java-pom-2.21.1.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/postgresql/postgresql/42.7.11/postgresql-42.7.11.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/bouncycastle/bcprov-jdk18on/1.79/bcprov-jdk18on-1.79.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/warrenstrange/googleauth/1.5.0/googleauth-1.5.0.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/commons-codec/commons-codec/1.14/commons-codec-1.14.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/commons/commons-parent/50/commons-parent-50.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/apache/21/apache-21.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/httpcomponents/httpclient/4.5.12/httpclient-4.5.12.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/httpcomponents/httpcomponents-client/4.5.12/httpcomponents-client-4.5.12.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/httpcomponents/httpcomponents-parent/11/httpcomponents-parent-11.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/httpcomponents/httpcore/4.4.13/httpcore-4.4.13.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/httpcomponents/httpcomponents-core/4.4.13/httpcomponents-core-4.4.13.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/commons/commons-parent/34/commons-parent-34.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/apache/13/apache-13.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/commons-codec/commons-codec/1.11/commons-codec-1.11.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/commons/commons-parent/42/commons-parent-42.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/apache/18/apache-18.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/ch/jalu/configme/1.3.1/configme-1.3.1.pom
+[05:51:28 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/yaml/snakeyaml/2.0/snakeyaml-2.0.pom
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/bstats/bstats-bukkit/3.1.0/bstats-bukkit-3.1.0.pom
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/bstats/bstats-base/3.1.0/bstats-base-3.1.0.pom
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/ch/jalu/injector/1.0/injector-1.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/core/jackson-databind/2.19.0/jackson-databind-2.19.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/net/ricecode/string-similarity/1.0.0/string-similarity-1.0.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/javax/annotation/javax.annotation-api/1.3.1/javax.annotation-api-1.3.1.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/maxmind/geoip2/geoip2/4.3.0/geoip2-4.3.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/maxmind/db/maxmind-db/3.1.1/maxmind-db-3.1.1.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/core/jackson-core/2.19.0/jackson-core-2.19.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/core/jackson-annotations/2.19.0/jackson-annotations-2.19.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.19.0/jackson-datatype-jsr310-2.19.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/javatar/javatar/2.5/javatar-2.5.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/sun/activation/jakarta.activation/1.2.1/jakarta.activation-1.2.1.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/commons/commons-email/1.6.0/commons-email-1.6.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/sun/mail/jakarta.mail/1.6.7/jakarta.mail-1.6.7.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/slf4j/slf4j-simple/2.0.13/slf4j-simple-2.0.13.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/postgresql/postgresql/42.7.11/postgresql-42.7.11.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/mariadb/jdbc/mariadb-java-client/3.5.7/mariadb-java-client-3.5.7.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/mysql/mysql-connector-j/9.3.0/mysql-connector-j-9.3.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/ch/jalu/datasourcecolumns/0.1.2/datasourcecolumns-0.1.2.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/bouncycastle/bcprov-jdk18on/1.79/bcprov-jdk18on-1.79.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/com/warrenstrange/googleauth/1.5.0/googleauth-1.5.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/commons-codec/commons-codec/1.14/commons-codec-1.14.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/httpcomponents/httpcore/4.4.13/httpcore-4.4.13.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/apache/httpcomponents/httpclient/4.5.12/httpclient-4.5.12.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/yaml/snakeyaml/2.0/snakeyaml-2.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/ch/jalu/configme/1.3.1/configme-1.3.1.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/bstats/bstats-bukkit/3.1.0/bstats-bukkit-3.1.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] Downloading https://maven-central.storage-download.googleapis.com/maven2/org/bstats/bstats-base/3.1.0/bstats-base-3.1.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/ch/jalu/injector/1.0/injector-1.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/javax/inject/javax.inject/1/javax.inject-1.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/javax/annotation/javax.annotation-api/1.3.1/javax.annotation-api-1.3.1.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/net/ricecode/string-similarity/1.0.0/string-similarity-1.0.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/maxmind/geoip2/geoip2/4.3.0/geoip2-4.3.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/maxmind/db/maxmind-db/3.1.1/maxmind-db-3.1.1.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/fasterxml/jackson/core/jackson-databind/2.19.0/jackson-databind-2.19.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.19.0/jackson-datatype-jsr310-2.19.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/fasterxml/jackson/core/jackson-core/2.19.0/jackson-core-2.19.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/fasterxml/jackson/core/jackson-annotations/2.19.0/jackson-annotations-2.19.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/javatar/javatar/2.5/javatar-2.5.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/apache/commons/commons-email/1.6.0/commons-email-1.6.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/sun/mail/jakarta.mail/1.6.7/jakarta.mail-1.6.7.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/sun/activation/jakarta.activation/1.2.1/jakarta.activation-1.2.1.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/slf4j/slf4j-simple/2.0.13/slf4j-simple-2.0.13.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/ch/jalu/datasourcecolumns/0.1.2/datasourcecolumns-0.1.2.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/mysql/mysql-connector-j/9.3.0/mysql-connector-j-9.3.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/google/protobuf/protobuf-java/4.29.0/protobuf-java-4.29.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/mariadb/jdbc/mariadb-java-client/3.5.7/mariadb-java-client-3.5.7.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/postgresql/postgresql/42.7.11/postgresql-42.7.11.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/bouncycastle/bcprov-jdk18on/1.79/bcprov-jdk18on-1.79.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/warrenstrange/googleauth/1.5.0/googleauth-1.5.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/commons-codec/commons-codec/1.14/commons-codec-1.14.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/apache/httpcomponents/httpclient/4.5.12/httpclient-4.5.12.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/apache/httpcomponents/httpcore/4.4.13/httpcore-4.4.13.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/commons-logging/commons-logging/1.2/commons-logging-1.2.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/ch/jalu/configme/1.3.1/configme-1.3.1.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/yaml/snakeyaml/2.0/snakeyaml-2.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/bstats/bstats-bukkit/3.1.0/bstats-bukkit-3.1.0.jar
+[05:51:29 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/bstats/bstats-base/3.1.0/bstats-base-3.1.0.jar
+[05:51:29 INFO]: [ViaVersion] Loading server plugin ViaVersion v5.12.3-SNAPSHOT
+[05:51:29 INFO]: [ViaVersion] ViaVersion 5.12.3-SNAPSHOT is now loaded. Registering protocol transformers and injecting...
+[05:51:30 INFO]: [ViaBackwards] Loading translations...
+[05:51:30 INFO]: [ViaBackwards] Registering protocols...
+[05:51:30 INFO]: [LuckPerms] Loading server plugin LuckPerms v5.5.71
+[05:51:32 INFO]: [LuckPerms] Loading configuration...
+[05:51:32 INFO]: [AuthMe] Loading server plugin AuthMe v6.0.1-b2770
+[05:51:32 INFO]: [EkoraHub] Loading server plugin EkoraHub v4.3.1
+[05:51:32 INFO]: [EkoraPuan] Loading server plugin EkoraPuan v1.12.1
+[05:51:32 INFO]: [EkoraKalkan] Loading server plugin EkoraKalkan v2.0.2
+[05:51:32 INFO]: [EkoraOyunlar] Loading server plugin EkoraOyunlar v1.9.0
+[05:51:32 INFO]: [EkoraYetki] Loading server plugin EkoraYetki v1.0.1
+[05:51:32 INFO]: [ViaBackwards] Loading server plugin ViaBackwards v5.12.3-SNAPSHOT
+[05:51:32 INFO]: [LuckPerms] Enabling LuckPerms v5.5.71
+[05:51:32 INFO]:         __    
+[05:51:32 INFO]:   |    |__)   LuckPerms v5.5.71
+[05:51:32 INFO]:   |___ |      Running on Bukkit - Paper
+[05:51:32 INFO]: 
+[05:51:32 INFO]: [LuckPerms] Loading storage provider... [H2]
+[05:51:33 INFO]: [LuckPerms] Loading internal permission managers...
+[05:51:33 INFO]: [LuckPerms] Performing initial data load...
+[05:51:33 INFO]: [LuckPerms] Successfully enabled. (took 607ms)
+[05:51:33 WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[05:51:33 WARN]: The server will make no attempt to authenticate usernames. Beware.
+[05:51:33 WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[05:51:33 WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+[05:51:33 INFO]: Preparing level "world"
+[05:51:33 INFO]: Selecting spawn point for level 'minecraft:overworld'...
+[05:51:36 INFO]: Selecting spawn point for level 'minecraft:the_nether'...
+[05:51:36 INFO]: Selecting spawn point for level 'minecraft:the_end'...
+[05:51:36 INFO]: Loading 0 persistent chunks for level 'minecraft:overworld'...
+[05:51:36 INFO]: Preparing spawn area: 100%
+[05:51:36 INFO]: Prepared spawn area in 3063 ms
+[05:51:36 INFO]: Loading 0 persistent chunks for level 'minecraft:the_nether'...
+[05:51:36 INFO]: Preparing spawn area: 100%
+[05:51:36 INFO]: Prepared spawn area in 677 ms
+[05:51:36 INFO]: Loading 0 persistent chunks for level 'minecraft:the_end'...
+[05:51:36 INFO]: Preparing spawn area: 100%
+[05:51:36 INFO]: Prepared spawn area in 170 ms
+[05:51:36 INFO]: Done preparing level "world" (3.433s)
+[05:51:36 INFO]: [ViaVersion] Enabling ViaVersion v5.12.3-SNAPSHOT
+[05:51:36 INFO]: [ViaVersion] ViaVersion detected server version: 26.3 (777)
+[05:51:36 INFO]: [ViaVersion] The Vanilla protocol of Minecraft 1.20.5-1.21.4 is easily exploitable. If you don't need to support these versions, consider adding them to block-versions in the ViaVersion config: "1.20.5-1.20.6", "1.21-1.21.1", "1.21.2-1.21.3", "1.21.4"
+[05:51:36 INFO]: [AuthMe] Enabling AuthMe v6.0.1-b2770
+[05:51:36 INFO]: [AuthMe] Created column 'regdate' and set the current timestamp, 1795499496996, to all 0 rows
+[05:51:37 INFO]: [AuthMe] SQLite Setup finished
+[05:51:37 INFO]: [AuthMe] Hooked into LuckPerms!
+[05:51:37 WARN]: [AuthMe] WARNING! The protectInventory feature requires PacketEvents! Disabling it...
+[05:51:37 INFO]: [AuthMe] AuthMe 6.0.1 build n.2770 successfully enabled!
+[05:51:37 INFO]: [EkoraHub] Enabling EkoraHub v4.3.1
+[05:51:37 INFO]: [EkoraHub] EkoraMC menüleri: 33 menü yüklendi (DeluxeMenus gerekmez).
+[05:51:37 WARN]: [EkoraHub] Kaynak paketi hazır ama dağıtım adresi yok: config.yml → kaynak-paketi.url ya da yerel-sunucu.port ayarla (kurulum rehberi 3.2).
+[05:51:37 INFO]: [EkoraPuan] Enabling EkoraPuan v1.12.1
+[05:51:37 INFO]: [EkoraPuan] Web API için gizli anahtar üretildi (config.yml → web.api.anahtar). Bu anahtarı kimseyle paylaşma.
+[05:51:37 INFO]: [EkoraPuan] Veritabanı şeması oluşturuldu (sürüm 1, önek 'ekora_').
+[05:51:37 INFO]: [EkoraPuan] Veritabanı bağlandı: SQLite ekorapuan.db
+[05:51:37 INFO]: [EkoraPuan] EkoraPuan hazır: 159 ürün, 4 paket.
+[05:51:37 INFO]: [EkoraKalkan] Enabling EkoraKalkan v2.0.2
+[05:51:37 WARN]: [EkoraKalkan] GrimAC bulunamadı: hareket/savaş hileleri için GrimAC kurulu olmalı. EkoraKalkan onun yerine geçmez, yanında çalışır.
+[05:51:37 INFO]: [EkoraKalkan] EkoraKalkan hazır.
+[05:51:37 INFO]: [EkoraOyunlar] Enabling EkoraOyunlar v1.9.0
+[05:51:37 INFO]: [EkoraOyunlar] Oyun dünyası yükleniyor/oluşturuluyor: ekora_oyun_bedwars
+[05:51:38 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_oyun_bedwars'...
+[05:51:38 INFO]: Prepared spawn area in 1 ms
+[05:51:38 INFO]: [EkoraOyunlar] Oyun dünyası yükleniyor/oluşturuluyor: ekora_oyun_dalis
+[05:51:38 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_oyun_dalis'...
+[05:51:38 INFO]: Prepared spawn area in 0 ms
+[05:51:38 INFO]: [EkoraOyunlar] Oyun dünyası yükleniyor/oluşturuluyor: ekora_oyun_backrooms
+[05:51:38 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_oyun_backrooms'...
+[05:51:38 INFO]: Prepared spawn area in 0 ms
+[05:51:38 INFO]: [EkoraOyunlar] Oyun dünyası yükleniyor/oluşturuluyor: ekora_oyun_mini
+[05:51:38 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_oyun_mini'...
+[05:51:38 INFO]: Prepared spawn area in 0 ms
+[05:51:38 INFO]: [EkoraOyunlar] Oyun dünyası yükleniyor/oluşturuluyor: ekora_oyun_arena
+[05:51:38 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_oyun_arena'...
+[05:51:38 INFO]: Prepared spawn area in 0 ms
+[05:51:38 INFO]: [EkoraOyunlar] Oyun dünyası yükleniyor/oluşturuluyor: ekora_oyun_box
+[05:51:38 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_oyun_box'...
+[05:51:38 INFO]: Prepared spawn area in 1 ms
+[05:51:38 INFO]: [EkoraOyunlar] EkoraOyunlar hazır: 26 arena kuruluyor.
+[05:51:38 INFO]: [EkoraYetki] Enabling EkoraYetki v1.0.1
+[05:51:38 INFO]: [EkoraYetki] 0 ceza kaydı yüklendi.
+[05:51:38 INFO]: [EkoraYetki] EkoraYetki hazır: 5 rol, 0 ceza kaydı.
+[05:51:38 INFO]: [ViaBackwards] Enabling ViaBackwards v5.12.3-SNAPSHOT
+[05:51:38 INFO]: [spark] Starting background profiler...
+[05:51:39 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[05:51:39 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[05:51:39 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[05:51:39 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_bedwars
+[05:51:39 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_dalis
+[05:51:39 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_backrooms
+[05:51:39 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_mini
+[05:51:39 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_arena
+[05:51:39 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_box
+[05:51:39 INFO]: Running delayed init tasks
+[05:51:39 INFO]: [EkoraHub] Hub üretildi: 196795 blok (2373 ms)
+[05:51:39 INFO]: [ViaVersion] Finished mapping loading, shutting down loader executor.
+[05:51:39 INFO]: [AuthMe] Downloading GEO IP database, because the old database is older than 30 days or doesn't exist
+[05:51:39 WARN]: [AuthMe] No MaxMind credentials found in the configuration file! GeoIp protections will be disabled.
+[05:51:39 INFO]: [AuthMe] There is no newer GEO IP database uploaded to MaxMind. Using the old one for now.
+[05:51:39 WARN]: [AuthMe] Could not download GeoLiteAPI database [FileNotFoundException]: plugins/AuthMe/GeoLite2-Country.mmdb (No such file or directory)
+[05:51:39 INFO]: [EkoraYetki] Dünya hazırlanıyor: ekora_yetkili
+[05:51:39 INFO]: Selecting spawn point for level 'minecraft:ekora_yetkili'...
+[05:51:41 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_yetkili'...
+[05:51:41 INFO]: Preparing spawn area: 100%
+[05:51:41 INFO]: Prepared spawn area in 1472 ms
+[05:51:42 INFO]: [EkoraYetki] Yetkili Bölgesi kuruldu: 7577 blok, 585 ms.
+[05:51:42 INFO]: [EkoraYetki] Dünya hazırlanıyor: ekora_giris
+[05:51:42 INFO]: Selecting spawn point for level 'minecraft:ekora_giris'...
+[05:51:42 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_giris'...
+[05:51:42 INFO]: Preparing spawn area: 100%
+[05:51:42 INFO]: Prepared spawn area in 941 ms
+[05:51:43 INFO]: [EkoraYetki] Giriş adası kuruldu: 3210 blok.
+[05:51:43 INFO]: [EkoraYetki] Giriş alanı hazır (ekora_giris): AuthMe'de giriş yapan lobiye ışınlanır.
+[05:51:43 INFO]: [ViaVersion] You are running a development version of the plugin, please report any bugs to GitHub.
+[05:51:43 INFO]: [EkoraOyunlar] Skydiving: 12 bölüm üretildi ve doğrulandı.
+[05:51:43 INFO]: Done (26.370s)! For help, type "help"
+[05:51:43 INFO]: *************************************************************************************
+[05:51:43 INFO]: This is the first time you're starting this server.
+[05:51:43 INFO]: It's recommended you read our 'Getting Started' documentation for guidance.
+[05:51:43 INFO]: View this and more helpful information here: https://docs.papermc.io/paper/next-steps
+[05:51:43 INFO]: *************************************************************************************
+[05:51:45 INFO]: [EkoraHub] Oy sistemi: Votifier yüklü değil. Oy ödülü için AzuVotifier'ı kur (rehbere bak). /oy komutu yine çalışır.
+[05:51:45 WARN]: [EkoraKalkan] Paper koruma ayarlarında eksik var: Anti-xray KAPALI (hayalet blok yok); Rastgele yapı tohumları kapalı (tohum kırma hilesine açık); Mermi kayıt sınırı yok (parça kilitleme açığı); Sekme tamamlama paket sınırı yok; Nether (world_nether) antik kalıntı gizlenmiyor → oyunda /kalkan paper uygula yaz, sonra sunucuyu yeniden başlat.
+[05:51:51 INFO]: ℹ Server Plugins (9):
+[05:51:51 INFO]: Bukkit Plugins:
+[05:51:51 INFO]:  - AuthMe, EkoraHub, EkoraKalkan, EkoraOyunlar, EkoraPuan, EkoraYetki, LuckPerms, ViaBackwards, ViaVersion
+[05:52:13 INFO]: System chat: Stopping the server
+[05:52:13 INFO]: Stopping server
+[05:52:13 INFO]: [ViaBackwards] Disabling ViaBackwards v5.12.3-SNAPSHOT
+[05:52:13 INFO]: [EkoraYetki] Disabling EkoraYetki v1.0.1
+[05:52:13 INFO]: [EkoraOyunlar] Disabling EkoraOyunlar v1.9.0
+[05:52:13 INFO]: [EkoraKalkan] Disabling EkoraKalkan v2.0.2
+[05:52:13 INFO]: [EkoraPuan] Disabling EkoraPuan v1.12.1
+[05:52:13 INFO]: [EkoraHub] Disabling EkoraHub v4.3.1
+[05:52:13 INFO]: [AuthMe] Disabling AuthMe v6.0.1-b2770
+[05:52:13 INFO]: [AuthMe] Waiting for 0 tasks to finish
+[05:52:13 INFO]: [AuthMe] AuthMe 6.0.1-b2770 disabled!
+[05:52:13 INFO]: [LuckPerms] Disabling LuckPerms v5.5.71
+[05:52:13 INFO]: [LuckPerms] Starting shutdown process...
+[05:52:13 INFO]: [LuckPerms] Closing storage...
+[05:52:13 INFO]: [LuckPerms] Goodbye!
+[05:52:13 INFO]: [ViaVersion] Disabling ViaVersion v5.12.3-SNAPSHOT
+[05:52:13 INFO]: [ViaVersion] ViaVersion has been disabled; uninjected the platform and shut down the scheduler.
+[05:52:13 INFO]: Saving players
+[05:52:13 INFO]: Saving worlds
+[05:52:13 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[05:52:13 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:overworld'
+[05:52:13 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:overworld'
+[05:52:13 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:overworld'
+[05:52:13 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'minecraft:overworld' in 0.00s
+[05:52:13 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:overworld'
+[05:52:13 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:overworld'
+[05:52:13 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[05:52:13 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:the_nether'
+[05:52:13 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:the_nether'
+[05:52:13 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:the_nether'
+[05:52:13 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'minecraft:the_nether' in 0.00s
+[05:52:13 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:the_nether'
+[05:52:13 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:the_nether'
+[05:52:13 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[05:52:13 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:the_end'
+[05:52:13 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:the_end'
+[05:52:13 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:the_end'
+[05:52:13 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'minecraft:the_end' in 0.00s
+[05:52:13 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:the_end'
+[05:52:13 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:the_end'
+[05:52:13 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_bedwars
+[05:52:13 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_oyun_bedwars'
+[05:52:13 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_oyun_bedwars'
+[05:52:13 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_oyun_bedwars'
+[05:52:14 INFO]: [ChunkHolderManager] Saved 3124 block chunks, 144 entity chunks, 16 poi chunks in world 'minecraft:ekora_oyun_bedwars' in 0.31s
+[05:52:14 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_oyun_bedwars'
+[05:52:14 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_oyun_bedwars'
+[05:52:14 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_dalis
+[05:52:14 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_oyun_dalis'
+[05:52:14 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_oyun_dalis'
+[05:52:14 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_oyun_dalis'
+[05:52:14 INFO]: [ChunkHolderManager] Saved 1528 block chunks, 56 entity chunks, 0 poi chunks in world 'minecraft:ekora_oyun_dalis' in 0.13s
+[05:52:14 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_oyun_dalis'
+[05:52:14 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_oyun_dalis'
+[05:52:14 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_backrooms
+[05:52:14 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_oyun_backrooms'
+[05:52:14 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_oyun_backrooms'
+[05:52:14 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_oyun_backrooms'
+[05:52:14 INFO]: [ChunkHolderManager] Saved 1169 block chunks, 53 entity chunks, 0 poi chunks in world 'minecraft:ekora_oyun_backrooms' in 0.11s
+[05:52:14 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_oyun_backrooms'
+[05:52:14 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_oyun_backrooms'
+[05:52:14 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_mini
+[05:52:14 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_oyun_mini'
+[05:52:14 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_oyun_mini'
+[05:52:14 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_oyun_mini'
+[05:52:14 INFO]: [ChunkHolderManager] Saved 1532 block chunks, 24 entity chunks, 0 poi chunks in world 'minecraft:ekora_oyun_mini' in 0.12s
+[05:52:14 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_oyun_mini'
+[05:52:14 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_oyun_mini'
+[05:52:14 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_arena
+[05:52:14 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_oyun_arena'
+[05:52:14 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_oyun_arena'
+[05:52:14 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_oyun_arena'
+[05:52:15 INFO]: [ChunkHolderManager] Saved 10840 block chunks, 341 entity chunks, 37 poi chunks in world 'minecraft:ekora_oyun_arena' in 0.87s
+[05:52:15 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_oyun_arena'
+[05:52:15 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_oyun_arena'
+[05:52:15 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_box
+[05:52:15 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_oyun_box'
+[05:52:15 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_oyun_box'
+[05:52:15 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_oyun_box'
+[05:52:15 INFO]: [ChunkHolderManager] Saved 1187 block chunks, 100 entity chunks, 33 poi chunks in world 'minecraft:ekora_oyun_box' in 0.10s
+[05:52:15 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_oyun_box'
+[05:52:15 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_oyun_box'
+[05:52:15 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_yetkili
+[05:52:15 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_yetkili'
+[05:52:15 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_yetkili'
+[05:52:15 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_yetkili'
+[05:52:15 INFO]: [ChunkHolderManager] Saved 992 block chunks, 121 entity chunks, 3 poi chunks in world 'minecraft:ekora_yetkili' in 0.09s
+[05:52:15 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_yetkili'
+[05:52:15 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_yetkili'
+[05:52:15 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_giris
+[05:52:15 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_giris'
+[05:52:15 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_giris'
+[05:52:15 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_giris'
+[05:52:15 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'minecraft:ekora_giris' in 0.00s
+[05:52:15 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_giris'
+[05:52:15 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_giris'
+[05:52:15 INFO]: Waiting for all RegionFile I/O tasks to complete...
+[05:52:15 INFO]: All RegionFile I/O tasks to complete
+[05:52:15 INFO]: [MoonriseCommon] Awaiting termination of worker pool for up to 60s...
+[05:52:15 INFO]: [MoonriseCommon] Awaiting termination of I/O pool for up to 60s...
+ÇIKIŞ KODU 0

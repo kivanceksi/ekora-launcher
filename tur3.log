@@ -1,0 +1,529 @@
+Starting org.bukkit.craftbukkit.Main
+2026-11-24T05:52:26.988019345Z ServerMain WARN Advanced terminal features are not available in this environment
+[05:52:27 INFO]: [bootstrap] Running Java 25 (OpenJDK 64-Bit Server VM 25.0.5+8-LTS; Eclipse Adoptium Temurin-25.0.5+8) on Linux 7.0.0-1014-aws (amd64)
+[05:52:27 INFO]: [bootstrap] Loading Paper 26.3-259-main@c7097a9 (2026-11-23T10:00:22Z) for Minecraft 26.3
+[05:52:27 INFO]: [PluginInitializerManager] Initializing plugins...
+[05:52:27 INFO]: [PluginInitializerManager] Initialized 9 plugins
+[05:52:27 INFO]: [PluginInitializerManager] Bukkit plugins (9):
+ - AuthMe (6.0.1-b2770), EkoraHub (4.3.1), EkoraKalkan (2.0.2), EkoraOyunlar (1.9.0), EkoraPuan (1.12.1), EkoraYetki (1.0.1), LuckPerms (5.5.71), ViaBackwards (5.12.3-SNAPSHOT), ViaVersion (5.12.3-SNAPSHOT)
+[05:52:30 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Initialising converters for DataConverter...
+[05:52:30 INFO]: [com.destroystokyo.paper.profile.PaperServicesDiscoveryService] Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[05:52:30 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Finished initialising converters for DataConverter in 455.4ms
+[05:52:32 INFO]: Loaded 1866 advancements
+[05:52:32 INFO]: Starting minecraft server version 26.3
+[05:52:32 INFO]: Loading properties
+[05:52:32 INFO]: This server is running Paper version 26.3-259-main@c7097a9 (2026-11-23T10:00:22Z) (Implementing API version 26.3.build.259-stable)
+[05:52:32 INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
+[05:52:32 INFO]: Server Ping Player Sample Count: 12
+[05:52:32 INFO]: Using 4 threads for Netty based IO
+[05:52:32 INFO]: [ca.spottedleaf.moonrise.common.util.FMA] FMA supported: true for Linux platform with feature flag: flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq monitor vmx ssse3 fma cx16 pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 wbnoinvd ida arat vnmi avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq rdpid bus_lock_detect cldemote movdiri movdir64b md_clear serialize amx_bf16 avx512_fp16 amx_tile amx_int8 flush_l1d arch_capabilities
+[05:52:32 INFO]: [MoonriseCommon] Paper is using 1 worker threads, 1 I/O threads
+[05:52:33 INFO]: Default game type: SURVIVAL
+[05:52:33 INFO]: Generating keypair
+[05:52:33 INFO]: Starting Minecraft server on *:25565
+[05:52:33 INFO]: Paper: Using libdeflate (Linux x86_64) compression from Velocity.
+[05:52:33 INFO]: Paper: Using OpenSSL 3.x.x (Linux x86_64) cipher from Velocity.
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loading 15 libraries... please wait
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/ch/jalu/injector/1.0/injector-1.0.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/javax/inject/javax.inject/1/javax.inject-1.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/javax/annotation/javax.annotation-api/1.3.1/javax.annotation-api-1.3.1.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/net/ricecode/string-similarity/1.0.0/string-similarity-1.0.0.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/maxmind/geoip2/geoip2/4.3.0/geoip2-4.3.0.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/maxmind/db/maxmind-db/3.1.1/maxmind-db-3.1.1.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/fasterxml/jackson/core/jackson-databind/2.19.0/jackson-databind-2.19.0.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.19.0/jackson-datatype-jsr310-2.19.0.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/fasterxml/jackson/core/jackson-core/2.19.0/jackson-core-2.19.0.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/fasterxml/jackson/core/jackson-annotations/2.19.0/jackson-annotations-2.19.0.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/javatar/javatar/2.5/javatar-2.5.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/apache/commons/commons-email/1.6.0/commons-email-1.6.0.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/sun/mail/jakarta.mail/1.6.7/jakarta.mail-1.6.7.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/sun/activation/jakarta.activation/1.2.1/jakarta.activation-1.2.1.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/slf4j/slf4j-simple/2.0.13/slf4j-simple-2.0.13.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/ch/jalu/datasourcecolumns/0.1.2/datasourcecolumns-0.1.2.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/mysql/mysql-connector-j/9.3.0/mysql-connector-j-9.3.0.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/google/protobuf/protobuf-java/4.29.0/protobuf-java-4.29.0.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/mariadb/jdbc/mariadb-java-client/3.5.7/mariadb-java-client-3.5.7.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/postgresql/postgresql/42.7.11/postgresql-42.7.11.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/bouncycastle/bcprov-jdk18on/1.79/bcprov-jdk18on-1.79.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/com/warrenstrange/googleauth/1.5.0/googleauth-1.5.0.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/commons-codec/commons-codec/1.14/commons-codec-1.14.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/apache/httpcomponents/httpclient/4.5.12/httpclient-4.5.12.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/apache/httpcomponents/httpcore/4.4.13/httpcore-4.4.13.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/commons-logging/commons-logging/1.2/commons-logging-1.2.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/ch/jalu/configme/1.3.1/configme-1.3.1.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/yaml/snakeyaml/2.0/snakeyaml-2.0.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/bstats/bstats-bukkit/3.1.0/bstats-bukkit-3.1.0.jar
+[05:52:33 INFO]: [SpigotLibraryLoader] [AuthMe] Loaded library /home/runner/work/ekora-launcher/ekora-launcher/sunucu/libraries/org/bstats/bstats-base/3.1.0/bstats-base-3.1.0.jar
+[05:52:33 INFO]: [ViaVersion] Loading server plugin ViaVersion v5.12.3-SNAPSHOT
+[05:52:33 INFO]: [ViaVersion] ViaVersion 5.12.3-SNAPSHOT is now loaded. Registering protocol transformers and injecting...
+[05:52:34 INFO]: [ViaBackwards] Loading translations...
+[05:52:34 INFO]: [ViaBackwards] Registering protocols...
+[05:52:34 INFO]: [LuckPerms] Loading server plugin LuckPerms v5.5.71
+[05:52:34 INFO]: [LuckPerms] Loading configuration...
+[05:52:34 INFO]: [AuthMe] Loading server plugin AuthMe v6.0.1-b2770
+[05:52:34 INFO]: [EkoraHub] Loading server plugin EkoraHub v4.3.1
+[05:52:34 INFO]: [EkoraPuan] Loading server plugin EkoraPuan v1.12.1
+[05:52:34 INFO]: [EkoraKalkan] Loading server plugin EkoraKalkan v2.0.2
+[05:52:34 INFO]: [EkoraOyunlar] Loading server plugin EkoraOyunlar v1.9.0
+[05:52:34 INFO]: [EkoraYetki] Loading server plugin EkoraYetki v1.0.1
+[05:52:34 INFO]: [ViaBackwards] Loading server plugin ViaBackwards v5.12.3-SNAPSHOT
+[05:52:34 INFO]: [LuckPerms] Enabling LuckPerms v5.5.71
+[05:52:34 INFO]:         __    
+[05:52:34 INFO]:   |    |__)   LuckPerms v5.5.71
+[05:52:34 INFO]:   |___ |      Running on Bukkit - Paper
+[05:52:34 INFO]: 
+[05:52:34 INFO]: [LuckPerms] Loading storage provider... [H2]
+[05:52:35 INFO]: [LuckPerms] Loading internal permission managers...
+[05:52:35 INFO]: [LuckPerms] Performing initial data load...
+[05:52:35 INFO]: [LuckPerms] Successfully enabled. (took 492ms)
+[05:52:35 WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[05:52:35 WARN]: The server will make no attempt to authenticate usernames. Beware.
+[05:52:35 WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[05:52:35 WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+[05:52:35 INFO]: Preparing level "world"
+[05:52:35 INFO]: Loading 0 persistent chunks for level 'minecraft:overworld'...
+[05:52:35 INFO]: Preparing spawn area: 100%
+[05:52:35 INFO]: Prepared spawn area in 2 ms
+[05:52:35 INFO]: Loading 0 persistent chunks for level 'minecraft:the_nether'...
+[05:52:35 INFO]: Prepared spawn area in 0 ms
+[05:52:35 INFO]: Loading 0 persistent chunks for level 'minecraft:the_end'...
+[05:52:35 INFO]: Preparing spawn area: 100%
+[05:52:35 INFO]: Prepared spawn area in 1 ms
+[05:52:35 INFO]: Done preparing level "world" (0.442s)
+[05:52:35 INFO]: [ViaVersion] Enabling ViaVersion v5.12.3-SNAPSHOT
+[05:52:35 INFO]: [ViaVersion] ViaVersion detected server version: 26.3 (777)
+[05:52:35 INFO]: [ViaVersion] The Vanilla protocol of Minecraft 1.20.5-1.21.4 is easily exploitable. If you don't need to support these versions, consider adding them to block-versions in the ViaVersion config: "1.20.5-1.20.6", "1.21-1.21.1", "1.21.2-1.21.3", "1.21.4"
+[05:52:35 INFO]: [AuthMe] Enabling AuthMe v6.0.1-b2770
+[05:52:36 INFO]: [AuthMe] SQLite Setup finished
+[05:52:36 INFO]: [AuthMe] Hooked into LuckPerms!
+[05:52:36 WARN]: [AuthMe] WARNING! The protectInventory feature requires PacketEvents! Disabling it...
+[05:52:36 INFO]: [AuthMe] AuthMe 6.0.1 build n.2770 successfully enabled!
+[05:52:36 INFO]: [EkoraHub] Enabling EkoraHub v4.3.1
+[05:52:36 INFO]: [EkoraHub] EkoraMC menüleri: 33 menü yüklendi (DeluxeMenus gerekmez).
+[05:52:36 WARN]: [EkoraHub] Kaynak paketi hazır ama dağıtım adresi yok: config.yml → kaynak-paketi.url ya da yerel-sunucu.port ayarla (kurulum rehberi 3.2).
+[05:52:36 INFO]: [EkoraPuan] Enabling EkoraPuan v1.12.1
+[05:52:36 INFO]: [EkoraPuan] Veritabanı bağlandı: SQLite ekorapuan.db
+[05:52:36 INFO]: [EkoraPuan] EkoraPuan hazır: 159 ürün, 4 paket.
+[05:52:36 INFO]: [EkoraKalkan] Enabling EkoraKalkan v2.0.2
+[05:52:37 WARN]: [EkoraKalkan] GrimAC bulunamadı: hareket/savaş hileleri için GrimAC kurulu olmalı. EkoraKalkan onun yerine geçmez, yanında çalışır.
+[05:52:37 INFO]: [EkoraKalkan] EkoraKalkan hazır.
+[05:52:37 INFO]: [EkoraOyunlar] Enabling EkoraOyunlar v1.9.0
+[05:52:37 INFO]: [EkoraOyunlar] Oyun dünyası yükleniyor/oluşturuluyor: ekora_oyun_bedwars
+[05:52:37 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_oyun_bedwars'...
+[05:52:37 INFO]: Prepared spawn area in 0 ms
+[05:52:37 INFO]: [EkoraOyunlar] Oyun dünyası yükleniyor/oluşturuluyor: ekora_oyun_dalis
+[05:52:37 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_oyun_dalis'...
+[05:52:37 INFO]: Prepared spawn area in 1 ms
+[05:52:37 INFO]: [EkoraOyunlar] Oyun dünyası yükleniyor/oluşturuluyor: ekora_oyun_backrooms
+[05:52:37 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_oyun_backrooms'...
+[05:52:37 INFO]: Prepared spawn area in 1 ms
+[05:52:37 INFO]: [EkoraOyunlar] Oyun dünyası yükleniyor/oluşturuluyor: ekora_oyun_mini
+[05:52:37 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_oyun_mini'...
+[05:52:37 INFO]: Prepared spawn area in 2 ms
+[05:52:37 INFO]: [EkoraOyunlar] Oyun dünyası yükleniyor/oluşturuluyor: ekora_oyun_arena
+[05:52:37 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_oyun_arena'...
+[05:52:37 INFO]: Prepared spawn area in 0 ms
+[05:52:37 INFO]: [EkoraOyunlar] Oyun dünyası yükleniyor/oluşturuluyor: ekora_oyun_box
+[05:52:37 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_oyun_box'...
+[05:52:37 INFO]: Prepared spawn area in 1 ms
+[05:52:37 INFO]: [EkoraOyunlar] EkoraOyunlar hazır: 26 arena kuruluyor.
+[05:52:37 INFO]: [EkoraYetki] Enabling EkoraYetki v1.0.1
+[05:52:37 INFO]: [EkoraYetki] 0 ceza kaydı yüklendi.
+[05:52:37 INFO]: [EkoraYetki] EkoraYetki hazır: 5 rol, 0 ceza kaydı.
+[05:52:37 INFO]: [ViaBackwards] Enabling ViaBackwards v5.12.3-SNAPSHOT
+[05:52:38 INFO]: [spark] Starting background profiler...
+[05:52:38 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[05:52:38 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[05:52:38 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[05:52:38 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_bedwars
+[05:52:38 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_dalis
+[05:52:38 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_backrooms
+[05:52:38 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_mini
+[05:52:38 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_arena
+[05:52:38 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_box
+[05:52:38 INFO]: Running delayed init tasks
+[05:52:38 INFO]: [AuthMe] Downloading GEO IP database, because the old database is older than 30 days or doesn't exist
+[05:52:38 INFO]: [EkoraHub] Hub üretildi: 196795 blok (2027 ms)
+[05:52:38 INFO]: [ViaVersion] Finished mapping loading, shutting down loader executor.
+[05:52:38 WARN]: [AuthMe] No MaxMind credentials found in the configuration file! GeoIp protections will be disabled.
+[05:52:38 INFO]: [AuthMe] There is no newer GEO IP database uploaded to MaxMind. Using the old one for now.
+[05:52:38 WARN]: [AuthMe] Could not download GeoLiteAPI database [FileNotFoundException]: plugins/AuthMe/GeoLite2-Country.mmdb (No such file or directory)
+[05:52:38 INFO]: [EkoraYetki] Dünya hazırlanıyor: ekora_yetkili
+[05:52:38 INFO]: Loading 90 persistent chunks for level 'minecraft:ekora_yetkili'...
+[05:52:38 INFO]: Preparing spawn area: 10%
+[05:52:39 INFO]: Prepared spawn area in 969 ms
+[05:52:40 INFO]: [EkoraYetki] Dünya hazırlanıyor: ekora_giris
+[05:52:40 INFO]: Loading 0 persistent chunks for level 'minecraft:ekora_giris'...
+[05:52:40 INFO]: Preparing spawn area: 100%
+[05:52:40 INFO]: Prepared spawn area in 7 ms
+[05:52:40 INFO]: [EkoraYetki] Giriş alanı hazır (ekora_giris): AuthMe'de giriş yapan lobiye ışınlanır.
+[05:52:40 INFO]: [ViaVersion] You are running a development version of the plugin, please report any bugs to GitHub.
+[05:52:40 INFO]: [EkoraOyunlar] Skydiving: 12 bölüm üretildi ve doğrulandı.
+[05:52:40 INFO]: Done (13.654s)! For help, type "help"
+[05:52:42 INFO]: [EkoraHub] Oy sistemi: Votifier yüklü değil. Oy ödülü için AzuVotifier'ı kur (rehbere bak). /oy komutu yine çalışır.
+[05:52:42 WARN]: [EkoraKalkan] Paper koruma ayarlarında eksik var: Anti-xray KAPALI (hayalet blok yok); Rastgele yapı tohumları kapalı (tohum kırma hilesine açık); Mermi kayıt sınırı yok (parça kilitleme açığı); Sekme tamamlama paket sınırı yok; Nether (world_nether) antik kalıntı gizlenmiyor → oyunda /kalkan paper uygula yaz, sonra sunucuyu yeniden başlat.
+[05:52:49 INFO]: System chat: Whitelist is already turned off
+[05:52:52 INFO]: UUID of player Deneyen is 27211dc1-ca82-3fab-bdcb-88d47bdc0ee2
+[05:52:52 INFO]: [HorriblePlayerLoginEventHack] You have plugins listening to the PlayerLoginEvent, this will cause re-configuration APIs to be unavailable: [LuckPerms]
+[05:52:55 INFO]: System chat: [+] Deneyen
+[05:52:55 INFO]: Deneyen[/127.0.0.1:57814] logged in with entity id 227 at ([minecraft:overworld]-30.5, 83.0, 4.5)
+[05:53:00 INFO]: [AuthMe] Deneyen registered 127.0.0.1
+[05:53:00 INFO]: [AuthMe] Deneyen logged in 127.0.0.1
+[05:53:08 INFO]: Deneyen issued server command: /hub
+[05:53:11 INFO]: Deneyen issued server command: /saklambac
+[05:53:19 WARN]: [ViaVersion] Could not find UserConnection for logging-in player 281e27f1-a68b-36f5-b353-b65bd2804359
+[05:53:19 INFO]: BotZeynep[localhost/127.0.0.1:0] logged in with entity id 561 at ([minecraft:ekora_oyun_arena]0.0, 0.0, 0.0)
+[05:53:19 INFO]: [EkoraOyunlar] Alıştırma botu BotZeynep → saklambac-1 (1 gerçek oyuncu bekliyordu)
+[05:53:19 WARN]: [AuthMe] LuckPermsHandler: tried to get groups for offline user BotZeynep but it isn't loaded!
+[05:53:20 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 BEKLIYOR | 0.5,127.0,11000.5 | can 20 | bekliyor
+[05:53:20 WARN]: [ViaVersion] Could not find UserConnection for logging-in player 0c9cfb0a-9c64-3618-8726-70c2816ff865
+[05:53:20 INFO]: BotAli[localhost/127.0.0.1:0] logged in with entity id 562 at ([minecraft:ekora_oyun_arena]0.0, 0.0, 0.0)
+[05:53:20 INFO]: [EkoraOyunlar] Alıştırma botu BotAli → saklambac-1 (1 gerçek oyuncu bekliyordu)
+[05:53:20 WARN]: [AuthMe] LuckPermsHandler: tried to get groups for offline user BotAli but it isn't loaded!
+[05:53:21 WARN]: [ViaVersion] Could not find UserConnection for logging-in player 993920ec-89e5-3cc6-82cd-e9e507910367
+[05:53:21 INFO]: BotNil[localhost/127.0.0.1:0] logged in with entity id 563 at ([minecraft:ekora_oyun_arena]0.0, 0.0, 0.0)
+[05:53:21 INFO]: [EkoraOyunlar] Alıştırma botu BotNil → saklambac-1 (1 gerçek oyuncu bekliyordu)
+[05:53:21 WARN]: [AuthMe] LuckPermsHandler: tried to get groups for offline user BotNil but it isn't loaded!
+[05:53:25 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 GERI_SAYIM | 0.5,127.0,11000.5 | can 20 | bekliyor
+[05:53:25 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 GERI_SAYIM | 0.5,127.0,11000.5 | can 20 | bekliyor
+[05:53:25 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 GERI_SAYIM | 0.5,127.0,11000.5 | can 20 | bekliyor
+[05:53:30 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 GERI_SAYIM | 0.5,127.0,11000.5 | can 20 | bekliyor
+[05:53:30 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 GERI_SAYIM | 0.5,127.0,11000.5 | can 20 | bekliyor
+[05:53:30 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 GERI_SAYIM | 0.5,127.0,11000.5 | can 20 | bekliyor
+[05:53:35 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | 7.1,101.0,10992.5 | can 20 | SAKLANAN hareketli hedefe 17.7
+[05:53:35 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | 0.5,117.0,11000.5 | can 20 | ARAYAN göz kapalı radar -1.0 denenecek 0 denendi 0 hedef -
+[05:53:35 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | 0.2,100.5,11011.2 | can 20 | SAKLANAN hareketli hedefe 23.3
+[05:53:40 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.8 | can 20 | SAKLANAN hareketli hedefe 0.3
+[05:53:40 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | 0.5,117.0,11000.5 | can 20 | ARAYAN göz kapalı radar -1.0 denenecek 0 denendi 0 hedef -
+[05:53:40 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -11.5,101.0,10993.6 | can 20 | SAKLANAN hareketli hedefe 3.3
+[05:53:45 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:53:45 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | 0.5,117.0,11000.5 | can 20 | ARAYAN göz kapalı radar -1.0 denenecek 0 denendi 0 hedef -
+[05:53:45 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:53:50 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:53:50 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | 0.5,117.0,11000.5 | can 20 | ARAYAN göz kapalı radar -1.0 denenecek 0 denendi 0 hedef -
+[05:53:50 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:53:55 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:53:55 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | 0.5,117.0,11000.5 | can 20 | ARAYAN göz kapalı radar -1.0 denenecek 0 denendi 0 hedef -
+[05:53:55 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:54:00 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:54:00 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | 0.5,117.0,11000.5 | can 20 | ARAYAN göz kapalı radar -1.0 denenecek 0 denendi 0 hedef -
+[05:54:00 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:54:05 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:54:05 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.5,101.0,10992.5 | can 20 | ARAYAN göz açık radar 2.8 denenecek 93 denendi 5 hedef -
+[05:54:05 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN hareketli hedefe 0.1
+[05:54:10 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:54:10 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.5,101.0,10992.5 | can 20 | ARAYAN göz açık radar 2.8 denenecek 86 denendi 12 hedef -
+[05:54:10 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:54:15 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:54:15 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.5,101.0,10992.5 | can 19 | ARAYAN göz açık radar 2.8 denenecek 80 denendi 19 hedef -
+[05:54:15 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:54:20 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:54:20 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.1,101.0,10993.4 | can 17 | ARAYAN göz açık radar 2.8 denenecek 73 denendi 26 hedef -
+[05:54:20 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:54:25 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:54:25 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -13.1,101.0,10992.7 | can 17 | ARAYAN göz açık radar 2.8 denenecek 66 denendi 33 hedef -
+[05:54:25 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:54:30 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:54:30 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.3,101.0,10991.5 | can 15 | ARAYAN göz açık radar 2.7 denenecek 59 denendi 40 hedef -
+[05:54:30 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:54:35 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:54:35 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.3,101.0,10991.5 | can 16 | ARAYAN göz açık radar 2.7 denenecek 59 denendi 40 hedef -
+[05:54:35 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:54:40 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:54:40 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.3,101.0,10991.5 | can 17 | ARAYAN göz açık radar 2.0 denenecek 68 denendi 40 hedef -
+[05:54:40 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:54:45 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:54:45 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.3,101.1,10991.5 | can 19 | ARAYAN göz açık radar 2.0 denenecek 68 denendi 40 hedef -
+[05:54:45 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:54:50 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:54:50 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.3,101.0,10991.5 | can 20 | ARAYAN göz açık radar 2.0 denenecek 68 denendi 40 hedef -
+[05:54:50 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN hareketli hedefe 0.1
+[05:54:55 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:54:55 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.3,101.0,10991.5 | can 20 | ARAYAN göz açık radar 2.0 denenecek 68 denendi 40 hedef -
+[05:54:55 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:55:00 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:55:00 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.3,101.1,10991.5 | can 20 | ARAYAN göz açık radar 2.0 denenecek 68 denendi 40 hedef -
+[05:55:00 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:55:05 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:55:05 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.3,101.0,10991.5 | can 20 | ARAYAN göz açık radar 2.0 denenecek 68 denendi 40 hedef -
+[05:55:05 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:55:10 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:55:10 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.3,101.0,10991.5 | can 20 | ARAYAN göz açık radar 2.0 denenecek 68 denendi 40 hedef -
+[05:55:10 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:55:15 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:55:15 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.3,101.2,10991.5 | can 20 | ARAYAN göz açık radar 2.0 denenecek 68 denendi 40 hedef -
+[05:55:15 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:55:20 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:55:20 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.3,101.0,10991.5 | can 20 | ARAYAN göz açık radar 2.0 denenecek 68 denendi 40 hedef -
+[05:55:20 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:55:25 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:55:25 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.3,101.2,10991.5 | can 20 | ARAYAN göz açık radar 2.0 denenecek 68 denendi 40 hedef -
+[05:55:25 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:55:30 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 OYUNDA | -7.5,102.0,10982.7 | can 20 | SAKLANAN KATI hedefe 0.2
+[05:55:30 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 OYUNDA | -12.3,101.0,10991.5 | can 20 | ARAYAN göz açık radar 2.0 denenecek 68 denendi 40 hedef -
+[05:55:30 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 OYUNDA | -10.6,101.0,10990.4 | can 20 | SAKLANAN KATI hedefe 0.1
+[05:55:35 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 BITTI | -7.5,102.0,10982.7 | can 20 | bekliyor
+[05:55:35 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 BITTI | -12.3,101.0,10991.5 | can 20 | bekliyor
+[05:55:35 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 BITTI | -10.6,101.0,10990.4 | can 20 | bekliyor
+[05:55:40 INFO]: [EkoraOyunlar] [BOT] BotZeynep | saklambac-1 BITTI | -7.5,102.0,10982.7 | can 20 | bekliyor
+[05:55:40 INFO]: [EkoraOyunlar] [BOT] BotAli | saklambac-1 BITTI | -12.3,101.0,10991.5 | can 20 | bekliyor
+[05:55:40 INFO]: [EkoraOyunlar] [BOT] BotNil | saklambac-1 BITTI | -10.6,101.0,10990.4 | can 20 | bekliyor
+[05:55:40 INFO]: BotZeynep lost connection: Alıştırma botu ayrıldı
+[05:55:40 INFO]: BotAli lost connection: Alıştırma botu ayrıldı
+[05:55:40 INFO]: BotNil lost connection: Alıştırma botu ayrıldı
+[05:55:41 INFO]: Deneyen issued server command: /hub
+[05:55:43 INFO]: Deneyen issued server command: /sumo
+[05:55:50 WARN]: [ViaVersion] Could not find UserConnection for logging-in player 0b35892d-3f18-3def-9e0f-527d2565eb39
+[05:55:50 INFO]: BotDeniz[localhost/127.0.0.1:0] logged in with entity id 786 at ([minecraft:ekora_oyun_arena]0.0, 0.0, 0.0)
+[05:55:50 INFO]: [EkoraOyunlar] Alıştırma botu BotDeniz → sumo-1 (1 gerçek oyuncu bekliyordu)
+[05:55:50 WARN]: [AuthMe] LuckPermsHandler: tried to get groups for offline user BotDeniz but it isn't loaded!
+[05:55:55 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 GERI_SAYIM | 0.5,127.0,3000.5 | can 20 | bekliyor
+[05:56:00 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 GERI_SAYIM | 0.5,127.0,3000.5 | can 20 | bekliyor
+[05:56:05 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.7,101.0,3000.0 | can 20 | merkeze 6.3
+[05:56:10 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.8,101.0,3000.6 | can 20 | merkeze 6.3
+[05:56:15 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.9,101.0,3000.7 | can 20 | merkeze 6.4
+[05:56:20 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.8,101.0,3001.0 | can 20 | merkeze 6.3
+[05:56:25 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.8,101.0,3001.0 | can 20 | merkeze 6.4
+[05:56:30 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 5.9,101.0,3001.3 | can 20 | merkeze 5.4
+[05:56:35 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.1,101.0,3001.5 | can 20 | merkeze 5.7
+[05:56:40 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 5.4,101.0,3001.1 | can 20 | merkeze 4.9
+[05:56:45 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 7.0,101.0,3001.5 | can 20 | merkeze 6.6
+[05:56:50 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.1,101.0,3001.6 | can 20 | merkeze 5.7
+[05:56:55 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.7,101.0,3001.7 | can 20 | merkeze 6.3
+[05:57:00 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.9,101.0,3000.1 | can 20 | merkeze 6.4
+[05:57:05 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.4,101.0,3001.3 | can 20 | merkeze 5.9
+[05:57:10 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.1,101.0,3001.3 | can 20 | merkeze 5.7
+[05:57:15 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.9,101.0,3000.0 | can 20 | merkeze 6.4
+[05:57:20 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 7.1,101.0,3000.8 | can 20 | merkeze 6.6
+[05:57:25 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 7.1,101.0,3000.8 | can 20 | merkeze 6.6
+[05:57:30 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 7.0,101.0,3000.9 | can 20 | merkeze 6.5
+[05:57:35 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.7,101.0,2999.8 | can 20 | merkeze 6.2
+[05:57:40 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 5.9,101.0,2999.7 | can 20 | merkeze 5.4
+[05:57:45 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.5,101.0,2999.3 | can 20 | merkeze 6.1
+[05:57:50 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.0,101.0,2999.3 | can 20 | merkeze 5.6
+[05:57:55 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 OYUNDA | 6.4,101.0,2999.3 | can 20 | merkeze 6.0
+[05:57:55 INFO]: Deneyen issued server command: /hub
+[05:57:58 INFO]: Deneyen issued server command: /spleef
+[05:58:00 INFO]: [EkoraOyunlar] [BOT] BotDeniz | sumo-1 BITTI | 7.1,101.0,3000.9 | can 20 | bekliyor
+[05:58:03 INFO]: BotDeniz lost connection: Alıştırma botu ayrıldı
+[05:58:06 WARN]: [ViaVersion] Could not find UserConnection for logging-in player 8714a670-8356-3613-8876-b0e6e795b21b
+[05:58:06 INFO]: BotEfe[localhost/127.0.0.1:0] logged in with entity id 1010 at ([minecraft:ekora_oyun_arena]0.0, 0.0, 0.0)
+[05:58:06 INFO]: [EkoraOyunlar] Alıştırma botu BotEfe → spleef-1 (1 gerçek oyuncu bekliyordu)
+[05:58:06 WARN]: [AuthMe] LuckPermsHandler: tried to get groups for offline user BotEfe but it isn't loaded!
+[05:58:10 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 GERI_SAYIM | 0.5,127.0,4000.5 | can 20 | bekliyor
+[05:58:15 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 GERI_SAYIM | 0.5,127.0,4000.5 | can 20 | bekliyor
+[05:58:20 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:58:25 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:58:30 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:58:35 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:58:40 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:58:45 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:58:50 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:58:55 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:59:00 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:59:05 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:59:10 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:59:15 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:59:20 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:59:25 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:59:30 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:59:35 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:59:40 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:59:45 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:59:50 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[05:59:55 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[06:00:00 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[06:00:05 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[06:00:10 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[06:00:15 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[06:00:20 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[06:00:25 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[06:00:30 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[06:00:35 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[06:00:40 INFO]: EKORA » 🗳 Her gün oy ver, Kıvılcım kazan; art arda günlerde bonus → /oy
+[06:00:40 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 OYUNDA | 9.0,101.0,4002.3 | can 20 | kat y=100
+[06:00:40 INFO]: Deneyen issued server command: /hub
+[06:00:42 INFO]: Deneyen issued server command: /tntrun
+[06:00:45 INFO]: [EkoraOyunlar] [BOT] BotEfe | spleef-1 BITTI | 9.0,101.0,4002.3 | can 20 | bekliyor
+[06:00:48 INFO]: BotEfe lost connection: Alıştırma botu ayrıldı
+[06:00:49 WARN]: [ViaVersion] Could not find UserConnection for logging-in player 3fb21b43-5150-3da2-8f41-09a341bc5daa
+[06:00:49 INFO]: BotSelin[localhost/127.0.0.1:0] logged in with entity id 1234 at ([minecraft:ekora_oyun_mini]0.0, 0.0, 0.0)
+[06:00:49 INFO]: [EkoraOyunlar] Alıştırma botu BotSelin → tntrun-1 (1 gerçek oyuncu bekliyordu)
+[06:00:49 WARN]: [AuthMe] LuckPermsHandler: tried to get groups for offline user BotSelin but it isn't loaded!
+[06:00:50 INFO]: [EkoraOyunlar] [BOT] BotSelin | tntrun-1 GERI_SAYIM | 0.5,143.0,1002.5 | can 20 | bekliyor
+[06:00:55 INFO]: [EkoraOyunlar] [BOT] BotSelin | tntrun-1 GERI_SAYIM | 0.5,143.0,1002.5 | can 20 | bekliyor
+[06:01:00 INFO]: [EkoraOyunlar] [BOT] BotSelin | tntrun-1 GERI_SAYIM | 0.5,143.0,1002.5 | can 20 | bekliyor
+[06:01:05 INFO]: [EkoraOyunlar] [BOT] BotSelin | tntrun-1 GERI_SAYIM | 0.5,143.0,1002.5 | can 20 | bekliyor
+[06:01:10 INFO]: [EkoraOyunlar] [BOT] BotSelin | tntrun-1 GERI_SAYIM | 0.5,143.0,1002.5 | can 20 | bekliyor
+[06:01:15 INFO]: [EkoraOyunlar] [BOT] BotSelin | tntrun-1 OYUNDA | -8.8,121.0,1012.5 | can 20 | yön 135, önü 7.6 blok
+[06:01:20 INFO]: [EkoraOyunlar] [BOT] BotSelin | tntrun-1 BITTI | -11.7,121.0,1009.5 | can 20 | bekliyor
+[06:01:23 INFO]: BotSelin lost connection: Alıştırma botu ayrıldı
+[06:01:24 INFO]: Deneyen issued server command: /hub
+[06:01:27 INFO]: Deneyen issued server command: /sicakpatates
+[06:01:34 WARN]: [ViaVersion] Could not find UserConnection for logging-in player 0c9cfb0a-9c64-3618-8726-70c2816ff865
+[06:01:34 INFO]: BotAli[localhost/127.0.0.1:0] logged in with entity id 1459 at ([minecraft:ekora_oyun_arena]0.0, 0.0, 0.0)
+[06:01:34 INFO]: [EkoraOyunlar] Alıştırma botu BotAli → sicakpatates-1 (1 gerçek oyuncu bekliyordu)
+[06:01:34 WARN]: [AuthMe] LuckPermsHandler: tried to get groups for offline user BotAli but it isn't loaded!
+[06:01:35 INFO]: [EkoraOyunlar] [BOT] BotAli | sicakpatates-1 BEKLIYOR | 0.5,127.0,5000.5 | can 20 | temizim, kaçıyorum
+[06:01:35 WARN]: [ViaVersion] Could not find UserConnection for logging-in player cb422d97-b976-3e3d-bab1-faff1cc35adc
+[06:01:35 INFO]: BotCan[localhost/127.0.0.1:0] logged in with entity id 1460 at ([minecraft:ekora_oyun_arena]0.0, 0.0, 0.0)
+[06:01:35 INFO]: [EkoraOyunlar] Alıştırma botu BotCan → sicakpatates-1 (1 gerçek oyuncu bekliyordu)
+[06:01:35 WARN]: [AuthMe] LuckPermsHandler: tried to get groups for offline user BotCan but it isn't loaded!
+[06:01:40 INFO]: [EkoraOyunlar] [BOT] BotAli | sicakpatates-1 GERI_SAYIM | 0.5,127.0,5000.5 | can 20 | temizim, kaçıyorum
+[06:01:40 INFO]: [EkoraOyunlar] [BOT] BotCan | sicakpatates-1 GERI_SAYIM | 0.5,127.0,5000.5 | can 20 | temizim, kaçıyorum
+[06:01:45 INFO]: [EkoraOyunlar] [BOT] BotAli | sicakpatates-1 OYUNDA | 3.8,101.0,5006.9 | can 20 | temizim, kaçıyorum
+[06:01:45 INFO]: [EkoraOyunlar] [BOT] BotCan | sicakpatates-1 OYUNDA | -0.1,101.0,5011.4 | can 20 | temizim, kaçıyorum
+[06:01:50 INFO]: [EkoraOyunlar] [BOT] BotAli | sicakpatates-1 OYUNDA | -10.9,101.0,5009.9 | can 20 | temizim, kaçıyorum
+[06:01:50 INFO]: [EkoraOyunlar] [BOT] BotCan | sicakpatates-1 OYUNDA | -8.5,101.0,5010.3 | can 20 | temizim, kaçıyorum
+[06:01:55 INFO]: [EkoraOyunlar] [BOT] BotAli | sicakpatates-1 OYUNDA | -9.5,101.0,4994.8 | can 20 | temizim, kaçıyorum
+[06:01:55 INFO]: [EkoraOyunlar] [BOT] BotCan | sicakpatates-1 OYUNDA | -10.5,101.0,4999.6 | can 20 | temizim, kaçıyorum
+[06:02:00 INFO]: [EkoraOyunlar] [BOT] BotAli | sicakpatates-1 OYUNDA | -8.1,101.0,5007.2 | can 20 | temizim, kaçıyorum
+[06:02:00 INFO]: [EkoraOyunlar] [BOT] BotCan | sicakpatates-1 OYUNDA | -10.5,101.0,4992.0 | can 20 | temizim, kaçıyorum
+[06:02:05 INFO]: [EkoraOyunlar] [BOT] BotAli | sicakpatates-1 OYUNDA | -9.8,101.0,5004.8 | can 20 | temizim, kaçıyorum
+[06:02:05 INFO]: [EkoraOyunlar] [BOT] BotCan | sicakpatates-1 OYUNDA | -7.4,101.0,4990.4 | can 20 | temizim, kaçıyorum
+[06:02:10 INFO]: [EkoraOyunlar] [BOT] BotAli | sicakpatates-1 OYUNDA | -10.4,101.0,5009.9 | can 20 | temizim, kaçıyorum
+[06:02:10 INFO]: [EkoraOyunlar] [BOT] BotCan | sicakpatates-1 OYUNDA | -9.0,101.0,5004.7 | can 20 | temizim, kaçıyorum
+[06:02:10 INFO]: BotAli lost connection: Alıştırma botu ayrıldı
+[06:02:10 INFO]: BotCan lost connection: Alıştırma botu ayrıldı
+[06:02:19 INFO]: Deneyen issued server command: /hub
+[06:02:21 INFO]: Deneyen issued server command: /katil
+[06:02:28 WARN]: [ViaVersion] Could not find UserConnection for logging-in player 7e90904e-71af-30fb-8d12-467c05e010b0
+[06:02:28 INFO]: BotEla[localhost/127.0.0.1:0] logged in with entity id 1700 at ([minecraft:ekora_oyun_arena]0.0, 0.0, 0.0)
+[06:02:28 INFO]: [EkoraOyunlar] Alıştırma botu BotEla → katil-1 (1 gerçek oyuncu bekliyordu)
+[06:02:28 WARN]: [AuthMe] LuckPermsHandler: tried to get groups for offline user BotEla but it isn't loaded!
+[06:02:29 WARN]: [ViaVersion] Could not find UserConnection for logging-in player 993920ec-89e5-3cc6-82cd-e9e507910367
+[06:02:29 INFO]: BotNil[localhost/127.0.0.1:0] logged in with entity id 1701 at ([minecraft:ekora_oyun_arena]0.0, 0.0, 0.0)
+[06:02:29 INFO]: [EkoraOyunlar] Alıştırma botu BotNil → katil-1 (1 gerçek oyuncu bekliyordu)
+[06:02:29 WARN]: [AuthMe] LuckPermsHandler: tried to get groups for offline user BotNil but it isn't loaded!
+[06:02:30 INFO]: [EkoraOyunlar] [BOT] BotEla | katil-1 BEKLIYOR | 0.5,127.0,10000.5 | can 20 | MASUM şüpheli 0
+[06:02:30 INFO]: [EkoraOyunlar] [BOT] BotNil | katil-1 BEKLIYOR | 0.5,127.0,10000.5 | can 20 | MASUM şüpheli 0
+[06:02:30 WARN]: [ViaVersion] Could not find UserConnection for logging-in player 01b020d0-1df0-3e3a-8021-dd1b068ace3d
+[06:02:30 INFO]: BotBaran[localhost/127.0.0.1:0] logged in with entity id 1702 at ([minecraft:ekora_oyun_arena]0.0, 0.0, 0.0)
+[06:02:30 INFO]: [EkoraOyunlar] Alıştırma botu BotBaran → katil-1 (1 gerçek oyuncu bekliyordu)
+[06:02:30 WARN]: [AuthMe] LuckPermsHandler: tried to get groups for offline user BotBaran but it isn't loaded!
+[06:02:35 INFO]: [EkoraOyunlar] [BOT] BotEla | katil-1 GERI_SAYIM | 0.5,127.0,10000.5 | can 20 | MASUM şüpheli 0
+[06:02:35 INFO]: [EkoraOyunlar] [BOT] BotNil | katil-1 GERI_SAYIM | 0.5,127.0,10000.5 | can 20 | MASUM şüpheli 0
+[06:02:35 INFO]: [EkoraOyunlar] [BOT] BotBaran | katil-1 GERI_SAYIM | 0.5,127.0,10000.5 | can 20 | MASUM şüpheli 0
+[06:02:40 INFO]: [EkoraOyunlar] [BOT] BotEla | katil-1 OYUNDA | 14.1,101.0,10003.6 | can 20 | YAYLI şüpheli 0
+[06:02:40 INFO]: [EkoraOyunlar] [BOT] BotNil | katil-1 OYUNDA | 13.4,101.0,9991.8 | can 20 | MASUM şüpheli 0
+[06:02:40 INFO]: [EkoraOyunlar] [BOT] BotBaran | katil-1 OYUNDA | 15.4,101.0,10014.9 | can 20 | MASUM şüpheli 0
+[06:02:45 INFO]: [EkoraOyunlar] [BOT] BotEla | katil-1 OYUNDA | 6.5,101.0,10010.6 | can 20 | YAYLI şüpheli 0
+[06:02:45 INFO]: [EkoraOyunlar] [BOT] BotNil | katil-1 OYUNDA | 5.5,101.9,9987.4 | can 20 | MASUM şüpheli 0
+[06:02:45 INFO]: [EkoraOyunlar] [BOT] BotBaran | katil-1 OYUNDA | 13.5,101.0,9989.7 | can 20 | MASUM şüpheli 0
+[06:02:50 INFO]: [EkoraOyunlar] [BOT] BotEla | katil-1 OYUNDA | 2.6,101.0,9994.0 | can 20 | YAYLI şüpheli 0
+[06:02:50 INFO]: [EkoraOyunlar] [BOT] BotNil | katil-1 OYUNDA | -13.4,101.0,9992.5 | can 20 | MASUM şüpheli 0
+[06:02:50 INFO]: [EkoraOyunlar] [BOT] BotBaran | katil-1 OYUNDA | 7.3,101.0,9996.2 | can 20 | KATİL şüpheli 0 av BotEla
+[06:02:55 INFO]: [EkoraOyunlar] [BOT] BotEla | katil-1 OYUNDA | 0.5,-5.0,10000.7 | can 20 | MASUM şüpheli 1
+[06:02:55 INFO]: [EkoraOyunlar] [BOT] BotNil | katil-1 OYUNDA | 0.3,3.9,10000.4 | can 20 | MASUM şüpheli 1
+[06:02:55 INFO]: [EkoraOyunlar] [BOT] BotBaran | katil-1 OYUNDA | 6.7,101.0,9981.2 | can 20 | KATİL şüpheli 0 av Deneyen
+[06:03:00 INFO]: [EkoraOyunlar] [BOT] BotEla | katil-1 BITTI | 0.5,-357.3,10000.7 | can 20 | MASUM şüpheli 1
+[06:03:00 INFO]: [EkoraOyunlar] [BOT] BotNil | katil-1 BITTI | 0.3,-345.9,10000.4 | can 20 | MASUM şüpheli 1
+[06:03:00 INFO]: [EkoraOyunlar] [BOT] BotBaran | katil-1 BITTI | 6.7,101.0,9980.7 | can 20 | KATİL şüpheli 0
+[06:03:03 INFO]: BotBaran lost connection: Alıştırma botu ayrıldı
+[06:03:03 INFO]: BotEla lost connection: Alıştırma botu ayrıldı
+[06:03:03 INFO]: BotNil lost connection: Alıştırma botu ayrıldı
+[06:03:04 INFO]: Deneyen lost connection: Disconnected
+[06:03:04 INFO]: System chat: [-] Deneyen
+[06:03:09 INFO]: System chat: Stopping the server
+[06:03:09 INFO]: Stopping server
+[06:03:09 INFO]: [ViaBackwards] Disabling ViaBackwards v5.12.3-SNAPSHOT
+[06:03:09 INFO]: [EkoraYetki] Disabling EkoraYetki v1.0.1
+[06:03:09 INFO]: [EkoraOyunlar] Disabling EkoraOyunlar v1.9.0
+[06:03:09 INFO]: [EkoraKalkan] Disabling EkoraKalkan v2.0.2
+[06:03:09 INFO]: [EkoraPuan] Disabling EkoraPuan v1.12.1
+[06:03:09 INFO]: [EkoraHub] Disabling EkoraHub v4.3.1
+[06:03:09 INFO]: [AuthMe] Disabling AuthMe v6.0.1-b2770
+[06:03:09 INFO]: [AuthMe] Waiting for 0 tasks to finish
+[06:03:09 INFO]: [AuthMe] AuthMe 6.0.1-b2770 disabled!
+[06:03:09 INFO]: [LuckPerms] Disabling LuckPerms v5.5.71
+[06:03:09 INFO]: [LuckPerms] Starting shutdown process...
+[06:03:09 INFO]: [LuckPerms] Closing storage...
+[06:03:09 INFO]: [LuckPerms] Goodbye!
+[06:03:09 INFO]: [ViaVersion] Disabling ViaVersion v5.12.3-SNAPSHOT
+[06:03:09 INFO]: [ViaVersion] ViaVersion has been disabled; uninjected the platform and shut down the scheduler.
+[06:03:09 INFO]: Saving players
+[06:03:09 INFO]: Saving worlds
+[06:03:09 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[06:03:09 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:overworld'
+[06:03:09 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:overworld'
+[06:03:09 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:overworld'
+[06:03:09 INFO]: [ChunkHolderManager] Saved 104 block chunks, 104 entity chunks, 0 poi chunks in world 'minecraft:overworld' in 0.15s
+[06:03:09 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:overworld'
+[06:03:09 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:overworld'
+[06:03:09 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[06:03:09 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:the_nether'
+[06:03:09 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:the_nether'
+[06:03:09 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:the_nether'
+[06:03:09 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'minecraft:the_nether' in 0.00s
+[06:03:09 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:the_nether'
+[06:03:09 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:the_nether'
+[06:03:09 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[06:03:09 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:the_end'
+[06:03:09 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:the_end'
+[06:03:09 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:the_end'
+[06:03:09 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'minecraft:the_end' in 0.00s
+[06:03:09 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:the_end'
+[06:03:09 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:the_end'
+[06:03:09 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_bedwars
+[06:03:09 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_oyun_bedwars'
+[06:03:09 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_oyun_bedwars'
+[06:03:09 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_oyun_bedwars'
+[06:03:09 INFO]: [ChunkHolderManager] Saved 2800 block chunks, 158 entity chunks, 0 poi chunks in world 'minecraft:ekora_oyun_bedwars' in 0.27s
+[06:03:09 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_oyun_bedwars'
+[06:03:09 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_oyun_bedwars'
+[06:03:09 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_dalis
+[06:03:09 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_oyun_dalis'
+[06:03:09 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_oyun_dalis'
+[06:03:09 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_oyun_dalis'
+[06:03:10 INFO]: [ChunkHolderManager] Saved 1341 block chunks, 66 entity chunks, 0 poi chunks in world 'minecraft:ekora_oyun_dalis' in 0.17s
+[06:03:10 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_oyun_dalis'
+[06:03:10 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_oyun_dalis'
+[06:03:10 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_backrooms
+[06:03:10 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_oyun_backrooms'
+[06:03:10 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_oyun_backrooms'
+[06:03:10 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_oyun_backrooms'
+[06:03:10 INFO]: [ChunkHolderManager] Saved 1251 block chunks, 54 entity chunks, 0 poi chunks in world 'minecraft:ekora_oyun_backrooms' in 0.11s
+[06:03:10 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_oyun_backrooms'
+[06:03:10 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_oyun_backrooms'
+[06:03:10 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_mini
+[06:03:10 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_oyun_mini'
+[06:03:10 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_oyun_mini'
+[06:03:10 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_oyun_mini'
+[06:03:10 INFO]: [ChunkHolderManager] Saved 1622 block chunks, 211 entity chunks, 0 poi chunks in world 'minecraft:ekora_oyun_mini' in 0.13s
+[06:03:10 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_oyun_mini'
+[06:03:10 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_oyun_mini'
+[06:03:10 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_arena
+[06:03:10 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_oyun_arena'
+[06:03:10 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_oyun_arena'
+[06:03:10 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_oyun_arena'
+[06:03:11 INFO]: [ChunkHolderManager] Saved 12227 block chunks, 1378 entity chunks, 24 poi chunks in world 'minecraft:ekora_oyun_arena' in 0.96s
+[06:03:11 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_oyun_arena'
+[06:03:11 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_oyun_arena'
+[06:03:11 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_oyun_box
+[06:03:11 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_oyun_box'
+[06:03:11 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_oyun_box'
+[06:03:11 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_oyun_box'
+[06:03:11 INFO]: [ChunkHolderManager] Saved 1190 block chunks, 156 entity chunks, 0 poi chunks in world 'minecraft:ekora_oyun_box' in 0.12s
+[06:03:11 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_oyun_box'
+[06:03:11 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_oyun_box'
+[06:03:11 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_yetkili
+[06:03:11 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_yetkili'
+[06:03:11 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_yetkili'
+[06:03:11 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_yetkili'
+[06:03:11 INFO]: [ChunkHolderManager] Saved 0 block chunks, 11 entity chunks, 0 poi chunks in world 'minecraft:ekora_yetkili' in 0.04s
+[06:03:11 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_yetkili'
+[06:03:11 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_yetkili'
+[06:03:11 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:ekora_giris
+[06:03:11 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'minecraft:ekora_giris'
+[06:03:11 INFO]: [ChunkHolderManager] Halted chunk system for world 'minecraft:ekora_giris'
+[06:03:11 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'minecraft:ekora_giris'
+[06:03:11 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'minecraft:ekora_giris' in 0.00s
+[06:03:11 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'minecraft:ekora_giris'
+[06:03:11 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'minecraft:ekora_giris'
+[06:03:11 INFO]: Waiting for all RegionFile I/O tasks to complete...
+[06:03:11 INFO]: All RegionFile I/O tasks to complete
+[06:03:11 INFO]: [MoonriseCommon] Awaiting termination of worker pool for up to 60s...
+[06:03:11 INFO]: [MoonriseCommon] Awaiting termination of I/O pool for up to 60s...
+ÇIKIŞ KODU 0

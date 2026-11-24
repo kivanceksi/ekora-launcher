@@ -1,0 +1,181 @@
+# ─────────────────────────────────────────────────────────────
+#  EkoraOyunlar 1.0 — EkoraMC mini oyunları
+#  Ödüller Kıvılcım (Core'un mini oyun parası) olarak verilir.
+# ─────────────────────────────────────────────────────────────
+onek: "<gradient:#f97316:#e879f9><bold>EKORA</bold></gradient> <dark_gray>»</dark_gray> "
+
+# Oyun dünyaları (ekora_oyun_*) her açılışta silinip temiz kurulur. Oyuncu verisi içermezler.
+dunyalari-her-acilista-temizle: true
+# EkoraMC Core yoksa oyunlara girişe izin ver (önerilmez: SMP envanteri korunmaz)
+core-olmadan-izin: true
+
+# VIP rütbelere ek Kıvılcım (%): 2 = Destekçi, 5 = Elit, 10 = Efsane
+# 4.4: bütün mini oyun / görev / BoxPvP Kıvılcım ödüllerinin çarpanı. Aşağıdaki "odul:" değerleri bununla çarpılır
+# (ör. galibiyet 40 × 10 = 400 Kıvılcım). Daha da cömert olmak istersen artır (en çok 100).
+odul-carpani: 10
+vip-kivilcim-bonus: { "2": 25, "5": 50, "10": 100 }
+
+bedwars:
+  arena-sayisi: 4
+  en-az-oyuncu: 2
+  geri-sayim: 8
+  odul: { oldurme: 2, final: 5, yatak: 10, galibiyet: 50 }
+
+dalis:
+  en-fazla-oyuncu: 40
+  odul: { "0": 10, "1": 20, "2": 40, rekor: 10 }
+
+backrooms:
+  arena-sayisi: 2
+  en-az-oyuncu: 1
+  en-fazla-oyuncu: 8
+  geri-sayim: 8
+  sure-saniye: 600
+  labirent-boyutu: 16
+  en-fazla-varlik: 3
+  odul: { kacis: 40, katilim: 5 }
+
+tntrun:
+  arena-sayisi: 1
+  en-az-oyuncu: 2
+  en-fazla-oyuncu: 16
+  odul: { galibiyet: 40 }
+
+renk:
+  arena-sayisi: 1
+  en-az-oyuncu: 2
+  en-fazla-oyuncu: 20
+  odul: { galibiyet: 40 }
+
+# ── 1.2 yeni oyunlar ────────────────────────────────────────
+sumo:
+  arena-sayisi: 2
+  en-az-oyuncu: 2
+  en-fazla-oyuncu: 8
+  geri-sayim: 10
+  odul: { galibiyet: 30 }
+
+spleef:
+  arena-sayisi: 1
+  en-az-oyuncu: 2
+  en-fazla-oyuncu: 12
+  geri-sayim: 8
+  odul: { galibiyet: 35 }
+
+sicakpatates:
+  arena-sayisi: 1
+  en-az-oyuncu: 3
+  en-fazla-oyuncu: 16
+  geri-sayim: 8
+  tur-suresi: 25
+  odul: { galibiyet: 40 }
+
+tekatis:
+  arena-sayisi: 1
+  en-az-oyuncu: 2
+  en-fazla-oyuncu: 12
+  geri-sayim: 8
+  hedef-les: 15
+  sure-saniye: 300
+  odul: { galibiyet: 40 }
+
+# ── 4.0 Günün Oyunu: her gün bir oyun seçilir, o oyunda kazanılan Kıvılcım katlanır (menüde ⭐ ile görünür)
+gunun-oyunu:
+  etkin: true
+  carpan: 2
+  havuz: [skywars, bedwars, katil, saklambac, silah, kopru, ctf, tntrun, renk, sumo, spleef, sicakpatates, tekatis, backrooms]
+
+# ── 4.0 yeni oyunlar ────────────────────────────────────────
+# Silah Ustası (Gun Game): her leşte bir sonraki silah; son silahla (altın havuç) leş alan kazanır.
+silah:
+  arena-sayisi: 1
+  en-az-oyuncu: 2
+  en-fazla-oyuncu: 12
+  geri-sayim: 8
+  sure-saniye: 480
+  odul: { galibiyet: 35 }
+
+# Katil Kim? (Murder Mystery): 1 katil, 1 dedektif, kalanlar masum.
+katil:
+  arena-sayisi: 1
+  en-az-oyuncu: 4
+  en-fazla-oyuncu: 16
+  geri-sayim: 8
+  sure-saniye: 120
+  odul: { galibiyet: 30, katil: 50, dedektif: 40 }
+
+# Saklambaç: saklananlar eşya kılığına girer; 3 sn kıpırdamayan gerçek blok olur.
+saklambac:
+  arena-sayisi: 1
+  en-az-oyuncu: 4
+  en-fazla-oyuncu: 16
+  geri-sayim: 10
+  sure-saniye: 120
+  odul: { galibiyet: 30 }
+
+# SkyWars (solo): 8 ada + büyülü orta ada. Sandıklar 3. ve 6. dakikada yenilenir.
+skywars:
+  arena-sayisi: 2
+  en-az-oyuncu: 2
+  en-fazla-oyuncu: 8
+  geri-sayim: 8
+  sure-saniye: 600
+  odul: { galibiyet: 40, oldurme: 5 }
+
+# Köprü (The Bridge): 2 takım × en fazla 4. Rakibin kuyusuna atla = gol.
+kopru:
+  arena-sayisi: 2
+  en-az-oyuncu: 2
+  en-fazla-oyuncu: 8
+  geri-sayim: 8
+  hedef-gol: 5
+  sure-saniye: 600
+  odul: { galibiyet: 35, gol: 4 }
+
+# Bayrak Kapmaca (CTF): Kırmızı vs Mavi. Eski Core CTF'nin yerine /ctf komutunu bu oyun alır.
+ctf:
+  arena-sayisi: 2
+  en-az-oyuncu: 2
+  en-fazla-oyuncu: 16
+  geri-sayim: 8
+  kazanmak-icin-sayi: 3
+  sure-dakika: 10
+  odul: { galibiyet: 30, katilim: 5, sayi: 10, oldurme: 2, geri-alma: 3 }
+
+# Manhunt: her maç için yeni dünya (ekora_manhunt_N + _nether + _the_end) açılır, maç bitince silinir.
+manhunt:
+  arena-sayisi: 2            # aynı anda kaç Manhunt odası
+  en-fazla-oyuncu: 16
+  kovalayan-bekleme-saniye: 6
+  sure-dakika: 120           # 0 = sınırsız. Süre dolarsa kovalayanlar kazanır.
+  zorluk: NORMAL
+  odul: { kacan: 150, kovalayan: 60 }
+
+# ─────────────────────────────────────────────────────────────
+#  BoxPvP 2.0 (/box): 10 maden, prestij, +10 güçlendirme, Ekora Kazması, Kristal (✦), kasa, günlük ödül, kelle, etkinlikler.
+#  Sürekli açık; ilerleme kalıcıdır (plugins/EkoraOyunlar/boxpvp/). Envanter diğer modlardan ayrıdır.
+# ─────────────────────────────────────────────────────────────
+box:
+  etkin: true
+  en-fazla-oyuncu: 80
+  # 5.0: etkinlikler sırayla döner: Hava İndirmesi → Taht Tepesi (KOTH) → Bekçi (boss) → Çifte Para Saati
+  etkinlik-dakika: 7        # bir etkinlik bittikten kaç dakika sonra sıradaki başlar
+  etkinlik-en-az-oyuncu: 2  # bundan az oyuncu varken etkinlik başlamaz
+
+# Oyundayken (mini oyun, BoxPvP) kullanılabilen komutlar. EkoraOyunlar komutları ve giriş (AuthMe) komutları her zaman serbest.
+# /hub, /spawn, /lobi oyunu güvenle bırakır. Boş bırakılırsa varsayılan liste kullanılır.
+oyun-ici-komutlar: [msg, tell, w, m, r, reply, arkadas, f, fmsg, fm, am, fcevap, fr, es, ekip, oyun, gorevler, oyunlar, menu, kaynakpaketi, kpaket, rp, ping, discord, kurallar, rapor, report, helpop, magaza, ep, puan, skin, oy, vote, oyver, davet]
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  Alıştırma botları: bir odada oyunu başlatacak kadar oyuncu yoksa ve gerçek oyuncu
+#  "bekleme-saniye" kadar beklediyse eksik sayı kadar bot gelir, kendini bot olarak tanıtır
+#  ve o modu kurallarına göre oynar. Gerçek oyuncu gelince bot yerini bırakır.
+#  Botlu maç ALIŞTIRMA maçıdır: istatistik, görev ilerlemesi ve Kıvılcım verilmez.
+#  Botlar sunucu listesindeki oyuncu sayısına ve mod sayılarına katılmaz; TAB'da [BOT] yazar.
+# ─────────────────────────────────────────────────────────────────────────────
+botlar:
+  etkin: true
+  bekleme-saniye: 6
+  en-fazla-toplam: 24       # aynı anda sunucudaki en çok bot
+  kapali-modlar: []         # ör. [katil] — bu modlara bot gelmez
+  ayrintili-gunluk: true   # true: her 5 sn konsola bot durumları (sorun ararken)

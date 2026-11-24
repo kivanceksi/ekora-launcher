@@ -1,0 +1,19 @@
+158:        maxRegPerIp: 10
+--
+171:            # This is different from "teleportUnAuthedToSpawn" that teleport player
+--
+202:        teleportUnAuthedToSpawn: false
+--
+204:        allowMovement: false
+--
+207:        loginTimeout: 0
+--
+210:        registerTimeout: 0
+--
+233:        noTeleport: true
+--
+329:                enable: false
+--
+347:                enable: false
+--
+570:        passwordChangeTimeout: 2

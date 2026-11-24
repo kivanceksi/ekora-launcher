@@ -1,0 +1,6 @@
+plugins/EkoraYetki:
+baglantilar.yml
+cezalar.yml
+config.yml
+gizli.yml
+raporlar.yml
