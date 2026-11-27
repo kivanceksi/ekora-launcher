@@ -1,4 +1,4 @@
-# Ekora Launcher Android 0.2.0
+# Ekora Launcher Android 0.3.0
 
 Android 8+ / ARM64. Unofficial modified version of Zalith Launcher 2.
 Copyright (C) 2025–2026 MovTery and contributors. Ekora modifications 2026.
@@ -14,7 +14,9 @@ to play.ekoramc.fun after profile and compatible version are available; local
 profile menu; Ekora home screen with live server status, one-tap EkoraMC
 installation (server version + Fabric + Fabric API), verified Modrinth FPS pack,
 shortcuts to the Modrinth mod/shader/resource pack/modpack browsers and an
-update notice that links to the Ekora download page; upstream APK updater disabled; no broad storage, microphone or
+update notice that links to the Ekora download page; an "EkoraMC" touch control
+layout (F swap-hands for RPG skills, Q drop, Merkez/K for the Ekora client, toggleable RPG skill row sending
+/ys 1-4) installed and selected once; in-game "Tuş Gönder" keyboard keeps game focus so sent keys reach the game; upstream APK updater disabled; no broad storage, microphone or
 sensor permission, no VPN service. Game downloads remain in app-owned storage.
 Minecraft itself is not redistributed. No guarantee is made regarding server
 availability, every GPU, Minecraft version, or mods. Advanced upstream features

@@ -39,12 +39,12 @@ object Ekora {
     const val SERVER_HOST = "play.ekoramc.fun"
     const val SERVER_PORT = 25567
     const val SERVER_VERSION = "26.3"
-    const val APP_VERSION = "0.2.0"
+    const val APP_VERSION = "0.3.0"
     const val VERSION_NAME = "EkoraMC"
     const val WEBSITE = "https://ekoramc.fun"
     const val DOWNLOAD_PAGE = "https://ekoramc.fun/indir"
     const val UPDATE_API = "https://api.github.com/repos/kivanceksi/ekora-launcher/releases/latest"
-    const val USER_AGENT = "EkoraLauncher-Android/0.2.0 (ekoramc.fun)"
+    const val USER_AGENT = "EkoraLauncher-Android/0.3.0 (ekoramc.fun)"
 
     /** Light mods that help on phones and work with the mobile renderers. */
     val FPS_PACK = listOf("lithium", "ferrite-core", "entityculling", "immediatelyfast", "modernfix")
